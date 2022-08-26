@@ -2436,43 +2436,6 @@ def main_sign_in():
 
                         offline_canvas1.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("off1poly2"))
                     
-                    # message font colour
-                    
-                        #         #----------Refresh Insert Tree--------#
-
-                        #         for record in cus_tree.get_children():
-                        #                 cus_tree.delete(record)
-
-                        #         sql_pr="select * from auth_user where username=%s"
-                        #         sql_pr_val=(nm_ent.get(),)
-                        #         fbcursor.execute(sql_pr,sql_pr_val,)
-                        #         pr_dtl=fbcursor.fetchone()
-
-                        #         sql = "select * from app1_company where id_id=%s"
-                        #         val = (pr_dtl[0],)
-                        #         fbcursor.execute(sql, val,)
-                        #         cmp_dtl=fbcursor.fetchone()
-
-                        #         c_sql_1 = "SELECT * FROM app1_customer where cid_id=%s"
-                        #         c_val_1 = (cmp_dtl[0],)
-                        #         fbcursor.execute(c_sql_1,c_val_1,)
-                        #         c_data_1 = fbcursor.fetchall()
-
-                        #         count0 = 0
-                        #         for i in c_data_1:
-                        #             if True:
-                        #                 cus_tree.insert(parent='',index='end',iid=i,text='',values=('',i[2]+" "+i[3],i[6],i[7],i[8],i[9],i[11])) 
-                        #             else:
-                        #                 pass
-                        #         count0 += 1
-
-                        #         else:
-                        #             pass
-                            
-                    
-
-
-                        
                         theme = ttk.Style()
                         theme.theme_use("default")
                         theme.configure("mystyle001.Treeview", highlightthickness=0, bd=0, font=('Calibri', 16),background="#243e54",foreground="white") # Modify the font of the body
@@ -2480,15 +2443,6 @@ def main_sign_in():
                         theme.layout("mystyle001.Treeview", [('mystyle001.Treeview.treearea', {'sticky': 'nswe'})],) # Remove the borders
                     # Reading an excel file using Python
 
-    # Give the location of the file
-                        # loc = ("path of file")
-
-                        # # To open Workbook
-                        # wb = xlrd.open_workbook(loc)d
-                        # sheet = wb.sheet_by_index(0)
-
-                        # # For row 0 and column 0
-                        # print(sheet.cell_value(0, 0))
 
                         usri_sql = "SELECT id FROM auth_user WHERE username=%s"
                         usri_val = (nm_ent.get(),)
@@ -2696,8 +2650,6 @@ def main_sign_in():
                         actdrop["values"]=("Action","Edit","Delete","Add")
                         actdrop.current(0)
                         offline_canvas1.create_window(0,0,anchor='nw',window=actdrop,tags=("actdrop"),width=120)
-
-                        # actdrop['menu'].configure(bg='#2f516a',fg="white",font=('Arial',16))
                         actdrop.bind("<<ComboboxSelected>>",edit_delete)
 
                         def back():
@@ -22881,6 +22833,319 @@ def main_sign_in():
                     tab_payroll.add(tab5_2,compound = LEFT, text ='Payslip')
 
                     tab_payroll.pack(expand = 1, fill ="both")
+                    tab5_1.grid_columnconfigure(0,weight=1)
+                    tab5_1.grid_rowconfigure(0,weight=1)
+                    ########################################################payroll#####################################################
+                    main_frame_payrollemp = Frame(tab5_1)
+                    main_frame_payrollemp.grid(row=0,column=0,sticky='nsew')
+                    def payrollemp_responsive_widgets(event):
+                        dwidth = event.width
+                        dheight = event.height
+                        dcanvas = event.widget
+
+                        r1 = 25  
+                        x1 = dwidth/25
+                        x2 = dwidth/1.050
+                        y1 = dheight/14 
+                        y2 = dheight/4.605
+
+                        dcanvas.coords("payrpoly1",x1 + r1,y1,
+                        x1 + r1,y1,
+                        x2 - r1,y1,
+                        x2 - r1,y1,     
+                        x2,y1,     
+                    #--------------------
+                        x2,y1 + r1,     
+                        x2,y1 + r1,     
+                        x2,y2 - r1,     
+                        x2,y2 - r1,     
+                        x2,y2,
+                    #--------------------
+                        x2 - r1,y2,     
+                        x2 - r1,y2,     
+                        x1 + r1,y2,
+                        x1 + r1,y2,
+                        x1,y2,
+                            #--------------------
+                        x1,y2 - r1,
+                        x1,y2 - r1,
+                        x1,y1 + r1,
+                        x1,y1 + r1,
+                        x1,y1,
+                        )
+                    
+                        dcanvas.coords("payrlabel1_1",dwidth/1.999,dheight/7.00)
+
+
+                        r2 = 25
+                        x11 = dwidth/25
+                        x21 = dwidth/1.050
+                        y11 = dheight/3.8
+                        y21 = dheight/0.66
+
+
+                        dcanvas.coords("payrpoly2",x11 + r2,y11,
+                        x11 + r2,y11,
+                        x21 - r2,y11,
+                        x21 - r2,y11,     
+                        x21,y11,     
+                        #--------------------
+                        x21,y11 + r2,     
+                        x21,y11 + r2,     
+                        x21,y21 - r2,     
+                        x21,y21 - r2,     
+                        x21,y21,
+                        #--------------------
+                        x21 - r2,y21,     
+                        x21 - r2,y21,     
+                        x11 + r2,y21,
+                        x11 + r2,y21,
+                        x11,y21,
+                        #--------------------
+                        x11,y21 - r2,
+                        x11,y21 - r2,
+                        x11,y11 + r2,
+                        x11,y11 + r2,
+                        x11,y11,
+                        )
+                        dcanvas.coords("backbtn",dwidth/12,dheight/3.4)
+                        dcanvas.coords("pretreeview",dwidth/24.5,dheight/2.2)
+                        dcanvas.coords("preactdrop",dwidth/1.15,dheight/3)
+                        dcanvas.coords("prebutton1",dwidth/1.33,dheight/3)
+                        dcanvas.coords("payrhline1",dwidth/23,dheight/2.33,dwidth/1.065,dheight/2.33)
+
+
+
+                    payrollemp_canvas=Canvas(main_frame_payrollemp,bg='#2f516f',width=1345,height=600,scrollregion=(0,0,700,1000))
+                    main_frame_payrollemp.grid_columnconfigure(0,weight=1)
+                    main_frame_payrollemp.grid_rowconfigure(0,weight=1)
+                    scrollbar1=Scrollbar(main_frame_payrollemp,orient=VERTICAL)
+                    scrollbar1.grid(row=0,column=1,sticky='ns')
+                    scrollbar1.config(command=payrollemp_canvas.yview)
+                    payrollemp_canvas.bind("<Configure>",payrollemp_responsive_widgets)
+
+                    payrollemp_canvas.config(yscrollcommand=scrollbar1.set)
+                    payrollemp_canvas.grid(row=0,column=0,sticky='nsew')
+                    
+                    payrollemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("payrpoly1"))
+                    label_1 = Label(payrollemp_canvas,width=35,height=1,text="EMPLOYEES",font=('arial 25'),background="#243e54",fg="white") 
+                    payrollemp_canvas.create_window(0,0,anchor="c",window=label_1,tags=("payrlabel1_1"))
+
+                    payrollemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("payrpoly2"))
+                    payrollemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("payrhline1"))
+                    style3=ttk.Style()
+                    style3.theme_use('default')
+                    style3.configure( 'TCombobox' ,font=('Purisa', 20, 'bold'), background ='#243e54',fieldbackground='#243e54',foreground="white")
+                    actdrop=ttk.Combobox(payrollemp_canvas,font=('Arial',18),style="TCombobox")
+                    actdrop["values"]=("Action","Edit","Delete","Add")
+                    actdrop.current(0)
+                    payrollemp_canvas.create_window(0,0,anchor='c',window=actdrop,tags=("preactdrop"),width=130)
+                    actdrop.bind("<<ComboboxSelected>>")
+                    prebtn = Button(payrollemp_canvas, text = 'Add Employees' ,fg='#fff',bg='#243e54',height=1,width=15,font=('Calibri', 14, 'bold'))
+                    payrollemp_canvas.create_window(0,0,anchor="c",window=prebtn,tags=("prebutton1"))
+                    theme = ttk.Style()
+                    theme.theme_use("default")
+                    theme.configure("mystyle001.Treeview", highlightthickness=0, bd=0, font=('Calibri', 14),background="#243e54",foreground="white") # Modify the font of the body
+                    theme.configure("mystyle001.Treeview.Heading", font=('Calibri', 14,'bold'), background="#243e54", foreground="white") # Modify the font of the headings
+                    theme.layout("mystyle001.Treeview", [('mystyle001.Treeview.treearea', {'sticky': 'nswe'})],)
+                    pretrv = ttk.Treeview(payrollemp_canvas,style="mystyle001.Treeview")
+                    payrollemp_canvas.create_window(0,0,anchor="nw",window=pretrv,tags=("pretreeview"))
+                    
+                    treescrolly = ttk.Scrollbar(payrollemp_canvas, orient="vertical", command=pretrv.yview)
+                    treescrollx = ttk.Scrollbar(payrollemp_canvas, orient="horizontal", command=pretrv.xview)
+                    treescrollx.pack(side="bottom", fill="x")
+                    treescrolly.pack(side="right", fill="y")       
+                    pretrv.configure(xscrollcommand=treescrollx.set, yscrollcommand=treescrolly.set)
+                
+                
+                    pretrv["columns"] = ("1", "2", "3","4","5","6")
+
+                    # Defining heading
+                    pretrv['show'] = 'headings'
+
+                    # width of columns and alignment 
+                    pretrv.column("1", width = 200, anchor ='c')
+                    pretrv.column("2", width = 210, anchor ='c')
+                    pretrv.column("3", width = 200, anchor ='c')
+                    pretrv.column("4", width = 200, anchor ='c')
+                    pretrv.column("5", width = 205, anchor ='c')
+                    pretrv.column("6", width = 205, anchor ='c')
+
+                    # Headings  
+                    # respective columns
+                    pretrv.heading("1", text ="EMPLOYEE ID")
+                    pretrv.heading("2", text ="EMPLOYEE NAME")
+                    pretrv.heading("3", text ="CONTACT NUMBER")
+                    pretrv.heading("4", text ="EMAIL ID")  
+                    pretrv.heading("5", text ="DESIGNATION")
+                    pretrv.heading("6", text ="BASIC SALARY")
+
+
+                    # pretrv.configure('odd', background='#18324e')
+                    # pretrv.configure('even', background='#1b3857')
+                
+                    # data=
+                    # fbcursor.execute('SELECT employeeid,name,mobile,gmail,designation FROM `app1_employee` where cid_id=%s')
+                    # treedata=fbcursor.fetchall()
+                    # for data in treedata:
+                    #     pretrv.insert("", 'end',values=data)
+
+
+##################################################payslip###############################################################
+                    tab5_2.grid_columnconfigure(0,weight=1)
+                    tab5_2.grid_rowconfigure(0,weight=1)
+                    main_frame_payrollslip = Frame(tab5_2)
+                    main_frame_payrollslip.grid(row=0,column=0,sticky='nsew')
+                    def payrollslip_responsive_widgets(event):
+                        dwidth = event.width
+                        dheight = event.height
+                        dcanvas = event.widget
+
+                        r1 = 25  
+                        x1 = dwidth/25
+                        x2 = dwidth/1.050
+                        y1 = dheight/14 
+                        y2 = dheight/4.605
+
+                        dcanvas.coords("payrspoly1",x1 + r1,y1,
+                        x1 + r1,y1,
+                        x2 - r1,y1,
+                        x2 - r1,y1,     
+                        x2,y1,     
+                    #--------------------
+                        x2,y1 + r1,     
+                        x2,y1 + r1,     
+                        x2,y2 - r1,     
+                        x2,y2 - r1,     
+                        x2,y2,
+                    #--------------------
+                        x2 - r1,y2,     
+                        x2 - r1,y2,     
+                        x1 + r1,y2,
+                        x1 + r1,y2,
+                        x1,y2,
+                            #--------------------
+                        x1,y2 - r1,
+                        x1,y2 - r1,
+                        x1,y1 + r1,
+                        x1,y1 + r1,
+                        x1,y1,
+                        )
+                    
+                        dcanvas.coords("payrslabel1_1",dwidth/1.999,dheight/7.00)
+
+
+                        r2 = 25
+                        x11 = dwidth/25
+                        x21 = dwidth/1.050
+                        y11 = dheight/3.8
+                        y21 = dheight/0.66
+
+
+                        dcanvas.coords("payrspoly2",x11 + r2,y11,
+                        x11 + r2,y11,
+                        x21 - r2,y11,
+                        x21 - r2,y11,     
+                        x21,y11,     
+                        #--------------------
+                        x21,y11 + r2,     
+                        x21,y11 + r2,     
+                        x21,y21 - r2,     
+                        x21,y21 - r2,     
+                        x21,y21,
+                        #--------------------
+                        x21 - r2,y21,     
+                        x21 - r2,y21,     
+                        x11 + r2,y21,
+                        x11 + r2,y21,
+                        x11,y21,
+                        #--------------------
+                        x11,y21 - r2,
+                        x11,y21 - r2,
+                        x11,y11 + r2,
+                        x11,y11 + r2,
+                        x11,y11,
+                        )
+                        dcanvas.coords("backbtn",dwidth/12,dheight/3.4)
+                        dcanvas.coords("prstreeview",dwidth/24.5,dheight/2.2)
+                        dcanvas.coords("prsactdrop",dwidth/1.15,dheight/3)
+                        # dcanvas.coords("prsbutton1",dwidth/1.31,dheight/3)
+                        dcanvas.coords("payrhline1",dwidth/23,dheight/2.33,dwidth/1.065,dheight/2.33)
+
+
+
+                    payrollslip_canvas=Canvas(main_frame_payrollslip,bg='#2f516f',width=1345,height=600,scrollregion=(0,0,700,1000))
+                    main_frame_payrollslip.grid_columnconfigure(0,weight=1)
+                    main_frame_payrollslip.grid_rowconfigure(0,weight=1)
+                    scrollbar1=Scrollbar(main_frame_payrollslip,orient=VERTICAL)
+                    scrollbar1.grid(row=0,column=1,sticky='ns')
+                    scrollbar1.config(command=payrollslip_canvas.yview)
+                    payrollslip_canvas.bind("<Configure>",payrollslip_responsive_widgets)
+
+                    payrollslip_canvas.config(yscrollcommand=scrollbar1.set)
+                    payrollslip_canvas.grid(row=0,column=0,sticky='nsew')
+                    
+                    payrollslip_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("payrspoly1"))
+                    label_1 = Label(payrollslip_canvas,width=35,height=1,text="PAYSLIP",font=('arial 25'),background="#243e54",fg="white") 
+                    payrollslip_canvas.create_window(0,0,anchor="c",window=label_1,tags=("payrslabel1_1"))
+
+                    payrollslip_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("payrspoly2"))
+                    payrollslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("payrhline1"))
+                    style3=ttk.Style()
+                    style3.theme_use('default')
+                    style3.configure( 'TCombobox' ,font=('Purisa', 20, 'bold'), background ='#243e54',fieldbackground='#243e54',foreground="white")
+                    actdrop=ttk.Combobox(payrollslip_canvas,font=('Arial',18),style="TCombobox")
+                    actdrop["values"]=("Action","Edit","Delete","Add")
+                    actdrop.current(0)
+                    payrollslip_canvas.create_window(0,0,anchor='c',window=actdrop,tags=("prsactdrop"),width=130)
+                    actdrop.bind("<<ComboboxSelected>>")
+                    # prsbtn = Button(payrollslip_canvas, text = 'Add Employees' ,fg='#fff',bg='#243e54',height=1,width=15,font=('Calibri', 14, 'bold'))
+                    # payrollslip_canvas.create_window(0,0,anchor="c",window=prsbtn,tags=("prsbutton1"))
+                    theme = ttk.Style()
+                    theme.theme_use("default")
+                    theme.configure("mystyle001.Treeview", highlightthickness=0, bd=0, font=('Calibri', 14),background="#243e54",foreground="white") # Modify the font of the body
+                    theme.configure("mystyle001.Treeview.Heading", font=('Calibri', 14,'bold'), background="#243e54", foreground="white") # Modify the font of the headings
+                    theme.layout("mystyle001.Treeview", [('mystyle001.Treeview.treearea', {'sticky': 'nswe'})],)
+                    prstrv = ttk.Treeview(payrollslip_canvas,style="mystyle001.Treeview")
+                    payrollslip_canvas.create_window(0,0,anchor="nw",window=prstrv,tags=("prstreeview"))
+                    
+                    treescrolly = ttk.Scrollbar(payrollslip_canvas, orient="vertical", command=prstrv.yview)
+                    treescrollx = ttk.Scrollbar(payrollslip_canvas, orient="horizontal", command=prstrv.xview)
+                    treescrollx.pack(side="bottom", fill="x")
+                    treescrolly.pack(side="right", fill="y")       
+                    prstrv.configure(xscrollcommand=treescrollx.set, yscrollcommand=treescrolly.set)
+                
+                
+                    prstrv["columns"] = ("1", "2", "3","4","5")
+
+                    # Defining heading
+                    prstrv['show'] = 'headings'
+
+                    # width of columns and alignment 
+                    prstrv.column("1", width = 210, anchor ='c')
+                    prstrv.column("2", width = 260, anchor ='c')
+                    prstrv.column("3", width = 260, anchor ='c')
+                    prstrv.column("4", width = 230, anchor ='c')
+                    prstrv.column("5", width = 250, anchor ='c')
+
+                    # Headings  
+                    # respective columns
+                    prstrv.heading("1", text ="EMPLOYEE ID")
+                    prstrv.heading("2", text ="EMPLOYEE NAME")
+                    prstrv.heading("3", text ="DESIGNATION")
+                    prstrv.heading("4", text ="DATE OF PAYMENT")  
+                    prstrv.heading("5", text ="NET SALARY")
+
+
+                    # prstrv.tab_configure('odd', background='#18324e')
+                    # prstrv.tab_configure('even', background='#1b3857')
+                
+                    # data=
+                    # fbcursor.execute('SELECT employeeid,name,mobile,gmail,designation FROM `app1_employee` where cid_id=%s',[cid_id])
+                    # treedata=fbcursor.fetchall()
+                    # for data in treedata:
+                    #     prstrv.insert("", 'end',values=data)
+            
 
                     #333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333{Report Tab}
 
@@ -22892,7 +23157,7 @@ def main_sign_in():
 
                     
                         
-                    tab_report.add(tab6_1,compound = LEFT, text ='Profit & Loss')
+                    tab_report.add(tab6_1,compound = LEFT, text ='profit & Loss')
                     tab_report.add(tab6_2,compound = LEFT, text ='Balance Sheet')
                     tab_report.add(tab6_3,compound = LEFT, text ='Accounts Receivables')
                     tab_report.add(tab6_4,compound = LEFT, text ='Accounts Payables')
