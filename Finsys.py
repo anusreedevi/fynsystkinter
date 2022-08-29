@@ -1,3 +1,5 @@
+# from curses.textpad import Textbox
+from turtle import textinput
 import matplotlib.pyplot as plt
 from calendar import c
 from cgitb import enable, reset, text
@@ -51,6 +53,7 @@ from datetime import date,datetime, timedelta
 
 from array import *
 from forex_python.converter import CurrencyRates
+# from curses.textpad  import Textbox
 
 import datetime
 import re
@@ -22941,7 +22944,230 @@ def main_sign_in():
                     actdrop.current(0)
                     payrollemp_canvas.create_window(0,0,anchor='c',window=actdrop,tags=("preactdrop"),width=130)
                     actdrop.bind("<<ComboboxSelected>>")
-                    prebtn = Button(payrollemp_canvas, text = 'Add Employees' ,fg='#fff',bg='#243e54',height=1,width=15,font=('Calibri', 14, 'bold'))
+                    def add_emp():
+                        main_frame_payrollemp.grid_forget()
+                        main_frame_payrollemp1 = Frame(tab5_1)
+                        main_frame_payrollemp1.grid(row=0,column=0,sticky='nsew')
+                        def bankreco_responsive_widgets(event):
+                            dwidth = event.width
+                            dheight = event.height
+                            dcanvas = event.widget
+
+                            r1 = 25  
+                            x1 = dwidth/63
+                            x2 = dwidth/1.021
+                            y1 = dheight/14
+                            y2 = dheight/3.800
+
+                            dcanvas.coords("pre1poly1",x1 + r1,y1,
+                            x1 + r1,y1,
+                            x2 - r1,y1,
+                            x2 - r1,y1,     
+                            x2,y1,     
+                        #--------------------
+                            x2,y1 + r1,     
+                            x2,y1 + r1,     
+                            x2,y2 - r1,     
+                            x2,y2 - r1,     
+                            x2,y2,
+                        #--------------------
+                            x2 - r1,y2,     
+                            x2 - r1,y2,     
+                            x1 + r1,y2,
+                            x1 + r1,y2,
+                            x1,y2,
+                                #--------------------
+                            x1,y2 - r1,
+                            x1,y2 - r1,
+                            x1,y1 + r1,
+                            x1,y1 + r1,
+                            x1,y1,
+                            )
+                        
+                            dcanvas.coords("pre1hline",dwidth/21,dheight/4.97,dwidth/1.055,dheight/4.97)
+                            dcanvas.coords("pre1label1",dwidth/1.999,dheight/7.0)
+
+                            r2  = 25                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                            x11 = dwidth/63
+                            x21 = dwidth/1
+                            y11 = dheight/2.8
+                            y21 = dheight/0.33
+
+
+                            dcanvas.coords("pre1poly2",x11 + r2,y11,
+                            x11 + r2,y11,
+                            x21 - r2,y11,
+                            x21 - r2,y11,     
+                            x21,y11,     
+                            #--------------------
+                            x21,y11 + r2,     
+                            x21,y11 + r2,     
+                            x21,y21 - r2,     
+                            x21,y21 - r2,     
+                            x21,y21,
+                            #--------------------
+                            x21 - r2,y21,     
+                            x21 - r2,y21,     
+                            x11 + r2,y21,
+                            x11 + r2,y21,
+                            x11,y21,
+                            #--------------------
+                            x11,y21 - r2,
+                            x11,y21 - r2,
+                            x11,y11 + r2,
+                            x11,y11 + r2,
+                            x11,y11,
+                            )
+                            dcanvas.coords("pre1label2",dwidth/1.999,dheight/2.40)
+                            dcanvas.coords("pre1label3",dwidth/2.5,dheight/1.80)
+                            dcanvas.coords("entry1",dwidth/2.60,dheight/1.70)
+                            dcanvas.coords("pre1label4",dwidth/1.200,dheight/1.80)
+                            dcanvas.coords("entry2",dwidth/1.255,dheight/1.70)
+                            dcanvas.coords("pre1label5",dwidth/2.40,dheight/1.40)
+                            dcanvas.coords("entry3",dwidth/2.60,dheight/1.35)
+                            dcanvas.coords("pre1label6",dwidth/1.605,dheight/1.40)
+                            dcanvas.coords("entry4",dwidth/1.685,dheight/1.35)
+                            dcanvas.coords("pre1hline1",dwidth/21,dheight/2.055,dwidth/1.055,dheight/2.055)
+                            # dcanvas.coords("pre1hline2",dwidth/2,dheight/1.19,dwidth/1.053,dheight/1.19)
+                            # dcanvas.coords("pre1hline3",dwidth/2,dheight/0.800,dwidth/1.053,dheight/0.800)
+                            dcanvas.coords("pre1label7",dwidth/1.230,dheight/1.40)
+                            dcanvas.coords("entry5",dwidth/1.255,dheight/1.35)
+                            dcanvas.coords("pre1label8",dwidth/2.47,dheight/1.16)
+                            dcanvas.coords("entry6",dwidth/2.60,dheight/1.12)
+                            dcanvas.coords("pre1label14",dwidth/1.63,dheight/1.15)
+                            dcanvas.coords("pre1drop1",dwidth/1.493,dheight/1.09)
+                            dcanvas.coords("pre1label15",dwidth/1.230,dheight/1.15)
+                            dcanvas.coords("pre1drop2",dwidth/1.145,dheight/1.09)
+                            dcanvas.coords("pre1label9",dwidth/2.47,dheight/1.01)
+                            dcanvas.coords("entry7",dwidth/2.60,dheight/0.97)
+                            dcanvas.coords("pre1label10",dwidth/1.38,dheight/1.01)
+                            dcanvas.coords("entry8",dwidth/1.40,dheight/0.97)
+                            dcanvas.coords("pre1label11",dwidth/2.47,dheight/0.87)
+                            dcanvas.coords("entry9",dwidth/2.60,dheight/0.85)
+                          # dcanvas.coords("pre1button",dwidth/1.180,dheight/0.700)
+                            # dcanvas.coords("pre1label12",dwidth/1.57,dheight/0.76)
+                            # dcanvas.coords("pre1label13",dwidth/1.57,dheight/0.65)
+                            # dcanvas.coords("pre1label14",dwidth/1.22,dheight/0.76)
+                            # dcanvas.coords("pre1drop2",dwidth/1.2,dheight/0.72)
+                            # dcanvas.coords("pre1drop3",dwidth/1.2,dheight/0.62)
+                            # dcanvas.coords("pre1button",dwidth/1.5,dheight/0.59)
+
+                        addemp_canvas=Canvas(main_frame_payrollemp1,bg='#2f516f',width=1325,height=790,scrollregion=(0,0,900,1600))
+                        main_frame_payrollemp1.grid_columnconfigure(0,weight=1)
+                        main_frame_payrollemp1.grid_rowconfigure(0,weight=1)
+
+                        scrollbar2=Scrollbar(main_frame_payrollemp1,orient=VERTICAL)
+                        scrollbar2.grid(row=0,column=1,sticky='ns')
+                        scrollbar2.config(command=addemp_canvas.yview)
+                        addemp_canvas.bind("<Configure>",bankreco_responsive_widgets)
+
+                        addemp_canvas.config(yscrollcommand=scrollbar2.set)
+                        addemp_canvas.grid(row=0,column=0,sticky='nsew')
+                        addemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("pre1poly1"))
+                        pre1label_1 = Label(addemp_canvas,width=37,height=1,text="ADD EMPLOYEE",font=('arial 26'),background="#243e54",fg="white") 
+                        addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline"))
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_1,tags=("pre1label1"))
+                       
+                    
+
+                        addemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("pre1poly2"))
+                        pre1label_2 = Label(addemp_canvas,width=40,height=1,text="Employee Information", font=('arial 20'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_2,tags=("pre1label2"))
+    
+                        addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline1"))
+                        image1 = Image.open("images/emp.png")
+                        resize_imag = image1.resize((500,750))
+                        image1 = ImageTk.PhotoImage(resize_imag)
+                        emp = Label(addemp_canvas, width=500, height=750, background="#243e54", image = image1) 
+                        addemp_canvas.create_window(35, 330, anchor="nw", window=emp)
+                        bank_off.photo = image1
+
+                        pre1label_3 = Label(addemp_canvas,width=18,height=1,text="Name", font=('arial 13'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window= pre1label_3,tags=("pre1label3"))
+                        pre1entry1= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry1,tags=("entry1"),height=35)
+
+                        pre1label_4 = Label(addemp_canvas,width=18,height=1,text="Employee No", font=('arial 13'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window= pre1label_4,tags=("pre1label4"))
+                        pre1entry2= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry2,tags=("entry2"),height=35)
+
+                        pre1label_5 = Label(addemp_canvas,width=18,height=1,text="Designation", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_5,tags=("pre1label5"))
+                        pre1entry3= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry3,tags=("entry3"),height=35)
+                  
+                        pre1label_6 = Label(addemp_canvas,width=18,height=1,text="Department", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_6,tags=("pre1label6"))
+                        pre1entry4= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry4,tags=("entry4"),height=35)
+
+                        pre1label_7 = Label(addemp_canvas,width=18,height=1,text="Branch", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_7,tags=("pre1label7"))
+                        pre1entry5= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry5,tags=("entry5"),height=35)
+
+
+                       
+                        pre1label_8 = Label(addemp_canvas,width=18,height=1,text="Location", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_8,tags=("pre1label8"))
+                        pre1entry6= Entry(addemp_canvas,width=15,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry6,tags=("entry6"),height=35)
+
+                        pre1label_14 = Label(addemp_canvas,width=18,height=1,text="Gender", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_14,tags=("pre1label14"))
+                        style4=ttk.Style()
+                        style4.theme_use('default')
+                        style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
+                        pre1drop=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
+                        pre1drop["values"]=("Female","Male","Others")
+                        # pre1drop.current(0)
+                        addemp_canvas.create_window(0,0,anchor='c',window=pre1drop,tags=("pre1drop1"),width=200)
+                        # pre1drop.bind("<<ComboboxSelected>>")
+
+                        pre1label_15 = Label(addemp_canvas,width=18,height=1,text="Age", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_15,tags=("pre1label15"))
+                        style5=ttk.Style()
+                        style5.theme_use('default')
+                        style5.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
+                        pre1drop2=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
+                        pre1drop2["values"]=("18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45",
+                        "46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73",
+                        "74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100")
+                        # predrop2.current(0)
+                        addemp_canvas.create_window(0,0,anchor='c',window=pre1drop2,tags=("pre1drop2"),width=200)
+                        # predrop2.bind("<<ComboboxSelected>>")
+
+                        pre1label_9 = Label(addemp_canvas,width=18,height=1,text="Mobile", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_9,tags=("pre1label9"))
+                        pre1entry7= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry7,tags=("entry7"),height=35)
+
+                        pre1label_10 = Label(addemp_canvas,width=18,height=1,text="Gmail", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_10,tags=("pre1label10"))
+                        pre1entry8= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry8,tags=("entry8"),height=35)
+
+                        pre1label_11 = Label(addemp_canvas,width=18,height=1,text="Address", font=('arial 11'),background="#243e54",fg="white") 
+                        addemp_canvas.create_window(0,0,anchor="c",window=pre1label_11,tags=("pre1label11"))
+                        pre1entry9= scrolledtext.ScrolledText(addemp_canvas,width=70,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
+                        addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry9,tags=("entry9"),height=85)
+
+                        # pre1label_12 = Label(addemp_canvas,width=18,height=1,text="Bank Details", font=('arial 11'),background="#243e54",fg="white") 
+                        # addemp_canvas.create_window(0,0,anchor="c",window=pre1label_12,tags=("pre1label12"))
+                        # pre1entry10= Entry(addemp_canvas,width=15,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        # addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry10,tags=("entry10"),height=35)
+
+                        # pre1label_13 = Label(addemp_canvas,width=18,height=1,text="Beginning balance", font=('arial 11'),background="#243e54",fg="white") 
+                        # addemp_canvas.create_window(0,0,anchor="c",window=pre1label_13,tags=("pre1label13"))
+                        # pre1entry11= Entry(addemp_canvas,width=15,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        # addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry11,tags=("entry10"),height=35)
+
+
+                      
+                        
+
+                    prebtn = Button(payrollemp_canvas, text = 'Add Employees' ,fg='#fff',bg='#243e54',height=1,width=15,font=('Calibri', 14, 'bold'),command=add_emp)
                     payrollemp_canvas.create_window(0,0,anchor="c",window=prebtn,tags=("prebutton1"))
                     theme = ttk.Style()
                     theme.theme_use("default")
