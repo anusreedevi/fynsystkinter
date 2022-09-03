@@ -1,9 +1,10 @@
 # from curses.textpad import Textbox
-from ast import Delete
+from ast import Delete, pattern
 from multiprocessing.sharedctypes import Value
 from select import select
 from sre_parse import State
 from turtle import textinput
+from wsgiref import validate
 import matplotlib.pyplot as plt
 from calendar import c
 from cgitb import enable, reset, text
@@ -23871,49 +23872,53 @@ def main_sign_in():
                             # emppayslip_canvas.create_window(793,360,anchor='nw',window=pre1entry45,tags=("entry45"),height=33)
                             # editemp_canvas.create_line(0,0,0,0,fi                        #     item_del = messagebox.askyesno("Delete statement","Are you sure to delete this statement?")
 
-                        #     if item_del == True:
-                        #         item_id_1 = trv.item(trv.focus())["values"][0]
-                        #         print(item_id_1)
-                        #         usri_sql = "SELECT id FROM auth_user WHERE username=%s"
-                        #         usri_val = (nm_ent.get(),)
-                        #         fbcursor.execute(usri_sql,usri_val)
-                        #         usri_data = fbcursor.fetchone()
-                        #         cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
-                        #         cmpi_val = (usri_data[0],)
-                        #         fbcursor.execute(cmpi_sql,cmpi_val)
-                        #         cmpi_data = fbcursor.fetchone()
-                        #         # selected_item = trv.selection()[0]
+                        if empactdrop.get() == 'Delete':
+                            
+                            item_del = messagebox.askyesno("Delete statement","Are you sure to delete this statement?")
 
-                        #         query1='delete from app1_bankstatement where bankstatementid=%s and cid_id=%s'
-                        #         value=(item_id_1,cmpi_data[0],)
-                        #         fbcursor.execute(query1,value)
-                        #         finsysdb.commit()
-                        #         for rec in trv.get_children():
-                        #             trv.delete(rec)
-                        #         query="select id from auth_user where username=%s"
-                        #         query_val=(nm_ent.get(),)
-                        #         fbcursor.execute(query,query_val,)
-                        #         i_dlt=fbcursor.fetchone()
-                        #         sql="select cid from app1_company where id_id=%s"
-                        #         val=(i_dlt[0],)
-                        #         fbcursor.execute(sql,val)
-                        #         stat_dlt=fbcursor.fetchone()
-                        #         st_sql_1="select bankstatementid,date,description,debit,credit from app1_bankstatement where cid_id=%s"
-                        #         st_val1=(stat_dlt[0],)
-                        #         fbcursor.execute(st_sql_1,st_val1)
-                        #         st_data=fbcursor.fetchall()
-                        #         # print(st_data)
-                        #         count0=0
-                        #         for i in st_data:
-                        #             if True:
-                        #                 trv.insert(parent='',index='end',iid=i,text='',values=(i[0],i[1],i[2],i[3],i[4]))
-                        #             else:
-                        #                 pass
-                        #         count0+=1
-                        #     else:
-                        #         pass
-                        # else:
-                        #     pass
+                            if item_del == True:
+                                item_id_1 = pretrv.item(pretrv.focus())["values"][0]
+                                print(item_id_1)
+                                usri_sql = "SELECT id FROM auth_user WHERE username=%s"
+                                usri_val = (nm_ent.get(),)
+                                fbcursor.execute(usri_sql,usri_val)
+                                usri_data = fbcursor.fetchone()
+                                cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
+                                cmpi_val = (usri_data[0],)
+                                fbcursor.execute(cmpi_sql,cmpi_val)
+                                cmpi_data = fbcursor.fetchone()
+                                # selected_item = pretev.selection()[0]
+
+                                query1='delete from  app1_employee where employeeid=%s and cid_id=%s'
+                                value=(item_id_1,cmpi_data[0],)
+                                fbcursor.execute(query1,value)
+                                finsysdb.commit()
+                                for rec in pretrv.get_children():
+                                    pretrv.delete(rec)
+                                query="select id from auth_user where username=%s"
+                                query_val=(nm_ent.get(),)
+                                fbcursor.execute(query,query_val,)
+                                i_dlt=fbcursor.fetchone()
+                                sql="select cid from app1_company where id_id=%s"
+                                val=(i_dlt[0],)
+                                fbcursor.execute(sql,val)
+                                stat_dlt=fbcursor.fetchone()
+                                st_sql_1='SELECT * FROM `app1_employee` where cid_id=%s'
+                                st_val1=(stat_dlt[0],)
+                                fbcursor.execute(st_sql_1,st_val1)
+                                st_data=fbcursor.fetchall()
+                                # print(st_data)
+                                count0=0
+                                for i in st_data:
+                                    if True:
+                                        pretrv.insert(parent='',index='end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
+                                    else:
+                                        pass
+                                count0+=1
+                            else:
+                                pass
+                        else:
+                            pass
 
                     style3=ttk.Style()
                     style3.theme_use('default')
@@ -24147,6 +24152,63 @@ def main_sign_in():
                     
 
                         addemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("pre1poly2"))
+                        global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarnum,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,Deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
+                        name=StringVar()
+                        joiningdate=StringVar()
+                        employeenumber=StringVar()
+                        designation=StringVar()
+                        department=StringVar()
+                        branch=StringVar()
+                        location=StringVar()
+                        gender=StringVar()
+                        age=StringVar()
+                        mobile=StringVar()
+                        email=StringVar()
+                        address=StringVar()
+                        accnum=StringVar()
+                        ifsc=StringVar()
+                        arpaid=StringVar()
+                        hrarec=StringVar()
+                        live=StringVar()
+                        atreg=StringVar()
+                        panno=StringVar()
+                        aadhaarno=StringVar()
+                        unaccnum=StringVar()
+                        pfaccnum=StringVar()
+                        epsaccnum=StringVar()
+                        praccnum=StringVar()
+                        esinum=StringVar()
+                        esidisname=StringVar()
+                        basicsalary=StringVar()
+                        confirmsalary=StringVar()
+                        dallowance=StringVar()
+                        othincome1=StringVar()
+                        othamount1=StringVar()
+                        othincome2=StringVar()
+                        othamount2=StringVar()
+                        othincome3=StringVar()
+                        othamount3=StringVar()
+                        othincome4=StringVar()
+                        othamount4=StringVar()
+                        othincome5=StringVar()
+                        othamount5=StringVar()
+                        provifund=StringVar()
+                        proftax=StringVar()
+                        esi=StringVar()
+                        deduc1=StringVar()
+                        deduc2=StringVar()
+                        deduc3=StringVar()
+                        deduc4=StringVar()
+                        deducamt1=StringVar()
+                        deducamt2=StringVar()
+                        deducamt3=StringVar()
+                        deducamt4=StringVar()
+                                                
+                        sql="INSERT INTO app1_employee (name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,gmail,address,providebankdetails,bankaccountnumber,ifsccode,totalrentpaid,hrareceived,livein,applicabletaxregime,pannumber,aadhaarnumber,universalaccountnumber,pfaccountnumber,epsaccountnumber,praccountnumber,esinumber,esidispensaryname,basic,da,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
+                        val=(Name,Joiningdate,Employeenumber,Designation,Department,Branch,Location,Gender,Age,Mobile,Gmail,Address,Bankaccountnumber,Ifsccode,Totalrentpaid,Hrareceived,Livein,Applicabletaxregime,Pannumber,Aadhaarnumber,Universalaccountnumber,Pfaccountnumber,Epsaccountnumber,Praccountnumber,Esinumber,Esidispensaryname,Basic,Da,Othincome1,Othamount1,Othincome2,Othamount2,Othincome3,Othamount3,Othincome4,Othamount4,Othincome5,Othamount5,Provifund,Proftax,Esi,Deduc1,Deduc2,Deduc3,Deduc4,Deducamt1,Deducamt2,Deducamt3,Deducamt4,cid_id)
+                        fbcursor.execute(sql, val)
+                        fbcursor.commit()
+                        messagebox.showinfo("ADD", "Record entered successfully")
                         pre1label_2 = Label(addemp_canvas,width=40,height=1,text="Employee Information", font=('arial 20'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_2,tags=("pre1label2"))
     
@@ -24160,34 +24222,34 @@ def main_sign_in():
 
                         pre1label_3 = Label(addemp_canvas,width=18,height=1,text="Name", font=('arial 13'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window= pre1label_3,tags=("pre1label3"))
-                        pre1entry1= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry1= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=name)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry1,tags=("entry1"),height=33)
 
                         pre1label_4 = Label(addemp_canvas,width=18,height=1,text="Employee No", font=('arial 13'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window= pre1label_4,tags=("pre1label4"))
-                        pre1entry2= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry2= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=employeenumber)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry2,tags=("entry2"),height=33)
 
                         pre1label_5 = Label(addemp_canvas,width=18,height=1,text="Designation", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_5,tags=("pre1label5"))
-                        pre1entry3= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry3= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=designation)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry3,tags=("entry3"),height=33)
                   
                         pre1label_6 = Label(addemp_canvas,width=18,height=1,text="Department", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_6,tags=("pre1label6"))
-                        pre1entry4= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry4= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=department)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry4,tags=("entry4"),height=33)
 
                         pre1label_7 = Label(addemp_canvas,width=18,height=1,text="Branch", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_7,tags=("pre1label7"))
-                        pre1entry5= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry5= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=branch)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry5,tags=("entry5"),height=33)
 
 
                        
                         pre1label_8 = Label(addemp_canvas,width=18,height=1,text="Location", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_8,tags=("pre1label8"))
-                        pre1entry6= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry6= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=location)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry6,tags=("entry6"),height=33)
 
                         pre1label_9 = Label(addemp_canvas,width=18,height=1,text="Gender", font=('arial 11'),background="#243e54",fg="white") 
@@ -24195,7 +24257,7 @@ def main_sign_in():
                         style4=ttk.Style()
                         style4.theme_use('default')
                         style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop1=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
+                        pre1drop1=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=gender)
                         pre1drop1["values"]=("Female","Male","Others")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop1,tags=("pre1drop1"),width=200)
@@ -24206,7 +24268,7 @@ def main_sign_in():
                         style5=ttk.Style()
                         style5.theme_use('default')
                         style5.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop2=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
+                        pre1drop2=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=age)
                         pre1drop2["values"]=("18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45",
                         "46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73",
                         "74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100")
@@ -24216,18 +24278,19 @@ def main_sign_in():
 
                         pre1label_11 = Label(addemp_canvas,width=18,height=1,text="Mobile", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_11,tags=("pre1label11"))
-                        pre1entry7= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry7= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=mobile)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry7,tags=("entry7"),height=33)
 
                         pre1label_12 = Label(addemp_canvas,width=18,height=1,text="Gmail", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_12,tags=("pre1label12"))
-                        pre1entry8= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry8= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=email)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry8,tags=("entry8"),height=33)
 
                         pre1label_13 = Label(addemp_canvas,width=18,height=1,text="Address", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_13,tags=("pre1label13"))
                         pre1entry9= scrolledtext.ScrolledText(addemp_canvas,width=70,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry9,tags=("entry9"),height=85)
+                        pre1lentry13.insert(INSERT,address)
 
                         pre1label_14 = Label(addemp_canvas,width=18,height=1,text="Bank Details", font=('arial 18'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_14,tags=("pre1label14"))
@@ -24258,12 +24321,12 @@ def main_sign_in():
                         
                         pre1label_16 = Label(addemp_canvas,width=18,height=1,text="Bank Account Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_16,tags=("pre1label16"))
-                        pre1lentry12= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
+                        pre1lentry12= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=accnum)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry12,tags=("entry12"),height=33)
 
                         pre1label_17 = Label(addemp_canvas,width=18,height=1,text="IFSC Code", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_17,tags=("pre1label17"))
-                        pre1lentry13= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry13= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=ifsc)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry13,tags=("entry13"),height=33)
 
                         pre1label_18 = Label(addemp_canvas,width=18,height=1,text="HRA Declaration", font=('arial 18'),background="#243e54",fg="white") 
@@ -24272,12 +24335,12 @@ def main_sign_in():
 
                         pre1label_19 = Label(addemp_canvas,width=18,height=1,text="Actual Rent Paid", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_19,tags=("pre1label19"))
-                        pre1lentry14= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry14= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=arpaid)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry14,tags=("entry14"),height=33)
 
                         pre1label_20 = Label(addemp_canvas,width=18,height=1,text="HRA Received", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_20,tags=("pre1label20"))
-                        pre1lentry15= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry15= Entry(addemp_canvas,width=18,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=hrarec)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry15,tags=("entry15"),height=33)
 
                         pre1label_21 = Label(addemp_canvas,width=19,height=1,text="Do you live in metro cities? ", font=('arial 11'),background="#243e54",fg="white") 
@@ -24285,8 +24348,8 @@ def main_sign_in():
                         style4=ttk.Style()
                         style4.theme_use('default')
                         style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop3=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
-                        pre1drop3["values"]=("Female","Male","Others")
+                        pre1drop3=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=city)
+                        pre1drop3["values"]=("Choose","Yes","No")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop3,tags=("pre1drop3"),width=200)
                         # pre1drop.bind("<<ComboboxSelected>>")
@@ -24297,47 +24360,54 @@ def main_sign_in():
 
                         pre1label_23 = Label(addemp_canvas,width=18,height=1,text="Applicable Tax Regime", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_23,tags=("pre1label23"))
-                        pre1lentry16= Entry(addemp_canvas,width=70,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry16= Entry(addemp_canvas,width=70,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=atreg)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry16,tags=("entry16"),height=33)
-
+                        # def validatepan(value):
+                        #     pattern=r'\b[A-Z]{5}[0-9]{4}[A-Z]{1}\b'
+                        #     if re.fullmatch(pattern,value)is None:
+                        #         return False
+                        #     pre1lentry17.config(fg="white")
+                        #     return True
+                        # def invalidpan():
+                        #     pre1lentry17.config(fg="red")
                         pre1label_24 = Label(addemp_canvas,width=18,height=1,text="PAN Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_24,tags=("pre1label24"))
-                        pre1lentry17= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry17= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=panno)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry17,tags=("entry17"),height=33)
 
                         pre1label_25 = Label(addemp_canvas,width=18,height=1,text="Aadhaar Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_25,tags=("pre1label25"))
-                        pre1lentry18= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry18= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=aadhaarno)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry18,tags=("entry18"),height=33)
 
                         pre1label_26 = Label(addemp_canvas,width=19,height=1,text="Universal Account Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_26,tags=("pre1label26"))
-                        pre1lentry19= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry19= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=unaccnum)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry19,tags=("entry19"),height=33)
 
                         pre1label_27 = Label(addemp_canvas,width=18,height=1,text="PF Account Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_27,tags=("pre1label27"))
-                        pre1lentry20= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry20= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=pfaccnum)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry20,tags=("entry20"),height=33)
 
                         pre1label_28 = Label(addemp_canvas,width=18,height=1,text="EPS Account Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_28,tags=("pre1label28"))
-                        pre1lentry21= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry21= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=epsaccnum)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry21,tags=("entry21"),height=33)
 
                         pre1label_29 = Label(addemp_canvas,width=18,height=1,text="PR Account Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_29,tags=("pre1label29"))
-                        pre1lentry22= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry22= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=praccnum)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry22,tags=("entry22"),height=33)  
                         
                         pre1label_30 = Label(addemp_canvas,width=18,height=1,text="ESI Number", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_30,tags=("pre1label30"))
-                        pre1lentry23= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry23= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=esinum)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry23,tags=("entry23"),height=33)
 
                         pre1label_31 = Label(addemp_canvas,width=18,height=1,text="ESI dispensary name", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_31,tags=("pre1label31"))
-                        pre1lentry24= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry24= Entry(addemp_canvas,width=30,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=esidisname)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry24,tags=("entry24"),height=33)
 
                         pre1label_32 = Label(addemp_canvas,width=18,height=1,text="Salary Details", font=('arial 18'),background="#243e54",fg="white") 
@@ -24366,49 +24436,49 @@ def main_sign_in():
 
                         pre1label_39 = Label(addemp_canvas,width=18,height=1,text="Confirm Salary", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_39,tags=("pre1label39"))
-                        pre1lentry25= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry25= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=confirmsalary)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry25,tags=("entry25"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline10"))
 
                         pre1label_40 = Label(addemp_canvas,width=18,height=1,text="Provident Fund", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_40,tags=("pre1label40"))
-                        pre1lentry26= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry26= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=provifund)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry26,tags=("entry26"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline11"))
 
                         pre1label_41 = Label(addemp_canvas,width=18,height=1,text="Basic salary", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_41,tags=("pre1label41"))
-                        pre1lentry27= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1lentry27= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=basicsalary)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1lentry27,tags=("entry27"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline12"))
 
                         pre1label_42 = Label(addemp_canvas,width=18,height=1,text="Profession Tax", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_42,tags=("pre1label42"))
-                        pre1entry28= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry28= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=proftax)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry28,tags=("entry28"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline13"))
 
                         pre1label_43 = Label(addemp_canvas,width=18,height=1,text="Dearance Allowance", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_43,tags=("pre1label43"))
-                        pre1entry29= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry29= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=dallowance)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry29,tags=("entry29"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline14"))
 
                         pre1label_44 = Label(addemp_canvas,width=18,height=1,text="ESI", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_44,tags=("pre1label44"))
-                        pre1entry30= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry30= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=esi)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry30,tags=("entry30"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline15"))
 
-                        pre1entry31= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry31= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othincome1)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry31,tags=("entry31"),height=33)
-                        pre1entry32= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry32= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount1)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry32,tags=("entry32"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline16"))   
 
-                        pre1entry33= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry33= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deduc1)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry33,tags=("entry33"),height=33)
-                        pre1entry34= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry34= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt1)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry34,tags=("entry34"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline17"))
 
@@ -24416,18 +24486,18 @@ def main_sign_in():
                         # style4=ttk.Style()
                         # style4.theme_use('default')
                         # style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop4=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
-                        pre1drop4["values"]=("Female","Male","Others")
+                        pre1drop4=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=othincome2)
+                        pre1drop4["values"]=("Conveyance","Child Education Allowance","Medical Allowance","Medical Allowance")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop4,tags=("pre1drop4"),width=250)
                         # pre1drop.bind("<<ComboboxSelected>>")
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline18"))
-                        pre1entry35= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry35= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount2)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry35,tags=("entry35"),height=33)
 
-                        pre1entry36= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry36= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deduc2)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry36,tags=("entry36"),height=33)
-                        pre1entry37= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry37= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt2)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry37,tags=("entry37"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline19"))
 
@@ -24435,18 +24505,18 @@ def main_sign_in():
                         # style4=ttk.Style()
                         # style4.theme_use('default')
                         # style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop5=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
-                        pre1drop5["values"]=("Female","Male","Others")
+                        pre1drop5=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=othincome3)
+                        pre1drop5["values"]=("Conveyance","Child Education Allowance","Medical Allowance","Medical Allowance")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop5,tags=("pre1drop5"),width=250)
                         # pre1drop.bind("<<ComboboxSelected>>")
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline20"))
-                        pre1entry38= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry38= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount3)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry38,tags=("entry38"),height=33)
 
-                        pre1entry39= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry39= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deduc3)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry39,tags=("entry39"),height=33)
-                        pre1entry40= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry40= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt3)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry40,tags=("entry40"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline21"))
 
@@ -24454,18 +24524,18 @@ def main_sign_in():
                         # style4=ttk.Style()
                         # style4.theme_use('default')
                         # style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop6=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
-                        pre1drop6["values"]=("Female","Male","Others")
+                        pre1drop6=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=othincome4)
+                        pre1drop6["values"]=("Conveyance","Child Education Allowance","Medical Allowance","Medical Allowance")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop6,tags=("pre1drop6"),width=250)
                         # pre1drop.bind("<<ComboboxSelected>>")
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline22"))
-                        pre1entry41= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry41= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount4)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry41,tags=("entry41"),height=33)
 
-                        pre1entry42= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry42= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deduc4)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry42,tags=("entry42"),height=33)
-                        pre1entry43= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry43= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt4)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry43,tags=("entry43"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline23"))
 
@@ -24473,13 +24543,13 @@ def main_sign_in():
                         # style4=ttk.Style()
                         # style4.theme_use('default')
                         # style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop7=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox")
-                        pre1drop7["values"]=("Female","Male","Others")
+                        pre1drop7=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=othincome5)
+                        pre1drop7["values"]=("Conveyance","Child Education Allowance","Medical Allowance","Medical Allowance")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop7,tags=("pre1drop7"),width=250)
                         # pre1drop.bind("<<ComboboxSelected>>")
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline24"))
-                        pre1entry44= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry44= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount5)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry44,tags=("entry44"),height=33)
 
                         def sub_form():
@@ -24493,7 +24563,7 @@ def main_sign_in():
 
                         pre1label_45 = Label(addemp_canvas,width=18,height=1,text="Joining Date", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_45,tags=("pre1label45"))
-                        pre1entry45= DateEntry(addemp_canvas,width=17,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                        pre1entry45= DateEntry(addemp_canvas,width=17,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=joiningdate)
                         addemp_canvas.create_window(793,360,anchor='nw',window=pre1entry45,tags=("entry45"),height=33)
                         # addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline25"))
 
@@ -24542,15 +24612,15 @@ def main_sign_in():
                     pretrv = ttk.Treeview(payrollemp_canvas,style="mystyle001.Treeview")
                     payrollemp_canvas.create_window(0,0,anchor="nw",window=pretrv,tags=("pretreeview"))
 
-                    # usri_sql = "SELECT id FROM auth_user WHERE username=%s"
-                    # usri_val = (nm_ent.get(),)
-                    # fbcursor.execute(usri_sql,usri_val)
-                    # usri_data = fbcursor.fetchone()
-                    # cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
-                    # cmpi_val = (usri_data[0],)
-                    # fbcursor.execute(cmpi_sql,cmpi_val)
-                    # cmpi_data = fbcursor.fetchone()
-                    # cid_id = cmpi_data[0]
+                    usri_sql = "SELECT id FROM auth_user WHERE username=%s"
+                    usri_val = (nm_ent.get(),)
+                    fbcursor.execute(usri_sql,usri_val)
+                    usri_data = fbcursor.fetchone()
+                    cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
+                    cmpi_val = (usri_data[0],)
+                    fbcursor.execute(cmpi_sql,cmpi_val)
+                    cmpi_data = fbcursor.fetchone()
+                    cid_id = cmpi_data[0]
 
                     treescrolly = ttk.Scrollbar(payrollemp_canvas, orient="vertical", command=pretrv.yview)
                     treescrollx = ttk.Scrollbar(payrollemp_canvas, orient="horizontal", command=pretrv.xview)
@@ -24586,10 +24656,10 @@ def main_sign_in():
                     # pretrv.configure('even', background='#1b3857')
                 
                     # data=
-                    # fbcursor.execute('SELECT * FROM `app1_employee` where cid_id=%s',[cid_id])
-                    # pretreedata=fbcursor.fetchall()
-                    # for i in pretreedata:
-                    #     pretrv.insert(parent="",index= 'end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
+                    fbcursor.execute('SELECT * FROM `app1_employee` where cid_id=%s',[cid_id])
+                    pretreedata=fbcursor.fetchall()
+                    for i in pretreedata:
+                        pretrv.insert(parent="",index= 'end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
 
 
 ##################################################payslip###############################################################
@@ -25092,7 +25162,53 @@ def main_sign_in():
                             prvbackbtn = Button(payrollslipview_canvas, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command = prvback)
                             payrollslipview_canvas.create_window(0,0,anchor="nw",window=prvbackbtn,tags=("prvbackbtn"))
 
+                        if payslipactdrop.get() == 'Delete':
+                            
+                            item_del = messagebox.askyesno("Delete statement","Are you sure to delete this statement?")
 
+                            if item_del == True:
+                                item_id_1 = prstrv.item(prstrv.focus())["values"][0]
+                                print(item_id_1)
+                                usri_sql = "SELECT id FROM auth_user WHERE username=%s"
+                                usri_val = (nm_ent.get(),)
+                                fbcursor.execute(usri_sql,usri_val)
+                                usri_data = fbcursor.fetchone()
+                                cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
+                                cmpi_val = (usri_data[0],)
+                                fbcursor.execute(cmpi_sql,cmpi_val)
+                                cmpi_data = fbcursor.fetchone()
+                                # selected_item = pretev.selection()[0]
+
+                                query1='delete from  app1_payslip where payslipid=%s and cid_id=%s'
+                                value=(item_id_1,cmpi_data[0],)
+                                fbcursor.execute(query1,value)
+                                finsysdb.commit()
+                                for rec in prstrv.get_children():
+                                    prstrv.delete(rec)
+                                query="select id from auth_user where username=%s"
+                                query_val=(nm_ent.get(),)
+                                fbcursor.execute(query,query_val,)
+                                i_dlt=fbcursor.fetchone()
+                                sql="select cid from app1_company where id_id=%s"
+                                val=(i_dlt[0],)
+                                fbcursor.execute(sql,val)
+                                stat_dlt=fbcursor.fetchone()
+                                st_sql_1='SELECT * FROM `app1_employee` where cid_id=%s'
+                                st_val1=(stat_dlt[0],)
+                                fbcursor.execute(st_sql_1,st_val1)
+                                st_data=fbcursor.fetchall()
+                                # print(st_data)
+                                count0=0
+                                for i in st_data:
+                                    if True:
+                                        prstrv.insert(parent='',index='end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
+                                    else:
+                                        pass
+                                count0+=1
+                            else:
+                                pass
+                        else:
+                            pass
 
                             # prvbtn2 = Button(payrollslipview_canvas, text = 'Submit Form' ,fg='#fff',bg='#243e54',height=1,width=25,font=('Calibri', 16, 'bold'),command=paysub_form)
                             # payrollslipview_canvas.create_window(0,0,anchor="c",window=prvbtn2,tags=("prv1button2"))
@@ -25164,9 +25280,9 @@ def main_sign_in():
                     # prstrv.tab_configure('even', background='#1b3857')
                 
                     # data=
-                    fbcursor.execute('SELECT payslipid,empname,desig,paydate,netsal FROM `app1_payslip` where cid_id=%s',[cid_id])
+                    fbcursor.execute('SELECT * FROM `app1_payslip` where cid_id=%s',[cid_id])
                     prstreedata=fbcursor.fetchall()
-                    for data in prstreedata:
+                    for i in prstreedata:
                         prstrv.insert("", 'end',values=data)
             
 
