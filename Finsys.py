@@ -3300,9 +3300,9 @@ def main_sign_in():
                             dcanvas.coords("br1label18",dwidth/1.60,dheight/0.9)
                             dcanvas.coords("br1label19",dwidth/1.35,dheight/0.9)
                             dcanvas.coords("br1label20",dwidth/1.16,dheight/0.9)
-                            dcanvas.coords("br1line4",dwidth/30,dheight/0.91,dwidth/1.030,dheight/0.91)
-                            dcanvas.coords("br1line5",dwidth/30,dheight/0.85,dwidth/1.030,dheight/0.85)
-                            dcanvas.coords("br1line6",dwidth/30,dheight/0.79,dwidth/1.030,dheight/0.79)
+                            dcanvas.coords("br1line4",dwidth/30,dheight/0.91,dwidth/1.05,dheight/0.91)
+                            dcanvas.coords("br1line5",dwidth/30,dheight/0.85,dwidth/1.05,dheight/0.85)
+                            dcanvas.coords("br1line6",dwidth/30,dheight/0.79,dwidth/1.05,dheight/0.79)
                             # dcanvas.coords("br1line7",dwidth/21,dheight/0.55,dwidth/1.055,dheight/0.55)
                             dcanvas.coords("br1entry8",dwidth/30,dheight/0.83)
                             dcanvas.coords("br1entry9",dwidth/9,dheight/0.83)
@@ -3334,6 +3334,14 @@ def main_sign_in():
                         bankreco_canvas1.grid(row=0,column=0,sticky='nsew')
                     
                         bankreco_canvas1.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("br1poly1"))
+                        def brback():
+                                main_frame_bankreco1.grid_forget()
+                                main_frame_bankreco.grid(row=0,column=0,sticky='nsew')
+
+                        subheadingfont5=font.Font(family='Arial',size=12)
+                        brbackbtn = Button(bankreco_canvas1, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command =brback)
+                        bankreco_canvas1.create_window(0,0,anchor="nw",window=brbackbtn,tags=("brbackbtn"))
+                 
                         br1label_1 = Label(bankreco_canvas1,width=35,height=1,text="Reconcile Checking",font=('arial 28'),background="#243e54",fg="white") 
                         bankreco_canvas1.create_window(0,0,anchor="c",window=br1label_1,tags=("br1label1"))
                         bankreco_canvas1.create_line(0,0,0,0,fill='gray',width=1,tags=("br1line1"))
@@ -3508,15 +3516,15 @@ def main_sign_in():
                             begining13.config(text="Service Charge")
                         
                     
-                        btn1 = Button(bankreco_canvas1, text = 'Payments',fg='#fff',bg='#243e54',height=1,width=10,font=('arial 14'),command=payment)
-                        bankreco_canvas1.create_window(0,0,anchor="nw",window=btn1,tags=("brbutton1"))  
+                        pay_btn = Button(bankreco_canvas1, text = 'Payments',fg='#fff',bg='#243e54',height=1,width=10,font=('arial 14'),command=payment)
+                        bankreco_canvas1.create_window(0,0,anchor="nw",window=pay_btn,tags=("brbutton1"))  
                         def deposites():
                             begining8.delete(0, END)
                             begining10.delete(0, END)
                             begining11.delete(0, END)
                             begining12.delete(0, END)
                             begining15.delete(0, END)
-                            begining14.delete(0,END)
+                            begining14.delete(0, END)
                             begining16.delete(0, END)
                             begining18.delete(0, END)
                             begining19.delete(0, END)
@@ -3531,8 +3539,8 @@ def main_sign_in():
                             begining14.insert(0, data[9])
                             begining9.config(text="Deposite")
                             begining13.config(text="Interest Earned") 
-                        btn2 = Button(bankreco_canvas1, text = 'Deposits',fg='#fff',bg='#243e54',height=1,width=10,font=('arial 14'),command=deposites)
-                        bankreco_canvas1.create_window(0,0,anchor="nw",window=btn2,tags=("brbutton2"))  
+                        deposite_btn = Button(bankreco_canvas1, text = 'Deposits',fg='#fff',bg='#243e54',height=1,width=10,font=('arial 14'),command=deposites)
+                        bankreco_canvas1.create_window(0,0,anchor="nw",window=deposite_btn,tags=("brbutton2"))  
                         def allbtn():
                             begining8.delete(0, END)
                             begining10.delete(0, END)
@@ -3560,8 +3568,8 @@ def main_sign_in():
                             begining17.config(text="Deposite")
                             begining21.config(text="Interest Earned") 
 
-                        btn3 = Button(bankreco_canvas1, text = 'All',fg='#fff',bg='#243e54',height=1,width=5,font=('arial 14'),command=allbtn)
-                        bankreco_canvas1.create_window(0,0,anchor="nw",window=btn3,tags=("brbutton3"))  
+                        all_btn = Button(bankreco_canvas1, text = 'All',fg='#fff',bg='#243e54',height=1,width=5,font=('arial 14'),command=allbtn)
+                        bankreco_canvas1.create_window(0,0,anchor="nw",window=all_btn,tags=("brbutton3"))  
                     
                         # theme1=ttk.Style()
                         # theme1.theme_use('default')
@@ -3616,13 +3624,7 @@ def main_sign_in():
                         # for data in treedata:
                         #     trv1.insert("", 'end',values=data)
                             
-                        def brback():
-                            main_frame_bankreco1.grid_forget()
-                            main_frame_bankreco.grid(row=0,column=0,sticky='nsew')
-                        subheadingfont5=font.Font(family='Arial',size=12)
-
-                        brbackbtn = Button(bankreco_canvas1, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command =brback)
-                        bankreco_canvas1.create_window(0,0,anchor="nw",window=brbackbtn,tags=("brbackbtn"))
+                        
 
                 
                     btn = Button(bankreco_canvas, borderwidth=1,text = 'Start Reconciling',fg='#fff',bg='#243e54',height=2,width=14,font=('arial 17'), command = close_canvas1)
@@ -23242,6 +23244,7 @@ def main_sign_in():
                             pre1entry9= scrolledtext.ScrolledText(editemp_canvas,width=70,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
                             editemp_canvas.create_window(0,0,anchor='nw',window=pre1entry9,tags=("entry9"),height=85)
 
+
                             pre1label_14 = Label(editemp_canvas,width=18,height=1,text="Bank Details", font=('arial 18'),background="#243e54",fg="white") 
                             editemp_canvas.create_window(0,0,anchor="c",window=pre1label_14,tags=("pre1label14"))
                             editemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline2"))
@@ -23889,7 +23892,7 @@ def main_sign_in():
                                 cmpi_data = fbcursor.fetchone()
                                 # selected_item = pretev.selection()[0]
 
-                                query1='delete from  app1_employee where employeeid=%s and cid_id=%s'
+                                query1='delete from  app1_employee where employeenumber=%s and cid_id=%s'
                                 value=(item_id_1,cmpi_data[0],)
                                 fbcursor.execute(query1,value)
                                 finsysdb.commit()
@@ -23911,7 +23914,7 @@ def main_sign_in():
                                 count0=0
                                 for i in st_data:
                                     if True:
-                                        pretrv.insert(parent='',index='end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
+                                        pretrv.insert(parent='',index='end',iid=i,text='',values=(i[3],i[1],i[10],i[11],i[4],i[28]))
                                     else:
                                         pass
                                 count0+=1
@@ -23973,7 +23976,7 @@ def main_sign_in():
 
                             r2  = 25                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                             x11 = dwidth/63
-                            x21 = dwidth/1
+                            x21 = dwidth/1.021
                             y11 = dheight/2.8
                             y21 = dheight/0.23
 
@@ -24029,7 +24032,7 @@ def main_sign_in():
                             dcanvas.coords("entry9",dwidth/2.60,dheight/0.85)
                           # dcanvas.coords("pre1button",dwidth/1.180,dheight/0.700)
                             dcanvas.coords("pre1label14",dwidth/1.50,dheight/0.70)
-                            dcanvas.coords("pre1hline2",dwidth/3,dheight/0.68,dwidth/1.013,dheight/0.68)
+                            dcanvas.coords("pre1hline2",dwidth/3,dheight/0.68,dwidth/1.05,dheight/0.68)
                             dcanvas.coords("pre1label15",dwidth/2.25,dheight/0.65)
                             dcanvas.coords("entry10",dwidth/1.85,dheight/0.66)
                             dcanvas.coords("entry11",dwidth/1.65,dheight/0.66)
@@ -24038,7 +24041,7 @@ def main_sign_in():
                             dcanvas.coords("pre1label17",dwidth/1.38,dheight/0.62)
                             dcanvas.coords("entry13",dwidth/1.40,dheight/0.60)
                             dcanvas.coords("pre1label18",dwidth/1.50,dheight/0.56)
-                            dcanvas.coords("pre1hline3",dwidth/3,dheight/0.54,dwidth/1.013,dheight/0.54)
+                            dcanvas.coords("pre1hline3",dwidth/3,dheight/0.54,dwidth/1.05,dheight/0.54)
                             dcanvas.coords("pre1label19",dwidth/2.36,dheight/0.53)
                             dcanvas.coords("entry14",dwidth/2.58,dheight/0.52)
                             dcanvas.coords("pre1label20",dwidth/1.59,dheight/0.53)
@@ -24046,7 +24049,7 @@ def main_sign_in():
                             dcanvas.coords("pre1label21",dwidth/1.16,dheight/0.53)
                             dcanvas.coords("pre1drop3",dwidth/1.145,dheight/0.51)
                             dcanvas.coords("pre1label22",dwidth/1.50,dheight/0.49)
-                            dcanvas.coords("pre1hline4",dwidth/3,dheight/0.48,dwidth/1.013,dheight/0.48)
+                            dcanvas.coords("pre1hline4",dwidth/3,dheight/0.48,dwidth/1.05,dheight/0.48)
                             dcanvas.coords("pre1label23",dwidth/2.28,dheight/0.465)
                             dcanvas.coords("entry16",dwidth/2.58,dheight/0.46) 
                             dcanvas.coords("pre1label24",dwidth/2.38,dheight/0.435)
@@ -24152,7 +24155,7 @@ def main_sign_in():
                     
 
                         addemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("pre1poly2"))
-                        global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarnum,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,Deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
+                        global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarno,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
                         name=StringVar()
                         joiningdate=StringVar()
                         employeenumber=StringVar()
@@ -24203,12 +24206,8 @@ def main_sign_in():
                         deducamt2=StringVar()
                         deducamt3=StringVar()
                         deducamt4=StringVar()
-                                                
-                        sql="INSERT INTO app1_employee (name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,gmail,address,providebankdetails,bankaccountnumber,ifsccode,totalrentpaid,hrareceived,livein,applicabletaxregime,pannumber,aadhaarnumber,universalaccountnumber,pfaccountnumber,epsaccountnumber,praccountnumber,esinumber,esidispensaryname,basic,da,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
-                        val=(Name,Joiningdate,Employeenumber,Designation,Department,Branch,Location,Gender,Age,Mobile,Gmail,Address,Bankaccountnumber,Ifsccode,Totalrentpaid,Hrareceived,Livein,Applicabletaxregime,Pannumber,Aadhaarnumber,Universalaccountnumber,Pfaccountnumber,Epsaccountnumber,Praccountnumber,Esinumber,Esidispensaryname,Basic,Da,Othincome1,Othamount1,Othincome2,Othamount2,Othincome3,Othamount3,Othincome4,Othamount4,Othincome5,Othamount5,Provifund,Proftax,Esi,Deduc1,Deduc2,Deduc3,Deduc4,Deducamt1,Deducamt2,Deducamt3,Deducamt4,cid_id)
-                        fbcursor.execute(sql, val)
-                        fbcursor.commit()
-                        messagebox.showinfo("ADD", "Record entered successfully")
+
+                       
                         pre1label_2 = Label(addemp_canvas,width=40,height=1,text="Employee Information", font=('arial 20'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_2,tags=("pre1label2"))
     
@@ -24290,7 +24289,6 @@ def main_sign_in():
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_13,tags=("pre1label13"))
                         pre1entry9= scrolledtext.ScrolledText(addemp_canvas,width=70,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry9,tags=("entry9"),height=85)
-                        pre1lentry13.insert(INSERT,address)
 
                         pre1label_14 = Label(addemp_canvas,width=18,height=1,text="Bank Details", font=('arial 18'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_14,tags=("pre1label14"))
@@ -24302,15 +24300,12 @@ def main_sign_in():
                                 addemp_canvas.itemconfig('pre1label17',state='normal')
                                 addemp_canvas.itemconfig('entry12',state='normal')
                                 addemp_canvas.itemconfig('entry13',state='normal')
-                            # else:
+                            else:
                                 addemp_canvas.itemconfig('pre1label16',state='hidden')
                                 addemp_canvas.itemconfig('pre1label17',state='hidden')
                                 addemp_canvas.itemconfig('entry12',state='hidden')
                                 addemp_canvas.itemconfig('entry13',state='hidden')
-                            #     # pre1label_16.destroy()
-                                # pre1label_17.destroy()
-                                # pre1lentry12.delete(0,END)
-                                # pre1lentry13.delete(0,END)
+                            
                         selected=StringVar()
                         pre1label_15 = Label(addemp_canvas,width=18,height=1,text="Provide Bank Details :", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_15,tags=("pre1label15"))
@@ -24348,7 +24343,7 @@ def main_sign_in():
                         style4=ttk.Style()
                         style4.theme_use('default')
                         style4.configure( 'TCombobox' , background ='#2f516f',fieldbackground='#2f516f',foreground="white")
-                        pre1drop3=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=city)
+                        pre1drop3=ttk.Combobox(addemp_canvas,font=('Arial',16),style="TCombobox",textvariable=live)
                         pre1drop3["values"]=("Choose","Yes","No")
                         # pre1drop.current(0)
                         addemp_canvas.create_window(0,0,anchor='c',window=pre1drop3,tags=("pre1drop3"),width=200)
@@ -24553,6 +24548,91 @@ def main_sign_in():
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry44,tags=("entry44"),height=33)
 
                         def sub_form():
+                            global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarno,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
+                            name=name.get()
+                            joiningdate=joiningdate.get()
+                            employeenumber=employeenumber.get()
+                            designation=designation.get()
+                            department=department.get()
+                            branch=branch.get()
+                            location=location.get()
+                            gender=gender.get()
+                            age=age.get()
+                            mobile=mobile.get()
+                            email=email.get()
+                            address = pre1entry9.get('1.0', 'end-1c')
+                            accnum=accnum.get()
+                            ifsc=ifsc.get()
+                            arpaid=arpaid.get()
+                            hrarec=hrarec.get()
+                            live=live.get()
+                            atreg=atreg.get()
+                            panno=panno.get()
+                            aadhaarno=aadhaarno.get()
+                            unaccnum=unaccnum.get()
+                            pfaccnum=pfaccnum.get()
+                            epsaccnum=epsaccnum.get()
+                            praccnum=praccnum.get()
+                            esinum=esi.get()
+                            esidisname=esidisname.get()
+                            basicsalary=basicsalary.get()
+                            confirmsalary=confirmsalary.get()
+                            dallowance=dallowance.get()
+                            othincome1=othincome1.get()
+                            othamount1=othamount1.get()
+                            othincome2=othincome2.get()
+                            othamount2=othamount2.get()
+                            othincome3=othincome3.get()
+                            othamount3=othamount3.get()
+                            othincome4=othincome4.get()
+                            othamount4=othamount4.get()
+                            othincome5=othincome5.get()
+                            othamount5=othamount5.get()
+                            provifund=provifund.get()
+                            proftax=proftax.get()
+                            esi=esi.get()
+                            deduc1=deduc1.get()
+                            deduc2=deduc2.get()
+                            deduc3=deduc3.get()
+                            deduc4=deduc4.get()
+                            deducamt1=deducamt1.get()
+                            deducamt2=deducamt2.get()
+                            deducamt3=deducamt3.get()
+                            deducamt4=deducamt4.get()
+                            usri_sql = "SELECT id FROM auth_user WHERE username=%s"
+                            usri_val = (nm_ent.get(),)
+                            fbcursor.execute(usri_sql,usri_val)
+                            usri_data = fbcursor.fetchone()
+                            cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
+                            cmpi_val = (usri_data[0],)
+                            fbcursor.execute(cmpi_sql,cmpi_val)
+                            cmpi_data = fbcursor.fetchone()
+                            cid_id = cmpi_data[0]    
+                                      
+                            sql="INSERT INTO app1_employee (name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,gmail,address,providebankdetails,bankaccountnumber,ifsccode,totalrentpaid,hrareceived,livein,applicabletaxregime,pannumber,aadhaarnumber,universalaccountnumber,pfaccountnumber,epsaccountnumber,praccountnumber,esinumber,esidispensaryname,basic,da,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
+                            val=(name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarno,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id)
+                            fbcursor.execute(sql, val)
+                            finsysdb.commit()
+                            messagebox.showinfo("ADD", "Record entered successfully")
+#######################################refresh tree###################################################################
+                            for record in pretrv.get_children():
+                                pretrv.delete(record)
+                                usri_sql = "SELECT id FROM auth_user WHERE username=%s"
+                                usri_val = (nm_ent.get(),)
+                                fbcursor.execute(usri_sql,usri_val)
+                                usri_data = fbcursor.fetchone()
+                                cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
+                                cmpi_val = (usri_data[0],)
+                                fbcursor.execute(cmpi_sql,cmpi_val)
+                                cmpi_data = fbcursor.fetchone()
+                                cid_id = cmpi_data[0]
+                                fbcursor.execute('SELECT * FROM `app1_employee` where cid_id=%s',[cid_id])
+                                pretreedata=fbcursor.fetchall()
+                                for i in pretreedata:
+                                    pretrv.insert(parent="",index= 'end',iid=i,text='',values=(i[3],i[1],i[10],i[11],i[4],i[28]))
+
+
+
                             main_frame_payrollemp1.grid_forget()
                             # main_frame_payrollemp = Frame(tab5_1)
                             main_frame_payrollemp.grid(row=0,column=0,sticky='nsew')
@@ -24659,7 +24739,7 @@ def main_sign_in():
                     fbcursor.execute('SELECT * FROM `app1_employee` where cid_id=%s',[cid_id])
                     pretreedata=fbcursor.fetchall()
                     for i in pretreedata:
-                        pretrv.insert(parent="",index= 'end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
+                        pretrv.insert(parent="",index= 'end',iid=i,text='',values=(i[3],i[1],i[10],i[11],i[4],i[28]))
 
 
 ##################################################payslip###############################################################
@@ -24889,12 +24969,12 @@ def main_sign_in():
                                 dcanvas.coords("prv1label_30",dwidth/1.7,dheight/0.70)
                                 dcanvas.coords("prv1label_31",dwidth/1.45,dheight/0.70)
                                 dcanvas.coords("entry15",dwidth/1.4,dheight/0.71)
-                                dcanvas.coords("prvhline2",dwidth/19,dheight/0.96,dwidth/1.020,dheight/0.96)
-                                dcanvas.coords("prvhline3",dwidth/19,dheight/0.85,dwidth/1.020,dheight/0.85)
+                                dcanvas.coords("prvhline2",dwidth/19,dheight/0.96,dwidth/1.060,dheight/0.96)
+                                dcanvas.coords("prvhline3",dwidth/19,dheight/0.85,dwidth/1.060,dheight/0.85)
                                 dcanvas.coords("prv1label_32",dwidth/1.999,dheight/0.91)
-                                dcanvas.coords("prv1hline4",dwidth/19,dheight/0.64,dwidth/1.02,dheight/0.64)
+                                dcanvas.coords("prv1hline4",dwidth/19,dheight/0.64,dwidth/1.060,dheight/0.64)
                                 dcanvas.coords("prv1label_33",dwidth/1.999,dheight/0.62)
-                                dcanvas.coords("prv1hline5",dwidth/19,dheight/0.60,dwidth/1.02,dheight/0.60)
+                                dcanvas.coords("prv1hline5",dwidth/19,dheight/0.60,dwidth/1.060,dheight/0.60)
                                 dcanvas.coords("prv1label_34",dwidth/3.5,dheight/0.58)
                                 dcanvas.coords("prv1hline6",dwidth/20,dheight/0.57,dwidth/2,dheight/0.57)
                                 dcanvas.coords("prv1label_35",dwidth/1.35,dheight/0.58)
@@ -24903,7 +24983,7 @@ def main_sign_in():
                                 dcanvas.coords("prv1label_37",dwidth/2.91,dheight/0.56)
                                 dcanvas.coords("prv1hline8",dwidth/20,dheight/0.545,dwidth/2,dheight/0.545)
                                 dcanvas.coords("prv1label_38",dwidth/1.55,dheight/0.56)
-                                dcanvas.coords("prv1label_39",dwidth/1.24,dheight/0.56)
+                                dcanvas.coords("prv1label_39",dwidth/1.22,dheight/0.56)
                                 dcanvas.coords("prv1hline9",dwidth/1.90,dheight/0.545,dwidth/1.060,dheight/0.545)   
                                 dcanvas.coords("prv1label_40",dwidth/6.8,dheight/0.53)
                                 dcanvas.coords("entry16",dwidth/3.65,dheight/0.539)
@@ -24961,63 +25041,63 @@ def main_sign_in():
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_2,tags=("prv1label_2"))
                             prv1label_3 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_3,tags=("prv1label_3"))
-                            prventry1= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry1= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry1,tags=("entry1"),height=35)
 
                             prv1label_4 = Label(payrollslipview_canvas,width=18,height=1,text="EMPLOYEE NAME", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_4,tags=("prv1label_4"))
                             prv1label_5 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_5,tags=("prv1label_5"))
-                            prventry2= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry2= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry2,tags=("entry2"),height=35)
 
                             prv1label_6 = Label(payrollslipview_canvas,width=18,height=1,text="DESIGNATION", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_6,tags=("prv1label_6"))
                             prv1label_7 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_7,tags=("prv1label_7"))
-                            prventry3= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry3= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry3,tags=("entry3"),height=35)
 
                             prv1label_8 = Label(payrollslipview_canvas,width=18,height=1,text="DEPARTMENT", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_8,tags=("prv1label_8"))
                             prv1label_9 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_9,tags=("prv1label_9"))
-                            prventry4= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry4= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry4,tags=("entry4"),height=35)
 
                             prv1label_10 = Label(payrollslipview_canvas,width=18,height=1,text="BRANCH", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_10,tags=("prv1label_10"))
                             prv1label_11 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_11,tags=("prv1label_11"))
-                            prventry5= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry5= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry5,tags=("entry5"),height=35)
 
                             prv1label_12 = Label(payrollslipview_canvas,width=15,height=1,text="LOCATION", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_12,tags=("prv1label_12"))
                             prv1label_13 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_13,tags=("prv1label_13"))
-                            prventry6= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry6= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry6,tags=("entry6"),height=35)
 
                             prv1label_14 = Label(payrollslipview_canvas,width=20,height=1,text="PAYMENT PERIOD FROM", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_14,tags=("prv1label_14"))
                             prv1label_15 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_15,tags=("prv1label_15"))
-                            prventry7= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry7= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry7,tags=("entry7"),height=35)
 
                             prv1label_16 = Label(payrollslipview_canvas,width=18,height=1,text="PAYMENT PERIOD TO", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_16,tags=("prv1label_16"))
                             prv1label_17 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_17,tags=("prv1label_17"))
-                            prventry8= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry8= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry8,tags=("entry8"),height=35)
 
                             prv1label_18 = Label(payrollslipview_canvas,width=18,height=1,text="DATE OF PAYMENT ", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_18,tags=("prv1label_18"))
                             prv1label_19 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_19,tags=("prv1label_19"))
-                            prventry9= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry9= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry9,tags=("entry9"),height=35)
 
                             payrollslipview_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("prvhline2"))
@@ -25029,42 +25109,42 @@ def main_sign_in():
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_20,tags=("prv1label_20"))
                             prv1label_21 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_21,tags=("prv1label_21"))
-                            prventry11= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry11= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry11,tags=("entry10"),height=35)
 
                             prv1label_22 = Label(payrollslipview_canvas,width=18,height=1,text="PAN NUMBER", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_22,tags=("prv1label_22"))
                             prv1label_23 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_23,tags=("prv1label_23"))
-                            prventry12= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry12= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry12,tags=("entry11"),height=35)
 
                             prv1label_24 = Label(payrollslipview_canvas,width=18,height=1,text="PF ACCOUNT NUMBER", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_24,tags=("prv1label_24"))
                             prv1label_25 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_25,tags=("prv1label_25"))
-                            prventry13= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry13= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry13,tags=("entry12"),height=35)
 
                             prv1label_26 = Label(payrollslipview_canvas,width=22,height=1,text="EPS ACCOUNT  NUMBER", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_26,tags=("prv1label_26"))
                             prv1label_27 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_27,tags=("prv1label_27"))
-                            prventry14= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry14= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry14,tags=("entry13"),height=35)
 
                             prv1label_28 = Label(payrollslipview_canvas,width=18,height=1,text="PR ACCOUNT  NUMBER", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_28,tags=("prv1label_28"))
                             prv1label_29 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_29,tags=("prv1label_29"))
-                            prventry15= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry15= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry15,tags=("entry14"),height=35)
 
                             prv1label_30 = Label(payrollslipview_canvas,width=18,height=1,text="ESI NUMBER", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_30,tags=("prv1label_30"))
                             prv1label_31 = Label(payrollslipview_canvas,width=5,height=1,text=":", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_31,tags=("prv1label_31"))
-                            prventry16= Entry(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prventry16= Label(payrollslipview_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prventry16,tags=("entry15"),height=35)
 
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline4"))
@@ -25082,37 +25162,37 @@ def main_sign_in():
 
                             prv1label_36 = Label(payrollslipview_canvas,width=18,height=1,text="Basic Salary", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_36,tags=("prv1label_36"))
-                            prv1label_37 = Entry(payrollslipview_canvas,width=22,justify=CENTER, font=('arial 11'),background="#2f516f",fg="white") 
+                            prv1label_37 = Label(payrollslipview_canvas,width=22,justify=CENTER, font=('arial 11'),background="#2f516f",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_37,tags=("prv1label_37"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline8"))
 
                             prv1label_38 = Label(payrollslipview_canvas,width=18,height=1,text="Provident Fund", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_38,tags=("prv1label_38"))
-                            prv1label_39 = Entry(payrollslipview_canvas,width=22,justify=CENTER, font=('arial 11'),background="#2f516f",fg="white") 
+                            prv1label_39 = Label(payrollslipview_canvas,width=22,justify=CENTER, font=('arial 11'),background="#2f516f",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_39,tags=("prv1label_39"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline9"))
 
                             prv1label_40 = Label(payrollslipview_canvas,width=18,height=1,text="Dearance Allowance", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_40,tags=("prv1label_40"))
-                            prv1entry16= Entry(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
+                            prv1entry16= Label(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry16,tags=("entry16"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline10"))
 
                             prv1label_41 = Label(payrollslipview_canvas,width=18,height=1,text="Profession Tax", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_41,tags=("prv1label_41"))
-                            prv1entry17= Entry(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
+                            prv1entry17= Label(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry17,tags=("entry17"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline11"))
 
                             prv1label_42 = Label(payrollslipview_canvas,width=18,height=1,text="HRA", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_42,tags=("prv1label_42"))
-                            prv1entry18= Entry(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
+                            prv1entry18= Label(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry18,tags=("entry18"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline12"))
 
                             prv1label_43 = Label(payrollslipview_canvas,width=18,height=1,text="ESI", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_43,tags=("prv1label_43"))
-                            prv1entry19= Entry(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
+                            prv1entry19= Label(payrollslipview_canvas,width=22,justify=CENTER,background='#2f516f',font=('arial 11'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry19,tags=("entry19"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline13"))
 
@@ -25131,19 +25211,19 @@ def main_sign_in():
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline16"))
                             prv1label_46 = Label(payrollslipview_canvas,width=18,height=1,text="Gross Pay", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_46,tags=("prv1label_46"))
-                            prv1lentry22= Entry(payrollslipview_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prv1lentry22= Label(payrollslipview_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1lentry22,tags=("entry22"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline17"))
 
                             prv1label_47 = Label(payrollslipview_canvas,width=18,height=1,text="Total Deduction", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_47,tags=("prv1label_47"))
-                            prv1lentry23= Entry(payrollslipview_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prv1lentry23= Label(payrollslipview_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1lentry23,tags=("entry23"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline18"))
 
                             prv1label_48 = Label(payrollslipview_canvas,width=18,height=1,text="Net Salary", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_48,tags=("prv1label_48"))
-                            prv1entry24= Entry(payrollslipview_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
+                            prv1entry24= Label(payrollslipview_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry24,tags=("entry24"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline19"))
 
@@ -25193,7 +25273,7 @@ def main_sign_in():
                                 val=(i_dlt[0],)
                                 fbcursor.execute(sql,val)
                                 stat_dlt=fbcursor.fetchone()
-                                st_sql_1='SELECT * FROM `app1_employee` where cid_id=%s'
+                                st_sql_1='SELECT * FROM `app1_payslip` where cid_id=%s'
                                 st_val1=(stat_dlt[0],)
                                 fbcursor.execute(st_sql_1,st_val1)
                                 st_data=fbcursor.fetchall()
@@ -25201,7 +25281,7 @@ def main_sign_in():
                                 count0=0
                                 for i in st_data:
                                     if True:
-                                        prstrv.insert(parent='',index='end',iid=i,text='',values=(i[0],i[1],i[10],i[11],i[4],i[28]))
+                                        prstrv.insert(parent='',index='end',iid=i,text='',values=(i[0],i[1],i[3],i[6],i[40]))
                                     else:
                                         pass
                                 count0+=1
@@ -25239,15 +25319,7 @@ def main_sign_in():
                     theme.layout("mystyle001.Treeview", [('mystyle001.Treeview.treearea', {'sticky': 'nswe'})],)
                     prstrv = ttk.Treeview(payrollslip_canvas,style="mystyle001.Treeview")
                     payrollslip_canvas.create_window(0,0,anchor="nw",window=prstrv,tags=("prstreeview"))
-                    usri_sql = "SELECT id FROM auth_user WHERE username=%s"
-                    usri_val = (nm_ent.get(),)
-                    fbcursor.execute(usri_sql,usri_val)
-                    usri_data = fbcursor.fetchone()
-                    cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
-                    cmpi_val = (usri_data[0],)
-                    fbcursor.execute(cmpi_sql,cmpi_val)
-                    cmpi_data = fbcursor.fetchone()
-                    cid_id = cmpi_data[0]     
+                    
                     treescrolly = ttk.Scrollbar(payrollslip_canvas, orient="vertical", command=prstrv.yview)
                     treescrollx = ttk.Scrollbar(payrollslip_canvas, orient="horizontal", command=prstrv.xview)
                     treescrollx.pack(side="bottom", fill="x")
@@ -25279,11 +25351,20 @@ def main_sign_in():
                     # prstrv.tab_configure('odd', background='#18324e')
                     # prstrv.tab_configure('even', background='#1b3857')
                 
-                    # data=
+                    usri_sql = "SELECT id FROM auth_user WHERE username=%s"
+                    usri_val = (nm_ent.get(),)
+                    fbcursor.execute(usri_sql,usri_val)
+                    usri_data = fbcursor.fetchone()
+                    cmpi_sql = "SELECT cid FROM app1_company WHERE id_id=%s"
+                    cmpi_val = (usri_data[0],)
+                    fbcursor.execute(cmpi_sql,cmpi_val)
+                    cmpi_data = fbcursor.fetchone()
+                    cid_id = cmpi_data[0] 
+                    
                     fbcursor.execute('SELECT * FROM `app1_payslip` where cid_id=%s',[cid_id])
                     prstreedata=fbcursor.fetchall()
                     for i in prstreedata:
-                        prstrv.insert("", 'end',values=data)
+                        prstrv.insert(parent='',index='end',iid=i,text='',values=(i[2],i[1],i[3],i[6],i[40]))                          
             
 
                     #333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333{Report Tab}
