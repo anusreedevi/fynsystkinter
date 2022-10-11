@@ -1,4 +1,5 @@
 # from curses.textpad import Textbox
+import tempfile
 from tkinter import*
 from ast import Delete, Str, pattern
 from multiprocessing.sharedctypes import Value
@@ -23191,7 +23192,7 @@ def main_sign_in():
                                 age = pre1drop2.get()
                                 da_da = int(float(confirmsalary) * 10)/100
                                 edit_dallowance.set(da_da)
-                                basicda = int(confirmsalary) + int(da_da)
+                                basicda = float(int(confirmsalary) + int(da_da))
                                 # if (confirm == confirm) :
                                 pj = int(float(basicda) * 85) / 100
                                 # else :
@@ -24264,18 +24265,18 @@ def main_sign_in():
                             emp_designation=StringVar()
                             emp_basicsalary=StringVar()
                             emp_dallowance=StringVar()
-                            emp_othincome1=StringVar()
-                            emp_othamount1=StringVar()
-                            emp_othincome2=StringVar()
-                            emp_othamount2=StringVar()
-                            emp_othincome3=StringVar()
-                            emp_othamount3=StringVar()
-                            emp_othincome4=StringVar()
-                            emp_othamount4=StringVar()
-                            emp_othincome5=StringVar()
-                            emp_othamount5=StringVar()
-                            emp_provifund=StringVar()
-                            emp_proftax=StringVar()
+                            emp_othincome1=IntVar()
+                            emp_othamount1=IntVar()
+                            emp_othincome2=IntVar()
+                            emp_othamount2=IntVar()
+                            emp_othincome3=IntVar()
+                            emp_othamount3=IntVar()
+                            emp_othincome4=IntVar()
+                            emp_othamount4=IntVar()
+                            emp_othincome5=IntVar()
+                            emp_othamount5=IntVar()
+                            emp_provifund=IntVar()
+                            emp_proftax=IntVar()
                             emp_esi=StringVar()
                             emp_deduc1=StringVar()
                             emp_deduc2=StringVar()
@@ -24412,6 +24413,20 @@ def main_sign_in():
                             print(provifund)
                             print(esi)
                             print(proftax)
+                            basic=float(basic)
+                            da=float(da)
+                            othamount1=IntVar(othamount1)
+                            othamount2=IntVar(othamount2)
+                            othamount3=IntVar(othamount3)
+                            othamount4=IntVar(othamount4)
+                            othamount5=IntVar(othamount5)
+                            deducamt1=IntVar(deducamt1)
+                            deducamt2=IntVar(deducamt2)
+                            deducamt3=IntVar(deducamt3)
+                            deducamt4=IntVar(deducamt4)
+                            provifund=IntVar(provifund)
+                            proftax=IntVar(proftax)
+
                            
                             earn=float(basic)+float(da)+float(othamount1)+float(othamount2)+float(othamount3)+float(othamount4)+float(othamount5)
                             
@@ -25109,8 +25124,14 @@ def main_sign_in():
                         def getting_data(event):
                             global pf,pj,est,pt,da,hra,hra1,hra2,hra3,basic,da
                             ademp_dallowance.set(0)
-                            # basic = "0"
-                            confirmsalary = "0"
+                            basicda = "0"
+                            confirmsalary="0"
+                            ademp_othamount1.set(0)
+                            ademp_othamount2.set(0)
+                            ademp_othamount3.set(0)
+                            ademp_othamount4.set(0)
+                            ademp_othincome5.set(0)
+                            
                             # basic = str(basic)
                             # basic=label1_basic.get()
                             confirmsalary=pre1lentry25.get()
@@ -25118,7 +25139,7 @@ def main_sign_in():
                             age = pre1drop2.get()
                             da_da = int(float(confirmsalary) * 10)/100
                             ademp_dallowance.set(da_da)
-                            basicda = int(confirmsalary) + int(da_da)
+                            basicda = float(int(confirmsalary) + int(da_da))
                             
                             # if (confirm == confirm) :
                             pj = int(float(basicda) * 85) / 100
@@ -25144,7 +25165,9 @@ def main_sign_in():
                                 est = 0;
                             ademp_esi.set(est)
                             basicda = float(basicda)
+                            hra2=0
                             hra2 = int(ademp_hrarec.get())
+                            hra3=0
                             hra3 = int(ademp_arpaid.get()) - int(basicda) * 10 / 100;
                             hra1=0
                         
@@ -26667,7 +26690,7 @@ def main_sign_in():
                             fbcursor.execute(prs_query,prs_value)
                             prs_data=fbcursor.fetchone()
                             prs_query1="select * from app1_employee where employeenumber=%s and cid_id=%s"
-                            prs_value=(payslip_emp_id_1,cmpi_data[0])
+                            rps_value=(payslip_emp_id_1,cmpi_data[0])
                             fbcursor.execute(prs_query1,prs_value)
                             prs_data1=fbcursor.fetchone()
                             payrollslipview_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("prvpoly1"))
@@ -26862,13 +26885,13 @@ def main_sign_in():
                             prv1label_49 = Label(payrollslipview_canvas,width=35,height=1,text="Finsys All Terms and Conditions Apply", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_49,tags=("prv1label49"))
                             payrollslipview_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("prv1hline21"))
-                            def print_file():
-                                file= filedialog.askopenfilename(initialdir="/", title="Select any file",filetypes=(("Text files", "*.txt"), ("all files", "*.*")))
-                                if file:
-                                    #Print Hard copy using Printer
-                                    winapi.ShellExecute(0, "Choose a File", file, None, ".", 0)
+                            def print_file(txt):
+                                print_file=tempfile.mktemp('.txt')
+                                open(print_file,'w').write(prs_data)
+                                os.startfile(print_file,'print')
 
-                            prvbtn1 = Button(payrollslipview_canvas, text = 'PRINT' ,fg='#fff',bg='#243e54',height=1,width=25,font=('Calibri', 16, 'bold'),command=print_file)
+                                
+                            prvbtn1 = Button(payrollslipview_canvas, text = 'PRINT' ,fg='#fff',bg='#243e54',height=1,width=25,font=('Calibri', 16, 'bold'),command=lambda: print_file(payrollslipview_canvas))
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prvbtn1,tags=("prvbutton1"))
                             def prvback():
                                 main_frame_payrollslip1.grid_forget()
