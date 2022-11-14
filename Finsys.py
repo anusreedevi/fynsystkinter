@@ -1,4 +1,5 @@
 # from curses.textpad import Textbox
+from ctypes.wintypes import HCOLORSPACE
 import tempfile
 from tkinter import*
 from ast import Delete, Str, pattern
@@ -22985,7 +22986,7 @@ def main_sign_in():
                                     x1,y1 + r1,
                                     x1,y1,
                                     )
-                                
+                                    dcanvas.coords("backbtn",dwidth/12,dheight/3.4)
                                     dcanvas.coords("pre1hline",dwidth/21,dheight/4.97,dwidth/1.055,dheight/4.97)
                                     dcanvas.coords("pre1label1",dwidth/1.999,dheight/7.0)
 
@@ -23182,59 +23183,54 @@ def main_sign_in():
 
                             def edit_getting_data(event):
                                 global pf,pj,est,pt,da,hra,hra1,hra2,hra3,basic
-                                edit_dallowance.set(0)
-                              # basic = "0"
-                                confirmsalary = "0"
-                                # basic = str(basic)
-                                # basic=label1_basic.get()
-                                confirmsalary=pre1lentry25.get()
                                 livein = pre1drop3.get()
                                 age = pre1drop2.get()
-                                da_da = int(float(confirmsalary) * 10)/100
-                                edit_dallowance.set(da_da)
-                                basicda = float(int(confirmsalary) + int(da_da))
-                                # if (confirm == confirm) :
-                                pj = int(float(basicda) * 85) / 100
-                                # else :
-                                    # pj = 0;
-                                pre1lentry27.insert(0,pj)
-                                basic_insert="{:.2f}".format(float(pj))
-                                pre1lentry27.insert(0,basic_insert )
-                                # label1_basic.set(pj)
-                                edit_basicsalary.set(pj)
-                            
-                                if (confirmsalary <= confirmsalary) :
-                                    pf = int(float(basicda) * 12) / 100
-                                else :
+                                basic=pre1lentry25.get()
+                                arpaid=pre1lentry14.get()
+                                hrarec=pre1lentry15.get()
+                                da = (float(basic) * 10)/100
+                                pre1lentry27.delete(0,'end')
+                                pre1lentry27.insert(0,da)
+                                basicda= float(basic)+float(da)
+                                if(basic <= "15000"):
+                                    # pre1entry28.delete(0,'end')
+
+                                    pf = (float(basicda)*12)/100
+                                    pre1entry28.delete(0,'end')
+                                    pre1entry28.insert(0,pf)
+                                else:
                                     pf = 0
-                                edit_provifund.set(pf) 
-                                pre1lentry26.delete(0,END)
-                                pre1lentry26.insert(0,edit_provifund)
-                                
-                                
-                                if (confirmsalary <= confirmsalary) :
-                                    est = int(float(basicda) * 0.75) / 100;
-                                else :
-                                    est = 0;
-                                basicda = float(basicda)
-                                edit_esi.set(est)
-                                hra2 = int(edit_hrarec.get())
-                                hra3 = int(edit_arpaid.get()) - int(basicda) * 10 / 100;
-                                hra1=0
-                            
+                                    pre1entry28.delete(0,'end')
+                                    pre1entry28.insert(0,pf)
+                                print(pf)
+
+
+                                if(basic <="21000"):
+                                    esi_i = (float(basicda)*0.75)/100
+                                    esi = '{:.2f}'.format(esi_i)
+
+                                    
+                                else:
+                                    esi=0
+
+                                pre1entry30.delete(0,'end')
+                                pre1entry30.insert(0,esi)
+
+                                hra2= float(hrarec)
+                                hra3 =(float(arpaid))-((float(basicda)*10)/100)
                                 if (livein == "Yes"):
-                                    hra1 = int(float(basicda) * 50) / 100;
-                                elif (livein== "No"):
-                                    hra1 = int(float(basicda) * 40) / 100;
-                                hra = min(hra1, hra2, hra3)
-                            
-                                edit_othamount1.set(hra)
+                                    hra1=(float(basicda)*50)/100
+                                elif (livein == "No"):
+                                    hra1=(float(basicda)*40)/100
+                                hra = min(hra1,hra2,hra3)
+                                pre1entry32.delete(0,'end')
+                                pre1entry32.insert(0,hra)                                # HCOLORSPACE
                                 pre1entry32.delete(0,END)
-                                pre1entry32.insert(0,edit_othamount1)
+                                pre1entry32.insert(0,hra)
                             
                                 pt=0;
                                 age= int(age)
-                                # basicda = float(basicda)
+                                basicda = float(basicda)
                                 if (age < 60): 
                                     if (basicda <= (250000 / 12)) :
                                         pt = 0;
@@ -23263,9 +23259,6 @@ def main_sign_in():
                                         pt = int(float(basicda) * 20) / 100;
                                     else : 
                                         pt = int(float(basicda) * 30) / 100;
-                                edit_proftax.set(pt)
-                                pre1entry28.delete(0,END)
-                                pre1entry28.insert(0,edit_proftax)
                              
 
 
@@ -23368,10 +23361,10 @@ def main_sign_in():
                             existing_ifsccode=editemp_data[15]
                             edit_ifsc.set(existing_ifsccode)
                             
-                            existing_totalrentpaid=editemp_data[17]
+                            existing_totalrentpaid=editemp_data[16]
                             edit_arpaid.set(existing_totalrentpaid)
 
-                            existing_hrareceived=editemp_data[16]
+                            existing_hrareceived=editemp_data[17]
                             edit_hrarec.set(existing_hrareceived)
 
                             existing_livein=editemp_data[18]
@@ -23473,8 +23466,14 @@ def main_sign_in():
                             existing_deducamt4=editemp_data[50]
                             edit_deducamt4.set(existing_deducamt4)
 
+                            def editemp_back():
+                                main_frame_payrollemp2.grid_forget()
+                                main_frame_payrollemp.grid(row=0,column=0,sticky='nsew')
+                            subheadingfont5=font.Font(family='Arial',size=12)
 
-                        
+                            prvbackbtn = Button(editemp_canvas, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command = editemp_back)
+                            editemp_canvas.create_window(0,0,anchor="nw",window=prvbackbtn,tags=("prvbackbtn"))
+
                             pre1label_2 = Label(editemp_canvas,width=40,height=1,text="Employee Information", font=('arial 20'),background="#243e54",fg="white") 
                             editemp_canvas.create_window(0,0,anchor="c",window=pre1label_2,tags=("pre1label2"))
         
@@ -23597,10 +23596,10 @@ def main_sign_in():
                             selected=StringVar()
                             pre1label_15 = Label(editemp_canvas,width=18,height=1,text="Provide Bank Details :", font=('arial 11'),background="#243e54",fg="white") 
                             editemp_canvas.create_window(0,0,anchor="c",window=pre1label_15,tags=("pre1label15"))
-                            pre1entry10=Radiobutton(editemp_canvas,background='#243e54', font=('arial 11'),foreground='white',variable=selected,value='Yes',text="Yes",command=radioselect)
+                            pre1entry10=ttk.Radiobutton(editemp_canvas,variable=selected,value='Yes',text="Yes",command=radioselect)
                             editemp_canvas.create_window(0,0,anchor='nw',window=pre1entry10,tags=("entry10"))
                         
-                            pre1entry11= Radiobutton(editemp_canvas,background='#243e54', font=('arial 11'),foreground='white',variable=selected,value='No',text="No",command=radioselect)
+                            pre1entry11= ttk.Radiobutton(editemp_canvas,variable=selected,value='No',text="No",command=radioselect)
                             editemp_canvas.create_window(0,0,anchor='nw',window=pre1entry11,tags=("entry11"))
                            
                             pre1label_16 = Label(editemp_canvas,width=18,height=1,text="Bank Account Number", font=('arial 11'),background="#243e54",fg="white") 
@@ -23788,13 +23787,6 @@ def main_sign_in():
                             # pre1entry28.insert(0,editemp_data[41])
                             editemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline13"))
 
-                            # pre1label_43 = Label(editemp_canvas,width=18,height=1,text="Dearance Allowance", font=('arial 11'),background="#243e54",fg="white") 
-                            # editemp_canvas.create_window(0,0,anchor="c",window=pre1label_43,tags=("pre1label43"))
-                            # pre1entry29= Entry(editemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=dallowance)
-                            # pre1entry29.bind("<KeyRelease>",getting_data)
-                            # editemp_canvas.create_window(0,0,anchor='nw',window=pre1entry29,tags=("entry29"),height=33)
-                            # pre1entry29.delete(0,'end')
-                            # pre1entry29.insert(0,editemp_data[29])
                             editemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline14"))
 
                             pre1label_44 = Label(editemp_canvas,width=18,height=1,text="ESI", font=('arial 11'),background="#243e54",fg="white") 
@@ -23922,9 +23914,7 @@ def main_sign_in():
                             editemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline24"))
                             pre1entry44= Entry(editemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=edit_othamount5)
                             editemp_canvas.create_window(0,0,anchor='nw',window=pre1entry44,tags=("entry44"),height=33)
-                            # pre1entry44.delete(0,'end')
-                            # pre1entry44.insert(0,editemp_data[50])
-                            
+                    
                             def edit_sub_form():
                                 # global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarno,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
                                 name=edit_name.get()
@@ -23994,6 +23984,7 @@ def main_sign_in():
                                 fbcursor.execute(editsql, editval)
                                 finsysdb.commit()
                                 messagebox.showinfo("ADD", "Record entered successfully")
+                                
     #######################################refresh tree###################################################################
                                 for record in pretrv.get_children():
                                     pretrv.delete(record)
@@ -24020,7 +24011,7 @@ def main_sign_in():
 
                             prebtn1 = Button(editemp_canvas, text = 'Submit Form' ,fg='#fff',bg='#243e54',height=1,width=25,font=('Calibri', 16, 'bold'),command=edit_sub_form)
                             editemp_canvas.create_window(0,0,anchor="c",window=prebtn1,tags=("pre1button1"))
-
+                           
                             pre1label_45 = Label(editemp_canvas,width=18,height=1,text="Joining Date", font=('arial 11'),background="#243e54",fg="white") 
                             editemp_canvas.create_window(0,0,anchor="c",window=pre1label_45,tags=("pre1label45"))
                             pre1entry45= DateEntry(editemp_canvas,width=17,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=edit_joiningdate)
@@ -24078,7 +24069,7 @@ def main_sign_in():
                                     x11 = dwidth/33
                                     x21 = dwidth/1.051
                                     y11 = dheight/2.8
-                                    y21 = dheight/0.37
+                                    y21 = dheight/0.34
 
 
                                     dcanvas.coords("offpoly2",x11 + r2,y11,
@@ -24105,6 +24096,7 @@ def main_sign_in():
                                     x11,y11 + r2,
                                     x11,y11,
                                     )
+                                    dcanvas.coords("backbtn",dwidth/12,dheight/3.4)
                                     dcanvas.coords("pre1label2",dwidth/1.999,dheight/2.40)
                                     dcanvas.coords("pre1hline1",dwidth/19,dheight/2.055,dwidth/1.060,dheight/2.055)
                                     dcanvas.coords("pre1label3",dwidth/5.8,dheight/1.80)
@@ -24146,7 +24138,7 @@ def main_sign_in():
                                     dcanvas.coords("pre1label44",dwidth/1.55,dheight/0.69)
                                     dcanvas.coords("entry30",dwidth/1.35,dheight/0.70)
                                     dcanvas.coords("pre1hline15",dwidth/1.90,dheight/0.665,dwidth/1.060,dheight/0.665)                      # # dcanvas.coords("pre1label17",dwidth/1.38,dheight/0.62)
-                                    dcanvas.coords("entry31",dwidth/15,dheight/0.69)
+                                    dcanvas.coords("entry31",dwidth/15,dheight/0.70)
                                     dcanvas.coords("entry32",dwidth/3.65,dheight/0.70)
                                     dcanvas.coords("pre1hline16",dwidth/20,dheight/0.62,dwidth/2,dheight/0.62) 
                                     dcanvas.coords("entry33",dwidth/1.85,dheight/0.65)
@@ -24164,25 +24156,45 @@ def main_sign_in():
                                     dcanvas.coords("entry41",dwidth/1.85,dheight/0.57)                          
                                     dcanvas.coords("entry42",dwidth/1.35,dheight/0.57)
                                     dcanvas.coords("pre1hline21",dwidth/1.90,dheight/0.545,dwidth/1.060,dheight/0.545)
-                                    # dcanvas.coords("pre1drop6",dwidth/6.4,dheight/0.533)
-                                    # dcanvas.coords("entry41",dwidth/3.65,dheight/0.54)
-                                    dcanvas.coords("pre1hline22",dwidth/20,dheight/0.40,dwidth/1.060,dheight/0.40)
-                                    dcanvas.coords("pre1label48",dwidth/1.999,dheight/0.39)
-                                    # dcanvas.coords("entry43",dwidth/1.35,dheight/0.54)
-                                    dcanvas.coords("pre1hline23",dwidth/20,dheight/0.38,dwidth/1.060,dheight/0.38)
-                                    # dcanvas.coords("pre1drop7",dwidth/6.4,dheight/0.51)
-                                    # dcanvas.coords("entry44",dwidth/3.65,dheight/0.515)
-                                    dcanvas.coords("pre1hline25",dwidth/1.90,dheight/0.51,dwidth/1.060,dheight/0.51)
-                                    dcanvas.coords("pre1label45",dwidth/1.70,dheight/0.50)
-                                    dcanvas.coords("entry45",dwidth/1.55,dheight/0.505)
-                                    dcanvas.coords("pre1hline26",dwidth/1.90,dheight/0.49,dwidth/1.060,dheight/0.49)
-                                    dcanvas.coords("pre1label46",dwidth/1.70,dheight/0.48)
-                                    dcanvas.coords("entry46",dwidth/1.55,dheight/0.485)
-                                    dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.47,dwidth/1.060,dheight/0.47)
-                                    dcanvas.coords("pre1label47",dwidth/1.70,dheight/0.46)
-                                    dcanvas.coords("entry47",dwidth/1.55,dheight/0.465)
-                                    dcanvas.coords("pre1hline28",dwidth/1.90,dheight/0.45,dwidth/1.060,dheight/0.45)
-                                    dcanvas.coords("pre1button1",dwidth/1.95,dheight/0.42)
+                                    dcanvas.coords("entry43",dwidth/15,dheight/0.57)
+                                    dcanvas.coords("entry44",dwidth/3.65,dheight/0.57)
+                                    dcanvas.coords("pre1hline22",dwidth/20,dheight/0.52,dwidth/2,dheight/0.52)
+                                    dcanvas.coords("entry45",dwidth/1.85,dheight/0.54)
+                                    dcanvas.coords("entry46",dwidth/1.35,dheight/0.54)
+                                    dcanvas.coords("pre1hline23",dwidth/1.90,dheight/0.52,dwidth/1.060,dheight/0.52)
+                                    dcanvas.coords("entry47",dwidth/15,dheight/0.54)
+                                    dcanvas.coords("entry48",dwidth/3.65,dheight/0.54)
+                                    dcanvas.coords("pre1hline24",dwidth/20,dheight/0.49,dwidth/2,dheight/0.49)
+                                    dcanvas.coords("entry49",dwidth/1.85,dheight/0.51)
+                                    dcanvas.coords("entry50",dwidth/1.35,dheight/0.51)
+                                    dcanvas.coords("pre1hline25",dwidth/1.90,dheight/0.49,dwidth/1.060,dheight/0.49)
+                                    dcanvas.coords("entry51",dwidth/15,dheight/0.51)
+                                    dcanvas.coords("entry52",dwidth/3.65,dheight/0.51)
+                                    # dcanvas.coords("pre1hline26",dwidth/20,dheight/0.46,dwidth/2,dheight/0.46)
+                                    dcanvas.coords("entry53",dwidth/1.85,dheight/0.48)
+                                    dcanvas.coords("entry54",dwidth/1.35,dheight/0.48)
+                                    # dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.46,dwidth/1.060,dheight/0.46)
+                                    dcanvas.coords("entry55",dwidth/15,dheight/0.48)
+                                    dcanvas.coords("entry56",dwidth/3.65,dheight/0.48)
+# 
+
+
+
+                                    dcanvas.coords("pre1hline26",dwidth/1.90,dheight/0.44,dwidth/1.060,dheight/0.44)
+                                    dcanvas.coords("pre1label45",dwidth/1.70,dheight/0.43)
+                                    dcanvas.coords("entry57",dwidth/1.55,dheight/0.435)
+                                    dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.42,dwidth/1.060,dheight/0.42)
+                                    dcanvas.coords("pre1label46",dwidth/1.70,dheight/0.41)
+                                    dcanvas.coords("entry58",dwidth/1.55,dheight/0.415)
+                                    dcanvas.coords("pre1hline28",dwidth/1.90,dheight/0.40,dwidth/1.060,dheight/0.40)
+                                    dcanvas.coords("pre1label47",dwidth/1.70,dheight/0.39)
+                                    dcanvas.coords("entry59",dwidth/1.55,dheight/0.395)
+                                    dcanvas.coords("pre1hline29",dwidth/1.90,dheight/0.38,dwidth/1.060,dheight/0.38)
+                                    dcanvas.coords("pre1button1",dwidth/1.95,dheight/0.368)
+                                    dcanvas.coords("pre1hline30",dwidth/20,dheight/0.36,dwidth/1.060,dheight/0.36)
+                                    dcanvas.coords("pre1label48",dwidth/1.95,dheight/0.353)
+                                    dcanvas.coords("pre1hline31",dwidth/20,dheight/0.348,dwidth/1.060,dheight/0.348)
+
                                 except:
                                     pass
                                 try:
@@ -24195,7 +24207,7 @@ def main_sign_in():
 
 
 
-                            emppayslip_canvas=Canvas(main_frame_emppayslip,bg='#2f516f',width=1325,height=1000,scrollregion=(0,0,1200,1800))
+                            emppayslip_canvas=Canvas(main_frame_emppayslip,bg='#2f516f',width=1325,height=1200,scrollregion=(0,0,1400,2000))
                             main_frame_emppayslip.grid_columnconfigure(0,weight=1)
                             main_frame_emppayslip.grid_rowconfigure(0,weight=1)
 
@@ -24223,14 +24235,22 @@ def main_sign_in():
 
                             def payslip_gettingdata(event):
                                 # global basicsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,gros,tded,netsal,earn,dedu,gp
-                                earr7=pre1entry40.get()
-                                earr6=pre1entry36.get()
-                                dedu5=pre1entry34.get()
-                                dedu6=pre1entry38.get()
-                                earn=pre1lentry45.get()
-                                dedu=pre1lentry46.get()
-                                gp=pre1lentry47.get()
+                 
+                                earn=0
+                                dedu=0
+                                gp=0
+                 
+                                earr6=pre1entry52.get()
+                                earr7=pre1entry56.get()
+                                dedu5=pre1entry50.get()
+                                dedu6=pre1entry54.get()
+                                earn=pre1lentry57.get()
+                                dedu=pre1lentry58.get()
+                                gp=pre1lentry59.get()
                                 print('goodmorng')
+                                gros=0
+                                tded=0
+                                netsal=0
 
 
                                 gros=float(earn)+int(earr6)+int(earr7)
@@ -24239,12 +24259,12 @@ def main_sign_in():
 
                                 netsal=float(gp)+int(earr6)+int(earr7)-int(dedu5)-int(dedu6)
 
-                                pre1lentry45.delete(0,END)
-                                pre1lentry45.insert(0,round(gros))
-                                pre1lentry46.delete(0,END)
-                                pre1lentry46.insert(0,round(tded))
-                                pre1lentry47.delete(0,END)
-                                pre1lentry47.insert(0,round(netsal))
+                                pre1lentry57.delete(0,END)
+                                pre1lentry57.insert(0,round(gros))
+                                pre1lentry58.delete(0,END)
+                                pre1lentry58.insert(0,round(tded))
+                                pre1lentry59.delete(0,END)
+                                pre1lentry59.insert(0,round(netsal))
                                 # gros.set(gs)
                                 # tded.set(td)
                                 # netsal.set(nsal)
@@ -24258,34 +24278,51 @@ def main_sign_in():
                             pre1label_1 = Label(emppayslip_canvas,width=35,height=1,text="PAYSLIP",font=('arial 25'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline"))
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_1,tags=("pre1label1"))
+                            def genpayslip_back():
+                                main_frame_emppayslip.grid_forget()
+                                main_frame_payrollemp.grid(row=0,column=0,sticky='nsew')
+                            subheadingfont5=font.Font(family='Arial',size=12)
+
+                            prvbackbtn = Button(emppayslip_canvas, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command = genpayslip_back)
+                            emppayslip_canvas.create_window(0,0,anchor="nw",window=prvbackbtn,tags=("prvbackbtn"))
                             global ear6,earr6,ear7,earr7,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id
 
                             emp_name=StringVar()
                             emp_employeenumber=StringVar()
                             emp_designation=StringVar()
-                            emp_basicsalary=StringVar()
-                            emp_dallowance=StringVar()
-                            emp_othincome1=IntVar()
-                            emp_othamount1=IntVar()
-                            emp_othincome2=IntVar()
-                            emp_othamount2=IntVar()
-                            emp_othincome3=IntVar()
-                            emp_othamount3=IntVar()
-                            emp_othincome4=IntVar()
-                            emp_othamount4=IntVar()
-                            emp_othincome5=IntVar()
-                            emp_othamount5=IntVar()
-                            emp_provifund=IntVar()
-                            emp_proftax=IntVar()
+                            emp_basicsalary=IntVar()
+                            emp_dallowance=IntVar()
+                            emp_othincome1=StringVar()
+                            othamount1=IntVar()
+                            # othamount1.set(0)
+                            emp_othincome2=StringVar()
+                            othamount2=IntVar()
+                            othamount2.set(0)
+
+                            emp_othincome3=StringVar()
+                            othamount3=IntVar()
+                            othamount3.set(0)
+                            emp_othincome4=StringVar()
+                            othamount4=IntVar()
+                            othamount4.set(0)
+                            emp_othincome5=StringVar()
+                            othamount5=IntVar()
+                            othamount5.set(0)
+                            emp_provifund=StringVar()
+                            emp_proftax=StringVar()
                             emp_esi=StringVar()
                             emp_deduc1=StringVar()
                             emp_deduc2=StringVar()
                             emp_deduc3=StringVar()
                             emp_deduc4=StringVar()
-                            emp_deducamt1=StringVar()
-                            emp_deducamt2=StringVar()
-                            emp_deducamt3=StringVar()
-                            emp_deducamt4=StringVar()
+                            deducamt1=IntVar()
+                            deducamt1.set(0)
+                            deducamt2=IntVar()
+                            deducamt2.set(0)
+                            deducamt3=IntVar()
+                            deducamt3.set(0)
+                            deducamt4=IntVar()
+                            deducamt4.set(0)
                             emp_ear6=StringVar()
                             emp_earr6=StringVar()
                             emp_ear7=StringVar()
@@ -24301,131 +24338,142 @@ def main_sign_in():
                             emp_tded=StringVar()
                             emp_netsal=StringVar()
 
-                            existing_name=payslip_data[1]
-                            emp_name.set(existing_name)
+                            emp_name=payslip_data[1]
+                            emp_employeenumber=payslip_data[3]
+                            emp_designation=payslip_data[4]
+                            emp_basicsalary=payslip_data[28]
+                            emp_dallowance=payslip_data[29]
+                            emp_provifund=payslip_data[40]
+                            emp_proftax=payslip_data[41]
+                            emp_esi=payslip_data[42]
+                            emp_othincome1=payslip_data[30]
+                            emp_othincome2=payslip_data[31]
+                            emp_othincome3=payslip_data[32]
+                            emp_othincome4=payslip_data[33]
+                            emp_othincome5=payslip_data[34]
+                            emp_deduc1=payslip_data[43]
+                            emp_deduc2=payslip_data[44]
+                            emp_deduc3=payslip_data[45]
+                            emp_deduc4=payslip_data[46]
 
-                            # existing_joiningdate=payslip_data[2]
-                            # joiningdate.set(existing_joiningdate)
-
-                            existing_employeenumber=payslip_data[3]
-                            emp_employeenumber.set(existing_employeenumber)
-
-                            existing_designation=payslip_data[4]
-                            emp_designation.set(existing_designation)
-                            existing_basic=payslip_data[28]
-                            emp_basicsalary.set(existing_basic)
-
-                            existing_da=payslip_data[29]
-                            emp_dallowance.set(existing_da)
-
-                            # existing_othincome1=payslip_data[30]
-                            # emp_othincome1.set(existing_othincome1)
-
-                            existing_othamount1=payslip_data[35]
-                            emp_othamount1.set(existing_othamount1)
-
-                            # existing_othincome2=payslip_data[31]
-                            # othincome2.set(existing_othincome2)
-
-                            # existing_othamount2=payslip_data[36]
-                            # othamount2.set(existing_othamount2)
-
-                            # existing_othincome3=payslip_data[32]
-                            # othincome3.set(existing_othincome3)
-
-                            # existing_othamount3=payslip_data[37]
-                            # othamount3.set(existing_othamount3)
-
-                            # existing_othincome4=payslip_data[33]
-                            # othincome4.set(existing_othincome4)
-
-                            # existing_othamount4=payslip_data[38]
-                            # othamount4.set(existing_othamount4)
-
-                            # existing_othincome5=payslip_data[34]
-                            # othincome5.set(existing_othincome5)
-
-                            # existing_othamount5=payslip_data[39]
-                            # othamount5.set(existing_othamount5)
-
-                            existing_provifund=payslip_data[40]
-                            emp_provifund.set(existing_provifund)
-
-                            existing_proftax=payslip_data[41]
-                            emp_proftax.set(existing_proftax)
-
-                            existing_esi=payslip_data[42]
-                            emp_esi.set(existing_esi)
-
-                            # existing_deduc1=payslip_data[43]
-                            # deduc1.set(existing_deduc1)
-
-                            # existing_deduc2=payslip_data[44]
-                            # deduc2.set(existing_deduc2)
-
-                            # existing_deduc3=payslip_data[45]
-                            # deduc3.set(existing_deduc3)
-
-                            # existing_deduc4=payslip_data[46]
-                            # deduc4.set(existing_deduc4)
-
-                            # existing_deducamt1=payslip_data[47]
-                            # deducamt1.set(existing_deducamt1)
-
-                            # existing_deducamt2=payslip_data[48]
-                            # deducamt2.set(existing_deducamt2)
-
-                            # existing_deducamt3=payslip_data[49]
-                            # deducamt3.set(existing_deducamt3)
-
-                            # existing_deducamt4=payslip_data[50]
-                            # deducamt4.set(existing_deducamt4)
-                            basic=IntVar()
-                            da=IntVar()
-                            othamount1=IntVar()
-                            othamount2=IntVar()
-                            othamount3=IntVar()
-                            othamount4=IntVar()
-                            othamount5=IntVar()
-                            deducamt1=IntVar()
-                            deducamt2=IntVar()
-                            deducamt3=IntVar()
-                            deducamt4=IntVar()
-                            provifund=IntVar()
-                            proftax=IntVar()
-
-                            basic=payslip_data[28]
-                            da=payslip_data[29]
+                            # basic=IntVar()
+                            # da=IntVar()
                             othamount1=payslip_data[35]
                             othamount2=payslip_data[36]
                             othamount3=payslip_data[37]
                             othamount4=payslip_data[38]
-                            othamount5=payslip_data[39]
+                            # othamount5=payslip_data[39]
                             deducamt1=payslip_data[47]
                             deducamt2=payslip_data[48]
                             deducamt3=payslip_data[49]
                             deducamt4=payslip_data[50]
-                            print(othamount1)
-                            print(deducamt1)
                             provifund=payslip_data[40]
                             proftax=payslip_data[41]
                             esi=payslip_data[42]
-                            print(provifund)
-                            print(esi)
-                            print(proftax)
-                            basic=float(basic)
-                            da=float(da)
-                            othamount1=IntVar(othamount1)
-                            othamount2=IntVar(othamount2)
-                            othamount3=IntVar(othamount3)
-                            othamount4=IntVar(othamount4)
-                            othamount5=IntVar(othamount5)
-                            deducamt1=IntVar(deducamt1)
-                            deducamt2=IntVar(deducamt2)
-                            deducamt3=IntVar(deducamt3)
-                            deducamt4=IntVar(deducamt4)
-                            provifund=IntVar(provifund)
-                            proftax=IntVar(proftax)
+                            print(payslip_data[39])
+                            if str(payslip_data[39])=="":
+                                othamount5=0.0
+                            else:
+                                othamount5=payslip_data[39]
+                            if str(payslip_data[35])=="":
+                                othamount1=0.0
+                            else:
+                                othamount1=payslip_data[35]
+                            if str(payslip_data[36])=="":
+                                othamount2=0.0
+                            else:
+                                othamount2=payslip_data[36]
+                            if str(payslip_data[37])=="":
+                                othamount3=0.0
+                            else:
+                                othamount3=payslip_data[37]
+                            if str(payslip_data[38])=="":
+                                othamount4=0.0
+                            else:
+                                othamount4=payslip_data[38]
+                            if str(payslip_data[47])=="":
+                                deducamt1=0.0
+                            else:
+                                deducamt1=payslip_data[47]
+                            if str(payslip_data[48])=="":
+                                deducamt2=0.0
+                            else:
+                                deducamt2=payslip_data[48]
+                            if str(payslip_data[49])=="":
+                                deducamt3=0.0
+                            else:
+                                deducamt3=payslip_data[49]
+                            if str(payslip_data[50])=="":
+                                deducamt4=0.0
+                            else:
+                                deducamt4=payslip_data[50]
+                 
+                            basic=payslip_data[28]
+                            da=payslip_data[29]
+                            # if str(payslip_data[35])==" ":
+                            #     othamount1=0.0
+                            # else:
+                            #     basic=payslip_data[28]
+                            # othamount1=payslip_data[35]
+                            # othamount2=payslip_data[36]
+                            # othamount3=payslip_data[37]
+                            # othamount4=payslip_data[38]
+                            # othamount5=payslip_data[39]
+                            # deducamt1=payslip_data[47]
+                            # deducamt2=payslip_data[48]
+                            # deducamt3=payslip_data[49]
+                            # deducamt4=payslip_data[50]
+                            # print(othamount1)
+                            # print(deducamt1)
+                            # provifund=payslip_data[40]
+                            # proftax=payslip_data[41]
+                            # esi=payslip_data[42]
+                            # print(provifund)
+                            # print(esi)
+                            # print(proftax)
+                            # basic=float(basic)
+                            # da=float(da)
+                            # othamount1=0
+                            # othamount2=0
+                            # othamount3=0
+                            # othamount4=0
+                            # othamount5=0
+                            # deducamt1=0
+                            # deducamt2=0
+                            # deducamt3=0
+                            # deducamt4=0
+                            # pre1entry_32.delete(0,END)
+                            # pre1entry_34.delete(0,END)
+                            # pre1entry_36.delete(0,END)
+                            # pre1entry_38.delete(0,END)
+                            # pre1entry_40.delete(0,END)
+                            # pre1entry_42.delete(0,END)
+                            # pre1entry_44.delete(0,END)
+                            # pre1entry_46.delete(0,END)
+                            # pre1entry_48.delete(0,END)
+                            # provifund=0
+                            # proftax=0
+                            # othamount1=IntVar(othamount1)
+                            # othamount2=IntVar(othamount2)
+                            # othamount3=IntVar(othamount3)
+                            # othamount4=IntVar(othamount4)
+                            # othamount5=IntVar(othamount5)
+                            # deducamt1=IntVar(deducamt1)
+                            # deducamt2=IntVar(deducamt2)
+                            # deducamt3=IntVar(deducamt3)
+                            # deducamt4=IntVar(deducamt4)
+                            # provifund=IntVar(provifund)
+                            # proftax=IntVar(proftax)
+                            earn=0.0
+                            dedu=0.0
+                            gp=0.0
+                            print(basic)
+                            print(da)
+                            print(othamount1)
+                            print(othamount2)
+                            print(othamount3)
+                            print(othamount4)
+                            print(othamount5)
 
                            
                             earn=float(basic)+float(da)+float(othamount1)+float(othamount2)+float(othamount3)+float(othamount4)+float(othamount5)
@@ -24433,9 +24481,8 @@ def main_sign_in():
                             dedu=float(provifund)+float(proftax)+float(esi)+float(deducamt1)+float(deducamt2)+float(deducamt3)+float(deducamt4)
                                 
                             gp=float(earn)-float(dedu)
+                           
 
-                            print('beabu')
-                            print(earn)
                            
 
                             emppayslip_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("offpoly2"))
@@ -24447,16 +24494,22 @@ def main_sign_in():
                             emppayslip_canvas.create_window(0,0,anchor="c",window= pre1label_3,tags=("pre1label3"))
                             pre1entry1= Entry(emppayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_name)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry1,tags=("entry1"),height=33)                   
+                            pre1entry1.delete(0,END)
+                            pre1entry1.insert(0,emp_name)
 
                             pre1label_4 = Label(emppayslip_canvas,width=18,height=1,text="Employee Number", font=('arial 13'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window= pre1label_4,tags=("pre1label4"))
                             pre1entry2= Entry(emppayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_employeenumber)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry2,tags=("entry2"),height=33)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry2,tags=("entry2"),height=33)                   
+                            pre1entry2.delete(0,END)
+                            pre1entry2.insert(0,emp_employeenumber)
 
 
                             pre1label_5 = Label(emppayslip_canvas,width=18,height=1,text="Designation", font=('arial 13'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window= pre1label_5,tags=("pre1label5"))
                             pre1entry3= Entry(emppayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_designation)
+                            pre1entry3.delete(0,END)
+                            pre1entry3.insert(0,emp_designation)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry3,tags=("entry3"),height=33)                    
 
                            
@@ -24489,108 +24542,231 @@ def main_sign_in():
                            
                             pre1label_40 = Label(emppayslip_canvas,width=18,height=1,text="Provident Fund", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_40,tags=("pre1label40"))
-                            pre1lentry26= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_provifund)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry26,tags=("entry26"),height=33)
+                            pre1entry26= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_provifund)
+                            pre1entry26.delete(0,END)
+                            pre1entry26.insert(0,emp_provifund)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry26,tags=("entry26"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline11"))
 
                             pre1label_41 = Label(emppayslip_canvas,width=18,height=1,text="Basic salary", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_41,tags=("pre1label41"))
-                            pre1lentry27= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_basicsalary)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry27,tags=("entry27"),height=33)
+                            pre1entry27= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_basicsalary)
+                            pre1entry27.delete(0,END)
+                            pre1entry27.insert(0,emp_basicsalary)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry27,tags=("entry27"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline12"))
 
                             pre1label_42 = Label(emppayslip_canvas,width=18,height=1,text="Profession Tax", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_42,tags=("pre1label42"))
                             pre1entry28= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_proftax)
+                            pre1entry28.delete(0,END)
+                            pre1entry28.insert(0,emp_proftax)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry28,tags=("entry28"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline13"))
 
                             pre1label_43 = Label(emppayslip_canvas,width=18,height=1,text="Dearance Allowance", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_43,tags=("pre1label43"))
                             pre1entry29= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_proftax)
+                            pre1entry29.delete(0,END)
+                            pre1entry29.insert(0,emp_dallowance)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry29,tags=("entry29"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline14"))
 
                             pre1label_44 = Label(emppayslip_canvas,width=18,height=1,text="ESI", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_44,tags=("pre1label44"))
                             pre1entry30= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_esi)
+                            pre1entry30.delete(0,END)
+                            pre1entry30.insert(0,emp_esi)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry30,tags=("entry30"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline15"))
 
-                            pre1entry31= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
+                            pre1entry31= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_othincome1)
+                            pre1entry31.delete(0,END)
+                            pre1entry31.insert(0,emp_othincome1)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry31,tags=("entry31"),height=33)
-                            pre1entry32= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_othamount1)
-                            pre1entry32.bind("<KeyRelease>",payslip_gettingdata)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry32,tags=("entry32"),height=33)
-                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline16"))   
+                            # othamount1.set("0")
+                            pre1entry_32= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount1)
+                            pre1entry_32.delete(0,END)
+                            pre1entry_32.insert(0,othamount1)
+                            # pre1entry32.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_32,tags=("entry32"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline16"))  
 
-                            pre1entry33= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_ded5)
-                            # pre1entry33.bind("<KeyRelease>",payslip_gettingdata)
+                            pre1entry33= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_deduc1)
+                            pre1entry33.delete(0,END)
+                            pre1entry33.insert(0,emp_deduc1)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry33,tags=("entry33"),height=33)
-                            pre1entry34= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_dedu5)
-                            pre1entry34.bind("<KeyRelease>",payslip_gettingdata)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry34,tags=("entry34"),height=33)
+                            # deducamt1.set("0")
+                            pre1entry_34= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt1)
+                            pre1entry_34.delete(0,END)
+                            pre1entry_34.insert(0,deducamt1)
+                            # pre1entry34.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_34,tags=("entry34"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline17"))
 
-
-                          
-                            pre1entry35= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_ear6)
+                            pre1entry35= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_othincome2)
+                            pre1entry35.delete(0,END)
+                            pre1entry35.insert(0,emp_othincome2)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry35,tags=("entry35"),height=33)
-                            pre1entry36= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_earr6)
-                            pre1entry36.bind("<KeyRelease>",payslip_gettingdata)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry36,tags=("entry36"),height=33)
+                            # othamount2.set("0")
+                            pre1entry_36= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount2)
+                            pre1entry_36.delete(0,END)
+                            pre1entry_36.insert(0,othamount2)
+                            # pre1entry36.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_36,tags=("entry36"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline18"))
 
-                            pre1entry37= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_ded6)
+                            pre1entry37= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_deduc2)
+                            pre1entry37.delete(0,END)
+                            pre1entry37.insert(0,emp_deduc2)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry37,tags=("entry37"),height=33)
-                            pre1entry38= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_dedu6)
-                            pre1entry38.bind("<KeyRelease>",payslip_gettingdata)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry38,tags=("entry38"),height=33)
+                            # deducamt2.set("0")
+                            pre1entry_38= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt2)
+                            pre1entry_38.delete(0,END)
+                            pre1entry_38.insert(0,deducamt2)
+                            # pre1entry38.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_38,tags=("entry38"),height=33)
                             emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline19"))
 
-
-                          
-                          
-                            pre1entry39= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_ear7)
+                            pre1entry39= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_othincome3)
+                            pre1entry39.delete(0,END)
+                            pre1entry39.insert(0,emp_othincome3)
                             emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry39,tags=("entry39"),height=33)
-                            pre1entry40= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_earr7)
-                            pre1entry40.bind("<KeyRelease>",payslip_gettingdata)
+                            # othamount3.set("0")
+                            pre1entry_40= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount3)
+                            pre1entry_40.delete(0,END)
+                            pre1entry_40.insert(0,othamount3)
+                            # pre1entry40.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_40,tags=("entry40"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline20"))
 
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry40,tags=("entry40"),height=33)
+                            pre1entry41= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_deduc3)
+                            pre1entry41.delete(0,END)
+                            pre1entry41.insert(0,emp_deduc3)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry41,tags=("entry41"),height=33)
+                            # deducamt3.set("0")
+                            pre1entry_42= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt3)
+                            pre1entry_42.delete(0,END)
+                            pre1entry_42.insert(0,deducamt3)
+                            # pre1entry42.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_42,tags=("entry42"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline21"))
+
+                            pre1entry43= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_othincome4)
+                            pre1entry43.delete(0,END)
+                            pre1entry43.insert(0,emp_othincome4)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry43,tags=("entry43"),height=33)
+                            # othamount4.set("0")
+                            pre1entry_44= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount4)
+                            pre1entry_44.delete(0,END)
+                            pre1entry_44.insert(0,othamount4)
+                            # pre1entry44.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_44,tags=("entry44"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline22"))
+
+                            pre1entry45= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_deduc4)
+                            pre1entry45.delete(0,END)
+                            pre1entry45.insert(0,emp_deduc4)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry45,tags=("entry45"),height=33)
+                            # deducamt4.set("0")
+                            pre1entry_46= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt4)
+                            pre1entry_46.delete(0,END)
+                            pre1entry_46.insert(0,deducamt4)
+                            # pre1entry46.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_46,tags=("entry46"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline23"))
+
+                            pre1entry47= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_othincome5)
+                            pre1entry47.delete(0,END)
+                            pre1entry47.insert(0,emp_othincome5)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry47,tags=("entry47"),height=33)
+                            # othamount5.set("0")
+                            pre1entry48= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount5)
+                            pre1entry48.delete(0,END)
+                            pre1entry48.insert(0,othamount5)
+                            # pre1entry48.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry48,tags=("entry48"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline24"))
+                            
+                             
+
+                            pre1entry49= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_ded5)
+                            pre1entry49.delete(0,END)
+                            pre1entry49.insert(0,"Add")
+                            pre1entry49.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry49,tags=("entry49"),height=33)
+                            pre1entry50= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_dedu5)
+                            pre1entry50.insert(0,0)
+                            pre1entry50.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry50,tags=("entry50"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline25"))
+
+
+                          
+                            pre1entry51= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_ear6)
+                            pre1entry51.delete(0,END)
+                            pre1entry51.insert(0,"Add")
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry51,tags=("entry51"),height=33)
+                            pre1entry52= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_earr6)
+                            pre1entry52.delete(0,END)
+                            pre1entry52.insert(0,0)
+                            pre1entry52.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry52,tags=("entry52"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline26"))
+
+                            pre1entry53= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_ded6)
+                            pre1entry53.delete(0,END)
+                            pre1entry53.insert(0,"Add")
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry53,tags=("entry53"),height=33)
+                            pre1entry54= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_dedu6)
+                            pre1entry54.insert(0,0)
+                            pre1entry54.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry54,tags=("entry54"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline27"))
+
+
+                          
+                          
+                            pre1entry55= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=emp_ear7)
+                            pre1entry55.delete(0,END)
+                            pre1entry55.insert(0,"Add")
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry55,tags=("entry55"),height=33)
+                            pre1entry56= Entry(emppayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_earr7)
+                            pre1entry56.delete(0,END)
+                            pre1entry56.insert(0,0)
+                            pre1entry56.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry56,tags=("entry56"),height=33)
                            
                             
-                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline25"))
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline26"))
                             pre1label_45 = Label(emppayslip_canvas,width=18,height=1,text="Gross Pay", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_45,tags=("pre1label45"))
-                            pre1lentry45= Entry(emppayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_gros)
-                            pre1lentry45.insert(0,round(earn))
-                            pre1lentry45.bind("<KeyRelease>",payslip_gettingdata)
-
-
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry45,tags=("entry45"),height=33)
-                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline26"))
+                            pre1lentry57= Entry(emppayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_gros)
+                            pre1lentry57.insert(0,round(earn))
+                            pre1lentry57.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry57,tags=("entry57"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline27"))
 
                             pre1label_46 = Label(emppayslip_canvas,width=18,height=1,text="Total Deduction", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_46,tags=("pre1label46"))
-                            pre1lentry46= Entry(emppayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_tded)
-                            pre1lentry46.insert(0,round(dedu))
-                            pre1lentry46.bind("<KeyRelease>",payslip_gettingdata)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry46,tags=("entry46"),height=33)
-                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline27"))
+                            pre1lentry58= Entry(emppayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_tded)
+                            pre1lentry58.insert(0,round(dedu))
+                            pre1lentry58.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry58,tags=("entry58"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline28"))
 
                             pre1label_47 = Label(emppayslip_canvas,width=18,height=1,text="Net Salary", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_47,tags=("pre1label47"))
-                            pre1lentry47= Entry(emppayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_netsal)
-                            pre1lentry47.insert(0,round(gp))
+                            pre1lentry59= Entry(emppayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=emp_netsal)
+                            pre1lentry59.insert(0,round(gp))
+                            pre1lentry59.bind("<KeyRelease>",payslip_gettingdata)
+                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry59,tags=("entry59"),height=33)
+                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline29"))
 
-                            pre1lentry47.bind("<KeyRelease>",payslip_gettingdata)
-                            emppayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry47,tags=("entry47"),height=33)
-                            emppayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline28"))
-
-                            emppayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline22"))
+                            emppayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline30"))
                             pre1label_48 = Label(emppayslip_canvas,width=35,height=1,text="Finsys All Terms and Conditions Apply", font=('arial 11'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window=pre1label_48,tags=("pre1label48"))
-                            emppayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline23"))
+                            emppayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline31"))
 
                             pre1label_6 = Label(emppayslip_canvas,width=18,height=1,text="Pay Period-From", font=('arial 13'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window= pre1label_6,tags=("pre1label6"))
@@ -24599,33 +24775,50 @@ def main_sign_in():
                             pre1label_8 = Label(emppayslip_canvas,width=18,height=1,text="Date of payment", font=('arial 13'),background="#243e54",fg="white") 
                             emppayslip_canvas.create_window(0,0,anchor="c",window= pre1label_8,tags=("pre1label8"))
 
-                           
+                            
 
                             def paysub_form():
                                 global name,employeenumber,designation,basicsalary,dallowance,ear6,earr6,ear7,earr7,provifund,proftax,esi,ded5,dedu5,ded6,dedu6,gros,tded,netsal                         
-                                empname=emp_name.get()
-                                employeenumber=emp_employeenumber.get()
-                                desig=emp_designation.get()
-                                basic=emp_basicsalary.get()
-                                da=emp_dallowance.get()
-                                earr1=emp_othamount1.get()
-                                ear6=emp_ear6.get()
-                                earr6=emp_earr6.get()
-                                ear7=emp_ear7.get()
-                                earr7=emp_earr7.get()
-                                ded5=emp_ded5.get()
-                                dedu5=emp_dedu5.get()
-                                ded6=emp_ded6.get()
-                                dedu6=emp_dedu6.get()
-                                gros=emp_gros.get()
-                                tded=emp_tded.get()
-                                netsal=emp_netsal.get()
-                                provi=emp_provifund.get()
-                                prof=emp_proftax.get()
-                                esi=emp_esi.get()
-                                fper=emp_periodfrom.get()
-                                tper=emp_periodto.get()
-                                paydate=emp_paydate.get()
+                                empname=pre1entry1.get()
+                                employeenumber=pre1entry2.get()
+                                desig=pre1entry3.get()
+                                basic=pre1entry27.get()
+                                da=pre1entry29.get()
+                                ear1=pre1entry31.get()
+                                ear2=pre1entry35.get()
+                                ear3=pre1entry39.get()
+                                ear4=pre1entry43.get()
+                                ear5=pre1entry47.get()
+                                earr1=pre1entry_32.get()
+                                earr2=pre1entry_36.get()
+                                earr3=pre1entry_40.get()
+                                earr4=pre1entry_44.get()
+                                earr5=pre1entry48.get()
+                                ear6=pre1entry51.get()
+                                earr6=pre1entry52.get()
+                                ear7=pre1entry55.get()
+                                earr7=pre1entry56.get()
+                                ded1=pre1entry33.get()
+                                ded2=pre1entry37.get()
+                                ded3=pre1entry41.get()
+                                ded4=pre1entry45.get()
+                                dedu1=pre1entry_34.get()
+                                dedu2=pre1entry_38.get()
+                                dedu3=pre1entry_42.get()
+                                dedu4=pre1entry_46.get()
+                                ded5=pre1entry49.get()
+                                dedu5=pre1entry50.get()
+                                ded6=pre1entry53.get()
+                                dedu6=pre1entry54.get()
+                                gros=pre1lentry57.get()
+                                tded=pre1lentry58.get()
+                                netsal=pre1lentry59.get()
+                                provi=pre1entry26.get()
+                                prof=pre1entry28.get()
+                                esi=pre1entry30.get()
+                                fper=pre1entry4.get()
+                                tper=pre1entry5.get()
+                                paydate=pre1entry6.get()
 
                                 usri_sql = "SELECT id FROM auth_user WHERE username=%s"
                                 usri_val = (nm_ent.get(),)
@@ -24637,8 +24830,8 @@ def main_sign_in():
                                 cmpi_data = fbcursor.fetchone()
                                 cid_id = cmpi_data[0]    
                                         
-                                payslipsql="INSERT INTO app1_payslip (empname,employeenumber,desig,basic,da,fper,tper,paydate,ear6,earr6,ear7,earr7,provi,prof,esi,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
-                                payslipval=(empname,employeenumber,desig,basic,da,fper,tper,paydate,ear6,earr6,ear7,earr7,provi,prof,esi,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id)
+                                payslipsql="INSERT INTO app1_payslip (empname,employeenumber,desig,basic,da,fper,tper,paydate,ear1,earr1,ear2,earr2,ear3,earr3,ear4,earr4,ear5,earr5,ear6,earr6,ear7,earr7,provi,prof,esi,ded1,dedu1,ded2,dedu2,ded3,dedu3,ded4,dedu4,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
+                                payslipval=(empname,employeenumber,desig,basic,da,fper,tper,paydate,ear1,earr1,ear2,earr2,ear3,earr3,ear4,earr4,ear5,earr5,ear6,earr6,ear7,earr7,provi,prof,esi,ded1,dedu1,ded2,dedu2,ded3,dedu3,ded4,dedu4,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id)
                                 fbcursor.execute(payslipsql,payslipval)
                                 finsysdb.commit()
                                 messagebox.showinfo("ADD", "Record entered successfully")
@@ -25104,6 +25297,9 @@ def main_sign_in():
                             dcanvas.coords("entry47",dwidth/1.685,dheight/1.70)
                             dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.23,dwidth/1.030,dheight/0.23)
                             dcanvas.coords("pre1button1",dwidth/1.89,dheight/0.238)
+                            dcanvas.coords("prvbackbtn",dwidth/12,dheight/40)
+
+
 
                         addemp_canvas=Canvas(main_frame_payrollemp1,bg='#2f516f',width=1325,height=1500,scrollregion=(0,0,1700,2800))
                         main_frame_payrollemp1.grid_columnconfigure(0,weight=1)
@@ -25124,17 +25320,18 @@ def main_sign_in():
                         def getting_data(event):
                             global pf,pj,est,pt,da,hra,hra1,hra2,hra3,basic,da
                             ademp_dallowance.set(0)
-                            basicda = "0"
-                            confirmsalary="0"
+                            basicda = 0
+                            confirmsalary=0
                             ademp_othamount1.set(0)
                             ademp_othamount2.set(0)
                             ademp_othamount3.set(0)
                             ademp_othamount4.set(0)
-                            ademp_othincome5.set(0)
+                            ademp_othamount5.set(0)
                             
                             # basic = str(basic)
                             # basic=label1_basic.get()
                             confirmsalary=pre1lentry25.get()
+
                             livein = pre1drop3.get()
                             age = pre1drop2.get()
                             da_da = int(float(confirmsalary) * 10)/100
@@ -25214,7 +25411,16 @@ def main_sign_in():
                            
 
                         addemp_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("pre1poly2"))
-                        global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,providedetails,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarno,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
+                        # global name,joiningdate,employeenumber,designation,department,branch,location,gender,age,mobile,email,address,providedetails,accnum,ifsc,arpaid,hrarec,live,atreg,panno,aadhaarno,unaccnum,pfaccnum,epsaccnum,praccnum,esinum,esidisname,basicsalary,confirmsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,cid_id
+                        def addemp_back():
+                            main_frame_payrollemp1.grid_forget()
+                            main_frame_payrollemp.grid(row=0,column=0,sticky='nsew')
+                        subheadingfont5=font.Font(family='Arial',size=12)
+
+                        prvbackbtn = Button(addemp_canvas, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command = addemp_back)
+                        addemp_canvas.create_window(0,0,anchor="nw",window=prvbackbtn,tags=("prvbackbtn"))
+
+
                         ademp_name=StringVar()
                         ademp_joiningdate=StringVar()
                         ademp_employeenumber=StringVar()
@@ -25365,13 +25571,14 @@ def main_sign_in():
                                 addemp_canvas.itemconfig('pre1label17',state='hidden')
                                 addemp_canvas.itemconfig('entry12',state='hidden')
                                 addemp_canvas.itemconfig('entry13',state='hidden')
+                        
                             
                         selected=StringVar()
                         pre1label_15 = Label(addemp_canvas,width=18,height=1,text="Provide Bank Details :", font=('arial 11'),background="#243e54",fg="white") 
                         addemp_canvas.create_window(0,0,anchor="c",window=pre1label_15,tags=("pre1label15"))
-                        pre1entry10=Radiobutton(addemp_canvas,background='#243e54', font=('arial 11'),foreground='white',variable=selected,value='Yes',text="Yes",command=radioselect)
+                        pre1entry10= ttk.Radiobutton(addemp_canvas,variable=selected,value='Yes',text="Yes",command=radioselect)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry10,tags=("entry10"))
-                        pre1entry11= Radiobutton(addemp_canvas,background='#243e54', font=('arial 11'),foreground='white',variable=selected,value='No',text="No",command=radioselect)
+                        pre1entry11= ttk.Radiobutton(addemp_canvas,variable=selected,value='No',text="No",command=radioselect)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry11,tags=("entry11"))
                         
                         pre1label_16 = Label(addemp_canvas,width=18,height=1,text="Bank Account Number", font=('arial 11'),background="#243e54",fg="white") 
@@ -25546,7 +25753,7 @@ def main_sign_in():
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry30,tags=("entry30"),height=33)
                         addemp_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline15"))
 
-                        pre1entry31= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
+                        pre1entry31= Entry(addemp_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=ademp_othincome1)
                         addemp_canvas.create_window(0,0,anchor='nw',window=pre1entry31,tags=("entry31"),height=33)
                         pre1entry31.insert(0, "HRA")
 
@@ -25903,9 +26110,9 @@ def main_sign_in():
                     def payslip_action(event):
                         if payslipactdrop.get()=="Edit":
                             main_frame_payrollslip.grid_forget()
-                            main_frame_payrollslip2 = Frame(tab5_2)
-                            main_frame_payrollslip2.grid(row=0,column=0,sticky='nsew')
-                            def editpayslip_responsive_widgets(event):
+                            main_frame_payslipedit=Frame(tab5_2)
+                            main_frame_payslipedit.grid(row=0,column=0,sticky='nsew')
+                            def payslipedit_responsive_widgets(event):
 
 
                                 dwidth = event.width
@@ -25951,7 +26158,7 @@ def main_sign_in():
                                     x11 = dwidth/33
                                     x21 = dwidth/1.051
                                     y11 = dheight/2.8
-                                    y21 = dheight/0.37
+                                    y21 = dheight/0.34
 
 
                                     dcanvas.coords("offpoly2",x11 + r2,y11,
@@ -25978,6 +26185,7 @@ def main_sign_in():
                                     x11,y11 + r2,
                                     x11,y11,
                                     )
+                                    dcanvas.coords("backbtn",dwidth/12,dheight/3.4)
                                     dcanvas.coords("pre1label2",dwidth/1.999,dheight/2.40)
                                     dcanvas.coords("pre1hline1",dwidth/19,dheight/2.055,dwidth/1.060,dheight/2.055)
                                     dcanvas.coords("pre1label3",dwidth/5.8,dheight/1.80)
@@ -26019,7 +26227,7 @@ def main_sign_in():
                                     dcanvas.coords("pre1label44",dwidth/1.55,dheight/0.69)
                                     dcanvas.coords("entry30",dwidth/1.35,dheight/0.70)
                                     dcanvas.coords("pre1hline15",dwidth/1.90,dheight/0.665,dwidth/1.060,dheight/0.665)                      # # dcanvas.coords("pre1label17",dwidth/1.38,dheight/0.62)
-                                    dcanvas.coords("entry31",dwidth/15,dheight/0.69)
+                                    dcanvas.coords("entry31",dwidth/15,dheight/0.70)
                                     dcanvas.coords("entry32",dwidth/3.65,dheight/0.70)
                                     dcanvas.coords("pre1hline16",dwidth/20,dheight/0.62,dwidth/2,dheight/0.62) 
                                     dcanvas.coords("entry33",dwidth/1.85,dheight/0.65)
@@ -26037,25 +26245,45 @@ def main_sign_in():
                                     dcanvas.coords("entry41",dwidth/1.85,dheight/0.57)                          
                                     dcanvas.coords("entry42",dwidth/1.35,dheight/0.57)
                                     dcanvas.coords("pre1hline21",dwidth/1.90,dheight/0.545,dwidth/1.060,dheight/0.545)
-                                    # dcanvas.coords("pre1drop6",dwidth/6.4,dheight/0.533)
-                                    # dcanvas.coords("entry41",dwidth/3.65,dheight/0.54)
-                                    dcanvas.coords("pre1hline22",dwidth/20,dheight/0.40,dwidth/1.060,dheight/0.40)
-                                    dcanvas.coords("pre1label48",dwidth/1.999,dheight/0.39)
-                                    # dcanvas.coords("entry43",dwidth/1.35,dheight/0.54)
-                                    dcanvas.coords("pre1hline23",dwidth/20,dheight/0.38,dwidth/1.060,dheight/0.38)
-                                    # dcanvas.coords("pre1drop7",dwidth/6.4,dheight/0.51)
-                                    # dcanvas.coords("entry44",dwidth/3.65,dheight/0.515)
-                                    dcanvas.coords("pre1hline25",dwidth/1.90,dheight/0.51,dwidth/1.060,dheight/0.51)
-                                    dcanvas.coords("pre1label45",dwidth/1.70,dheight/0.50)
-                                    dcanvas.coords("entry45",dwidth/1.55,dheight/0.505)
-                                    dcanvas.coords("pre1hline26",dwidth/1.90,dheight/0.49,dwidth/1.060,dheight/0.49)
-                                    dcanvas.coords("pre1label46",dwidth/1.70,dheight/0.48)
-                                    dcanvas.coords("entry46",dwidth/1.55,dheight/0.485)
-                                    dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.47,dwidth/1.060,dheight/0.47)
-                                    dcanvas.coords("pre1label47",dwidth/1.70,dheight/0.46)
-                                    dcanvas.coords("entry47",dwidth/1.55,dheight/0.465)
-                                    dcanvas.coords("pre1hline28",dwidth/1.90,dheight/0.45,dwidth/1.060,dheight/0.45)
-                                    dcanvas.coords("pre1button1",dwidth/1.95,dheight/0.42)
+                                    dcanvas.coords("entry43",dwidth/15,dheight/0.57)
+                                    dcanvas.coords("entry44",dwidth/3.65,dheight/0.57)
+                                    dcanvas.coords("pre1hline22",dwidth/20,dheight/0.52,dwidth/2,dheight/0.52)
+                                    dcanvas.coords("entry45",dwidth/1.85,dheight/0.54)
+                                    dcanvas.coords("entry46",dwidth/1.35,dheight/0.54)
+                                    dcanvas.coords("pre1hline23",dwidth/1.90,dheight/0.52,dwidth/1.060,dheight/0.52)
+                                    dcanvas.coords("entry47",dwidth/15,dheight/0.54)
+                                    dcanvas.coords("entry48",dwidth/3.65,dheight/0.54)
+                                    dcanvas.coords("pre1hline24",dwidth/20,dheight/0.49,dwidth/2,dheight/0.49)
+                                    dcanvas.coords("entry49",dwidth/1.85,dheight/0.51)
+                                    dcanvas.coords("entry50",dwidth/1.35,dheight/0.51)
+                                    dcanvas.coords("pre1hline25",dwidth/1.90,dheight/0.49,dwidth/1.060,dheight/0.49)
+                                    dcanvas.coords("entry51",dwidth/15,dheight/0.51)
+                                    dcanvas.coords("entry52",dwidth/3.65,dheight/0.51)
+                                    # dcanvas.coords("pre1hline26",dwidth/20,dheight/0.46,dwidth/2,dheight/0.46)
+                                    dcanvas.coords("entry53",dwidth/1.85,dheight/0.48)
+                                    dcanvas.coords("entry54",dwidth/1.35,dheight/0.48)
+                                    # dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.46,dwidth/1.060,dheight/0.46)
+                                    dcanvas.coords("entry55",dwidth/15,dheight/0.48)
+                                    dcanvas.coords("entry56",dwidth/3.65,dheight/0.48)
+# 
+
+
+
+                                    dcanvas.coords("pre1hline26",dwidth/1.90,dheight/0.44,dwidth/1.060,dheight/0.44)
+                                    dcanvas.coords("pre1label45",dwidth/1.70,dheight/0.43)
+                                    dcanvas.coords("entry57",dwidth/1.55,dheight/0.435)
+                                    dcanvas.coords("pre1hline27",dwidth/1.90,dheight/0.42,dwidth/1.060,dheight/0.42)
+                                    dcanvas.coords("pre1label46",dwidth/1.70,dheight/0.41)
+                                    dcanvas.coords("entry58",dwidth/1.55,dheight/0.415)
+                                    dcanvas.coords("pre1hline28",dwidth/1.90,dheight/0.40,dwidth/1.060,dheight/0.40)
+                                    dcanvas.coords("pre1label47",dwidth/1.70,dheight/0.39)
+                                    dcanvas.coords("entry59",dwidth/1.55,dheight/0.395)
+                                    dcanvas.coords("pre1hline29",dwidth/1.90,dheight/0.38,dwidth/1.060,dheight/0.38)
+                                    dcanvas.coords("pre1button1",dwidth/1.95,dheight/0.368)
+                                    dcanvas.coords("pre1hline30",dwidth/20,dheight/0.36,dwidth/1.060,dheight/0.36)
+                                    dcanvas.coords("pre1label48",dwidth/1.95,dheight/0.353)
+                                    dcanvas.coords("pre1hline31",dwidth/20,dheight/0.348,dwidth/1.060,dheight/0.348)
+
                                 except:
                                     pass
                                 try:
@@ -26064,19 +26292,24 @@ def main_sign_in():
                                     dcanvas.coords("entry6",dwidth/1.555,dheight/1.35)
                                 except:
                                     pass
-                            editpayslip_canvas=Canvas(main_frame_payrollslip2,bg='#2f516f',width=1325,height=1000,scrollregion=(0,0,1200,1800))
-                            main_frame_payrollslip2.grid_columnconfigure(0,weight=1)
-                            main_frame_payrollslip2.grid_rowconfigure(0,weight=1)
 
-                            scrollbar=Scrollbar(main_frame_payrollslip2,orient=VERTICAL)
+
+
+
+                            editpayslip_canvas=Canvas(main_frame_payslipedit,bg='#2f516f',width=1325,height=1200,scrollregion=(0,0,1400,2000))
+                            main_frame_payslipedit.grid_columnconfigure(0,weight=1)
+                            main_frame_payslipedit.grid_rowconfigure(0,weight=1)
+
+                            scrollbar=Scrollbar(main_frame_payslipedit,orient=VERTICAL)
                             scrollbar.grid(row=0,column=1,sticky='ns')
                             scrollbar.config(command=editpayslip_canvas.yview)
-                            editpayslip_canvas.bind("<Configure>",editpayslip_responsive_widgets)
+                            editpayslip_canvas.bind("<Configure>",payslipedit_responsive_widgets)
 
                             editpayslip_canvas.config(yscrollcommand=scrollbar.set)
                             editpayslip_canvas.grid(row=0,column=0,sticky='nsew')
 
                             paysliped_id_1 = prstrv.item(prstrv.focus())["values"][0]
+                            paysliped_id_2 = prstrv.item(prstrv.focus())["values"][4]
                             usri_sql = "SELECT id FROM auth_user WHERE username=%s"
                             usri_val = (nm_ent.get(),)
                             fbcursor.execute(usri_sql,usri_val)
@@ -26085,33 +26318,47 @@ def main_sign_in():
                             cmpi_val = (usri_data[0],)
                             fbcursor.execute(cmpi_sql,cmpi_val)
                             cmpi_data = fbcursor.fetchone()
-                            payslip_query1="select * from app1_payslip where employeenumber=%s and cid_id=%s"
-                            payslip_value=(paysliped_id_1,cmpi_data[0])
+                           
+                            payslip_query1="select * from app1_payslip where (employeenumber=%s) and (netsal=%s) and (cid_id=%s)"
+                            payslip_value=(paysliped_id_1,paysliped_id_2,cmpi_data[0])
                             fbcursor.execute(payslip_query1,payslip_value)
-                            payslipedit_data=fbcursor.fetchone()
-                            def payslip_gettingdata():
-                                global basicsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,gros,tded,netsal,earn,dedu,gp
-                                basicsalary=pre1lentry27.get()
-                                dallowance=pre1entry29.get()
+                            payslip_editdata=fbcursor.fetchone()
 
-                                provifund=pre1lentry26.get()
-                                proftax=pre1entry28.get()
-                                earr7=pre1entry40.get()
-                                earr6=pre1entry36.get()
-                                dedu5=pre1entry34.get()
-                                dedu6=pre1entry38.get()
-                                earn=float(basicsalary)+float(dallowance)+float(othamount1)+othamount2+othamount3+othamount4+othamount5
-                                
-                                dedu=float(provifund)+float(proftax)+int(esi)+deducamt1+deducamt2+deducamt3+deducamt4
-                                 
-                                gp=float(earn)-float(dedu)
+                            def payslipedit_gettingdata(event):
+                                # global basicsalary,dallowance,othincome1,othamount1,othincome2,othamount2,othincome3,othamount3,othincome4,othamount4,othincome5,othamount5,provifund,proftax,esi,deduc1,deduc2,deduc3,deduc4,deducamt1,deducamt2,deducamt3,deducamt4,gros,tded,netsal,earn,dedu,gp
+                 
+                                earn=0
+                                dedu=0
+                                gp=0
+                 
+                                earr6=pre1entry52.get()
+                                earr7=pre1entry56.get()
+                                dedu5=pre1entry50.get()
+                                dedu6=pre1entry54.get()
+                                earn=pre1lentry57.get()
+                                dedu=pre1lentry58.get()
+                                gp=pre1lentry59.get()
+                                print('goodmorng')
+                                gros=0
+                                tded=0
+                                netsal=0
 
-                                gs=int(float(earn)+int(earr6)+int(earr7))
-                                td=int(float(dedu)+int(dedu5)+int(dedu6))
-                                nsal=int(float(gp)+int(earr6)+int(earr7)-int(dedu5)-int(dedu6))
-                                gros.set(gs)
-                                tded.set(td)
-                                netsal.set(nsal)
+
+                                gros=float(earn)+int(earr6)+int(earr7)
+
+                                tded=float(dedu)+int(dedu5)+int(dedu6)
+
+                                netsal=float(gp)+int(earr6)+int(earr7)-int(dedu5)-int(dedu6)
+
+                                pre1lentry57.delete(0,END)
+                                pre1lentry57.insert(0,round(gros))
+                                pre1lentry58.delete(0,END)
+                                pre1lentry58.insert(0,round(tded))
+                                pre1lentry59.delete(0,END)
+                                pre1lentry59.insert(0,round(netsal))
+                                # gros.set(gs)
+                                # tded.set(td)
+                                # netsal.set(nsal)
 
                                 print(gros)
                                 print(tded)
@@ -26119,132 +26366,171 @@ def main_sign_in():
 
                         
                             editpayslip_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("offpoly1"))
-                            pre1label_1 = Label(editpayslip_canvas,width=35,height=1,text="EDIT PAYSLIP",font=('arial 25'),background="#243e54",fg="white") 
+                            pre1label_1 = Label(editpayslip_canvas,width=35,height=1,text="PAYSLIP",font=('arial 25'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline"))
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_1,tags=("pre1label1"))
+                            def payslipedit_back():
+                                main_frame_payslipedit.grid_forget()
+                                main_frame_payrollslip.grid(row=0,column=0,sticky='nsew')
+                            subheadingfont5=font.Font(family='Arial',size=12)
+
+                            prvbackbtn = Button(editpayslip_canvas, bd=0,text = '<<<Back',foreground='#fff',background='#2f516f',height=1,width=10,font=subheadingfont5, command = payslipedit_back)
+                            editpayslip_canvas.create_window(0,0,anchor="nw",window=prvbackbtn,tags=("prvbackbtn"))
                             global ear6,earr6,ear7,earr7,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id
 
-                            payname=StringVar()
-                            payemployeenumber=StringVar()
-                            paydesignation=StringVar()
-                            paybasicsalary=StringVar()
-                            paydallowance=StringVar()
-                            # payothincome1=StringVar()
-                            payothamount1=StringVar()
-                            # payothincome2=StringVar()
-                            payothamount2=StringVar()
-                            # payothincome3=StringVar()
-                            payothamount3=StringVar()
-                            # payothincome4=StringVar()
-                            payothamount4=StringVar()
-                            # payothincome5=StringVar()
-                            payothamount5=StringVar()
-                            payprovifund=StringVar()
-                            payproftax=StringVar()
-                            payesi=StringVar()
-                            paydeduc1=StringVar()
-                            paydeduc2=StringVar()
-                            paydeduc3=StringVar()
-                            paydeduc4=StringVar()
-                            paydeducamt1=StringVar()
-                            paydeducamt2=StringVar()
-                            paydeducamt3=StringVar()
-                            paydeducamt4=StringVar()
-                            payear6=StringVar()
-                            payearr6=StringVar()
-                            payear7=StringVar()
-                            payearr7=StringVar()
-                            payded5=StringVar()
-                            paydedu5=StringVar()
-                            payded6=StringVar()
-                            paydedu6=StringVar()
-                            payperiodfrom=StringVar()
-                            payperiodto=StringVar()
-                            ppaydate=StringVar()
-                            paygros=StringVar()
-                            paytded=StringVar()
-                            paynetsal=StringVar()
+                            payedit_name=StringVar()
+                            payedit_employeenumber=StringVar()
+                            payedit_designation=StringVar()
+                            payedit_basicsalary=IntVar()
+                            payedit_dallowance=IntVar()
+                            payedit_othincome1=StringVar()
+                            othamount1=IntVar()
+                            # othamount1.set(0)
+                            payedit_othincome2=StringVar()
+                            othamount2=IntVar()
+                            othamount2.set(0)
 
-                            existing_name=payslipedit_data[1]
-                            payname.set(existing_name)
+                            payedit_othincome3=StringVar()
+                            othamount3=IntVar()
+                            othamount3.set(0)
+                            payedit_othincome4=StringVar()
+                            othamount4=IntVar()
+                            othamount4.set(0)
+                            payedit_othincome5=StringVar()
+                            othamount5=IntVar()
+                            othamount5.set(0)
+                            payedit_provifund=StringVar()
+                            payedit_proftax=StringVar()
+                            payedit_esi=StringVar()
+                            payedit_deduc1=StringVar()
+                            payedit_deduc2=StringVar()
+                            payedit_deduc3=StringVar()
+                            payedit_deduc4=StringVar()
+                            deducamt1=IntVar()
+                            deducamt1.set(0)
+                            deducamt2=IntVar()
+                            deducamt2.set(0)
+                            deducamt3=IntVar()
+                            deducamt3.set(0)
+                            deducamt4=IntVar()
+                            deducamt4.set(0)
+                            payedit_ear6=StringVar()
+                            payedit_earr6=StringVar()
+                            payedit_ear7=StringVar()
+                            payedit_earr7=StringVar()
+                            payedit_ded5=StringVar()
+                            payedit_dedu5=StringVar()
+                            payedit_ded6=StringVar()
+                            payedit_dedu6=StringVar()
+                            payedit_periodfrom=StringVar()
+                            payedit_periodto=StringVar()
+                            payedit_paydate=StringVar()
+                            payedit_gros=StringVar()
+                            payedit_tded=StringVar()
+                            payedit_netsal=StringVar()
 
-                            # existing_joiningdate=payslipedit_data[2]
-                            # joiningdate.set(existing_joiningdate)
+                            payedit_name=payslip_editdata[1]
+                            payedit_employeenumber=payslip_editdata[2]
+                            payedit_designation=payslip_editdata[3]
+                            payedit_basicsalary=payslip_editdata[7]
+                            payedit_dallowance=payslip_editdata[8]
+                            payedit_provifund=payslip_editdata[23]
+                            payedit_proftax=payslip_editdata[24]
+                            payedit_esi=payslip_editdata[25]
+                            payedit_othincome1=payslip_editdata[9]
+                            payedit_othincome2=payslip_editdata[11]
+                            payedit_othincome3=payslip_editdata[13]
+                            payedit_othincome4=payslip_editdata[15]
+                            payedit_othincome5=payslip_editdata[17]
+                            payedit_ear6=payslip_editdata[19]
+                            payedit_earr6=payslip_editdata[20]
+                            payedit_ear7=payslip_editdata[21]
+                            payedit_earr7=payslip_editdata[22]
+                            payedit_deduc1=payslip_editdata[26]
+                            payedit_deduc2=payslip_editdata[28]
+                            payedit_deduc3=payslip_editdata[30]
+                            payedit_deduc4=payslip_editdata[32]
+                            payedit_ded5=payslip_editdata[34]
+                            payedit_dedu5=payslip_editdata[35]
+                            payedit_ded6=payslip_editdata[36]
+                            payedit_dedu6=payslip_editdata[37]
+                            payedit_periodfrom=payslip_editdata[4]
+                            payedit_periodto=payslip_editdata[5]
+                            payedit_paydate=payslip_editdata[6]
+                            payedit_gros=payslip_editdata[38]
+                            payedit_tded=payslip_editdata[39]
+                            payedit_netsal=payslip_editdata[40]
+                            # basic=IntVar()
+                            # da=IntVar()
+                            othamount1=payslip_editdata[10]
+                            othamount2=payslip_editdata[12]
+                            othamount3=payslip_editdata[14]
+                            othamount4=payslip_editdata[16]
+                            othamount5=payslip_editdata[18]
+                            deducamt1=payslip_editdata[27]
+                            deducamt2=payslip_editdata[29]
+                            deducamt3=payslip_editdata[31]
+                            deducamt4=payslip_editdata[33]
+                            provifund=payslip_editdata[23]
+                            proftax=payslip_editdata[24]
+                            esi=payslip_editdata[25]
+                            print(payslip_editdata[40])
+                            if str(payslip_editdata[18])=="":
+                                othamount5=0.0
+                            else:
+                                othamount5=payslip_editdata[18]
+                            if str(payslip_editdata[10])=="":
+                                othamount1=0.0
+                            else:
+                                othamount1=payslip_editdata[10]
+                            if str(payslip_editdata[12])=="":
+                                othamount2=0.0
+                            else:
+                                othamount2=payslip_editdata[12]
+                            if str(payslip_editdata[14])=="":
+                                othamount3=0.0
+                            else:
+                                othamount3=payslip_editdata[14]
+                            if str(payslip_editdata[16])=="":
+                                othamount4=0.0
+                            else:
+                                othamount4=payslip_editdata[16]
+                            if str(payslip_editdata[27])=="":
+                                deducamt1=0.0
+                            else:
+                                deducamt1=payslip_editdata[27]
+                            if str(payslip_editdata[29])=="":
+                                deducamt2=0.0
+                            else:
+                                deducamt2=payslip_editdata[29]
+                            if str(payslip_editdata[31])=="":
+                                deducamt3=0.0
+                            else:
+                                deducamt3=payslip_editdata[31]
+                            if str(payslip_editdata[33])=="":
+                                deducamt4=0.0
+                            else:
+                                deducamt4=payslip_editdata[33]
+                 
+                            basic=payslip_editdata[7]
+                            da=payslip_editdata[8]
+                     
+                            # earn=0.0
+                            # dedu=0.0
+                            # gp=0.0
+                           
+                           
+                            # earn=float(basic)+float(da)+float(othamount1)+float(othamount2)+float(othamount3)+float(othamount4)+float(othamount5)
+                            
+                            # dedu=float(provifund)+float(proftax)+float(esi)+float(deducamt1)+float(deducamt2)+float(deducamt3)+float(deducamt4)
+                                
+                            # gp=float(earn)-float(dedu)
+                            # print(gp)
+                            # print(dedu)
+                            # print(earn)
+                           
 
-                            existing_employeenumber=payslipedit_data[2]
-                            payemployeenumber.set(existing_employeenumber)
-
-                            existing_designation=payslipedit_data[3]
-                            paydesignation.set(existing_designation)
-                            existing_basic=payslipedit_data[7]
-                            paybasicsalary.set(existing_basic)
-
-                            existing_da=payslipedit_data[8]
-                            paydallowance.set(existing_da)
-
-                            # existing_othincome1=payslipedit_data[30]
-                            # othincome1.set(existing_othincome1)
-
-                            existing_othamount1=payslipedit_data[10]
-                            payothamount1.set(existing_othamount1)
-
-                            existing_ear6=payslipedit_data[19]
-                            payear6.set(existing_ear6)
-
-                            existing_earr6=payslipedit_data[20]
-                            payearr6.set(existing_earr6)
-
-                            existing_ear7=payslipedit_data[21]
-                            payear7.set(existing_ear7)
-
-                            existing_earr7=payslipedit_data[22]
-                            payearr7.set(existing_earr7)
-
-                            # existing_othincome4=payslipedit_data[33]
-                            # othincome4.set(existing_othincome4)
-
-                            # existing_othamount4=payslipedit_data[38]
-                            # othamount4.set(existing_othamount4)
-
-                            # existing_othincome5=payslipedit_data[34]
-                            # othincome5.set(existing_othincome5)
-
-                            # existing_othamount5=payslipedit_data[39]
-                            # othamount5.set(existing_othamount5)
-
-                            existing_provifund=payslipedit_data[23]
-                            payprovifund.set(existing_provifund)
-
-                            existing_proftax=payslipedit_data[24]
-                            payproftax.set(existing_proftax)
-
-                            existing_esi=payslipedit_data[25]
-                            payesi.set(existing_esi)
-
-                            existing_ded5=payslipedit_data[34]
-                            payded5.set(existing_ded5)
-
-                            existing_deduc5=payslipedit_data[35]
-                            paydedu5.set(existing_deduc5)
-
-                            existing_ded6=payslipedit_data[36]
-                            payded6.set(existing_ded6)
-
-                            existing_deduc6=payslipedit_data[37]
-                            paydedu6.set(existing_deduc6)
-
-                            existing_gros=payslipedit_data[38]
-                            paygros.set(existing_gros)
-
-                            existing_totaldeduce=payslipedit_data[39]
-                            paytded.set(existing_totaldeduce)
-
-                            existing_netsalary=payslipedit_data[40]
-                            paynetsal.set(existing_netsalary)
-
-                            # existing_deducamt4=payslipedit_data[50]
-                            # deducamt4.set(existing_deducamt4)
-
+                           
 
                             editpayslip_canvas.create_polygon(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,smooth=True,fill="#243e54",tags=("offpoly2"))
                             pre1label_2 = Label(editpayslip_canvas,width=40,height=1,text="Employee Information", font=('arial 20'),background="#243e54",fg="white") 
@@ -26253,18 +26539,24 @@ def main_sign_in():
 
                             pre1label_3 = Label(editpayslip_canvas,width=18,height=1,text="Employee Name", font=('arial 13'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window= pre1label_3,tags=("pre1label3"))
-                            pre1entry1= Entry(editpayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payname)
+                            pre1entry1= Entry(editpayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_name)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry1,tags=("entry1"),height=33)                   
+                            pre1entry1.delete(0,END)
+                            pre1entry1.insert(0,payedit_name)
 
                             pre1label_4 = Label(editpayslip_canvas,width=18,height=1,text="Employee Number", font=('arial 13'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window= pre1label_4,tags=("pre1label4"))
-                            pre1entry2= Entry(editpayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payemployeenumber)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry2,tags=("entry2"),height=33)
+                            pre1entry2= Entry(editpayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_employeenumber)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry2,tags=("entry2"),height=33)                   
+                            pre1entry2.delete(0,END)
+                            pre1entry2.insert(0,payedit_employeenumber)
 
 
                             pre1label_5 = Label(editpayslip_canvas,width=18,height=1,text="Designation", font=('arial 13'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window= pre1label_5,tags=("pre1label5"))
-                            pre1entry3= Entry(editpayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paydesignation)
+                            pre1entry3= Entry(editpayslip_canvas,width=25,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_designation)
+                            pre1entry3.delete(0,END)
+                            pre1entry3.insert(0,payedit_designation)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry3,tags=("entry3"),height=33)                    
 
                            
@@ -26294,118 +26586,237 @@ def main_sign_in():
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_38,tags=("pre1label38"))
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline9"))
 
-                            # pre1label_39 = Label(editpayslip_canvas,width=18,height=1,text="Confirm Salary", font=('arial 11'),background="#243e54",fg="white") 
-                            # editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_39,tags=("pre1label39"))
-                            # pre1lentry25= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
-                            # editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry25,tags=("entry25"),height=33)
-                            # editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline10"))
-
+                           
                             pre1label_40 = Label(editpayslip_canvas,width=18,height=1,text="Provident Fund", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_40,tags=("pre1label40"))
-                            pre1lentry26= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payprovifund)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry26,tags=("entry26"),height=33)
+                            pre1entry26= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_provifund)
+                            pre1entry26.delete(0,END)
+                            pre1entry26.insert(0,payedit_provifund)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry26,tags=("entry26"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline11"))
 
                             pre1label_41 = Label(editpayslip_canvas,width=18,height=1,text="Basic salary", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_41,tags=("pre1label41"))
-                            pre1lentry27= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paybasicsalary)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry27,tags=("entry27"),height=33)
+                            pre1entry27= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_basicsalary)
+                            pre1entry27.delete(0,END)
+                            pre1entry27.insert(0,payedit_basicsalary)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry27,tags=("entry27"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline12"))
 
                             pre1label_42 = Label(editpayslip_canvas,width=18,height=1,text="Profession Tax", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_42,tags=("pre1label42"))
-                            pre1entry28= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payproftax)
+                            pre1entry28= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_proftax)
+                            pre1entry28.delete(0,END)
+                            pre1entry28.insert(0,payedit_proftax)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry28,tags=("entry28"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline13"))
 
                             pre1label_43 = Label(editpayslip_canvas,width=18,height=1,text="Dearance Allowance", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_43,tags=("pre1label43"))
-                            pre1entry29= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payproftax)
+                            pre1entry29= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_proftax)
+                            pre1entry29.delete(0,END)
+                            pre1entry29.insert(0,payedit_dallowance)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry29,tags=("entry29"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline14"))
 
                             pre1label_44 = Label(editpayslip_canvas,width=18,height=1,text="ESI", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_44,tags=("pre1label44"))
-                            pre1entry30= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payesi)
+                            pre1entry30= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_esi)
+                            pre1entry30.delete(0,END)
+                            pre1entry30.insert(0,payedit_esi)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry30,tags=("entry30"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline15"))
 
-                            pre1entry31= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white')
+                            pre1entry31= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_othincome1)
+                            pre1entry31.delete(0,END)
+                            pre1entry31.insert(0,payedit_othincome1)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry31,tags=("entry31"),height=33)
-                            pre1entry32= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payothamount1)
-                            pre1entry32.bind("<KeyRelease>",payslip_gettingdata)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry32,tags=("entry32"),height=33)
-                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline16"))   
+                            # othamount1.set("0")
+                            pre1entry_32= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount1)
+                            pre1entry_32.delete(0,END)
+                            pre1entry_32.insert(0,othamount1)
+                            # pre1entry32.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_32,tags=("entry32"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline16"))  
 
-                            pre1entry33= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payded5)
-                            pre1entry33.bind("<KeyRelease>",payslip_gettingdata)
+                            pre1entry33= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_deduc1)
+                            pre1entry33.delete(0,END)
+                            pre1entry33.insert(0,payedit_deduc1)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry33,tags=("entry33"),height=33)
-                            pre1entry34= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paydedu5)
-                            pre1entry34.bind("<KeyRelease>",payslip_gettingdata)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry34,tags=("entry34"),height=33)
+                            # deducamt1.set("0")
+                            pre1entry_34= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt1)
+                            pre1entry_34.delete(0,END)
+                            pre1entry_34.insert(0,deducamt1)
+                            # pre1entry34.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_34,tags=("entry34"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline17"))
 
-
-                          
-                            pre1entry35= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payear6)
+                            pre1entry35= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_othincome2)
+                            pre1entry35.delete(0,END)
+                            pre1entry35.insert(0,payedit_othincome2)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry35,tags=("entry35"),height=33)
-                            pre1entry36= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payearr6)
-                            pre1entry36.bind("<KeyRelease>",payslip_gettingdata)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry36,tags=("entry36"),height=33)
+                            # othamount2.set("0")
+                            pre1entry_36= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount2)
+                            pre1entry_36.delete(0,END)
+                            pre1entry_36.insert(0,othamount2)
+                            # pre1entry36.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_36,tags=("entry36"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline18"))
 
-                            pre1entry37= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payded6)
+                            pre1entry37= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_deduc2)
+                            pre1entry37.delete(0,END)
+                            pre1entry37.insert(0,payedit_deduc2)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry37,tags=("entry37"),height=33)
-                            pre1entry38= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paydedu6)
-                            pre1entry38.bind("<KeyRelease>",payslip_gettingdata)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry38,tags=("entry38"),height=33)
+                            # deducamt2.set("0")
+                            pre1entry_38= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt2)
+                            pre1entry_38.delete(0,END)
+                            pre1entry_38.insert(0,deducamt2)
+                            # pre1entry38.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_38,tags=("entry38"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline19"))
 
-
-                          
-                          
-                            pre1entry39= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payear7)
+                            pre1entry39= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_othincome3)
+                            pre1entry39.delete(0,END)
+                            pre1entry39.insert(0,payedit_othincome3)
                             editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry39,tags=("entry39"),height=33)
-                            pre1entry40= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payearr7)
-                            pre1entry40.bind("<KeyRelease>",payslip_gettingdata)
+                            # othamount3.set("0")
+                            pre1entry_40= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount3)
+                            pre1entry_40.delete(0,END)
+                            pre1entry_40.insert(0,othamount3)
+                            # pre1entry40.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_40,tags=("entry40"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline20"))
 
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry40,tags=("entry40"),height=33)
-                            # editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline20"))
+                            pre1entry41= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_deduc3)
+                            pre1entry41.delete(0,END)
+                            pre1entry41.insert(0,payedit_deduc3)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry41,tags=("entry41"),height=33)
+                            # deducamt3.set("0")
+                            pre1entry_42= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt3)
+                            pre1entry_42.delete(0,END)
+                            pre1entry_42.insert(0,deducamt3)
+                            # pre1entry42.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_42,tags=("entry42"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline21"))
 
-                            # pre1entry41= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
-                            # editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry41,tags=("entry41"),height=33)
-                            # pre1entry42= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=beginningbalance)
-                            # editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry42,tags=("entry42"),height=33)
-                            # editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline21"))
-                          
+                            pre1entry43= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_othincome4)
+                            pre1entry43.delete(0,END)
+                            pre1entry43.insert(0,payedit_othincome4)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry43,tags=("entry43"),height=33)
+                            # othamount4.set("0")
+                            pre1entry_44= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount4)
+                            pre1entry_44.delete(0,END)
+                            pre1entry_44.insert(0,othamount4)
+                            # pre1entry44.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_44,tags=("entry44"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline22"))
+
+                            pre1entry45= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_deduc4)
+                            pre1entry45.delete(0,END)
+                            pre1entry45.insert(0,payedit_deduc4)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry45,tags=("entry45"),height=33)
+                            # deducamt4.set("0")
+                            pre1entry_46= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=deducamt4)
+                            pre1entry_46.delete(0,END)
+                            pre1entry_46.insert(0,deducamt4)
+                            # pre1entry46.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry_46,tags=("entry46"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline23"))
+
+                            pre1entry47= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_othincome5)
+                            pre1entry47.delete(0,END)
+                            pre1entry47.insert(0,payedit_othincome5)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry47,tags=("entry47"),height=33)
+                            # othamount5.set("0")
+                            pre1entry48= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=othamount5)
+                            pre1entry48.delete(0,END)
+                            pre1entry48.insert(0,othamount5)
+                            # pre1entry48.bind("<KeyRelease>",payslip_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry48,tags=("entry48"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline24"))
                             
+                             
+
+                            pre1entry49= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_ded5)
+                            # pre1entry49.delete(0,END)
+                            # pre1entry49.insert(0,"Add")
+                            pre1entry49.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry49,tags=("entry49"),height=33)
+                            pre1entry50= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_dedu5)
+                            # pre1entry50.insert(0,0)
+                            pre1entry50.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry50,tags=("entry50"),height=33)
                             editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline25"))
+
+
+                          
+                            pre1entry51= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_ear6)
+                            # pre1entry51.delete(0,END)
+                            # pre1entry51.insert(0,"Add")
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry51,tags=("entry51"),height=33)
+                            pre1entry52= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_earr6)
+                            # pre1entry52.delete(0,END)
+                            # pre1entry52.insert(0,0)
+                            pre1entry52.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry52,tags=("entry52"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline26"))
+
+                            pre1entry53= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_ded6)
+                            # pre1entry53.delete(0,END)
+                            # pre1entry53.insert(0,"Add")
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry53,tags=("entry53"),height=33)
+                            pre1entry54= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_dedu6)
+                            # pre1entry54.insert(0,0)
+                            pre1entry54.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry54,tags=("entry54"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline27"))
+
+
+                          
+                          
+                            pre1entry55= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f', font=('arial 11'),foreground='white',textvariable=payedit_ear7)
+                            # pre1entry55.delete(0,END)
+                            # pre1entry55.insert(0,"Add")
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry55,tags=("entry55"),height=33)
+                            pre1entry56= Entry(editpayslip_canvas,width=22,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_earr7)
+                            # pre1entry56.delete(0,END)
+                            # pre1entry56.insert(0,0)
+                            pre1entry56.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1entry56,tags=("entry56"),height=33)
+                           
+                            
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline26"))
                             pre1label_45 = Label(editpayslip_canvas,width=18,height=1,text="Gross Pay", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_45,tags=("pre1label45"))
-                            pre1lentry45= Entry(editpayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paygros)
-                            pre1lentry45.bind("<KeyRelease>",payslip_gettingdata)
-
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry45,tags=("entry45"),height=33)
-                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline26"))
+                            pre1lentry57= Entry(editpayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_gros)
+                            # pre1lentry57.delete(0,END)
+                            # pre1lentry57.insert(0,round(earn))
+                            pre1lentry57.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry57,tags=("entry57"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline27"))
 
                             pre1label_46 = Label(editpayslip_canvas,width=18,height=1,text="Total Deduction", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_46,tags=("pre1label46"))
-                            pre1lentry46= Entry(editpayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paytded)
-                            pre1lentry46.bind("<KeyRelease>",payslip_gettingdata)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry46,tags=("entry46"),height=33)
-                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline27"))
+                            pre1lentry58= Entry(editpayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_tded)
+                            # pre1lentry58.delete(0,END)
+                            # pre1lentry58.insert(0,round(dedu))
+                            pre1lentry58.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry58,tags=("entry58"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline28"))
 
                             pre1label_47 = Label(editpayslip_canvas,width=18,height=1,text="Net Salary", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_47,tags=("pre1label47"))
-                            pre1lentry47= Entry(editpayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=paynetsal)
-                            pre1lentry47.bind("<KeyRelease>",payslip_gettingdata)
-                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry47,tags=("entry47"),height=33)
-                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline28"))
+                            pre1lentry59= Entry(editpayslip_canvas,width=30,justify=CENTER,background='#1b1f1c',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_netsal)
+                            # pre1lentry59.delete(0,END)
+                            # pre1lentry59.insert(0,round(gp))
+                            pre1lentry59.bind("<KeyRelease>",payslipedit_gettingdata)
+                            editpayslip_canvas.create_window(0,0,anchor='nw',window=pre1lentry59,tags=("entry59"),height=33)
+                            editpayslip_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("pre1hline29"))
 
-                            editpayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline22"))
+                            editpayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline30"))
                             pre1label_48 = Label(editpayslip_canvas,width=35,height=1,text="Finsys All Terms and Conditions Apply", font=('arial 11'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window=pre1label_48,tags=("pre1label48"))
-                            editpayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline23"))
+                            editpayslip_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("pre1hline31"))
 
                             pre1label_6 = Label(editpayslip_canvas,width=18,height=1,text="Pay Period-From", font=('arial 13'),background="#243e54",fg="white") 
                             editpayslip_canvas.create_window(0,0,anchor="c",window= pre1label_6,tags=("pre1label6"))
@@ -26416,30 +26827,48 @@ def main_sign_in():
 
                             
 
-                            def paysubedit_form():
+                            def paysub_editform():
                                 global name,employeenumber,designation,basicsalary,dallowance,ear6,earr6,ear7,earr7,provifund,proftax,esi,ded5,dedu5,ded6,dedu6,gros,tded,netsal                         
-                                empname=payname.get()
-                                employeenumber=payemployeenumber.get()
-                                desig=paydesignation.get()
-                                basic=paybasicsalary.get()
-                                da=paydallowance.get()
-                                ear6=payear6.get()
-                                earr6=payearr6.get()
-                                ear7=payear7.get()
-                                earr7=payearr7.get()
-                                ded5=payded5.get()
-                                dedu5=paydedu5.get()
-                                ded6=payded6.get()
-                                dedu6=paydedu6.get()
-                                gros=paygros.get()
-                                tded=paytded.get()
-                                netsal=paynetsal.get()
-                                provi=payprovifund.get()
-                                prof=payproftax.get()
-                                esi=payesi.get()
-                                fper=payperiodfrom.get()
-                                tper=payperiodto.get()
-                                paydate=ppaydate.get()
+                                empname=pre1entry1.get()
+                                employeenumber=pre1entry2.get()
+                                desig=pre1entry3.get()
+                                basic=pre1entry27.get()
+                                da=pre1entry29.get()
+                                earr1=pre1entry31.get()
+                                earr2=pre1entry35.get()
+                                earr3=pre1entry39.get()
+                                earr4=pre1entry43.get()
+                                earr5=pre1entry47.get()
+                                ear1=pre1entry_32.get()
+                                ear2=pre1entry_36.get()
+                                ear3=pre1entry_40.get()
+                                ear4=pre1entry_44.get()
+                                ear5=pre1entry48.get()
+                                ear6=pre1entry51.get()
+                                earr6=pre1entry52.get()
+                                ear7=pre1entry55.get()
+                                earr7=pre1entry56.get()
+                                ded1=pre1entry33.get()
+                                ded2=pre1entry37.get()
+                                ded3=pre1entry41.get()
+                                ded4=pre1entry45.get()
+                                dedu1=pre1entry_34.get()
+                                dedu2=pre1entry_38.get()
+                                dedu3=pre1entry_42.get()
+                                dedu4=pre1entry_46.get()
+                                ded5=pre1entry49.get()
+                                dedu5=pre1entry50.get()
+                                ded6=pre1entry53.get()
+                                dedu6=pre1entry54.get()
+                                gros=pre1lentry57.get()
+                                tded=pre1lentry58.get()
+                                netsal=pre1lentry59.get()
+                                provi=pre1entry26.get()
+                                prof=pre1entry28.get()
+                                esi=pre1entry30.get()
+                                fper=pre1entry4.get()
+                                tper=pre1entry5.get()
+                                paydate=pre1entry6.get()
 
                                 usri_sql = "SELECT id FROM auth_user WHERE username=%s"
                                 usri_val = (nm_ent.get(),)
@@ -26450,9 +26879,10 @@ def main_sign_in():
                                 fbcursor.execute(cmpi_sql,cmpi_val)
                                 cmpi_data = fbcursor.fetchone()
                                 cid_id = cmpi_data[0]    
+                            #     cid_id = cmpi_data[0]    
                                         
-                                payedslipsql="UPDATE app1_payslip set empname=%s,employeenumber=%s,desig=%s,basic=%s,da=%s,fper=%s,tper=%s,paydate=%s,ear6=%s,earr6=%s,ear7=%s,earr7=%s,provi=%s,prof=%s,esi=%s,ded5=%s,dedu5=%s,ded6=%s,dedu6=%s,gros=%s,tded=%s,netsal=%s,cid_id=%s where employeenumber=%s"
-                                payedslipval=(empname,employeenumber,desig,basic,da,fper,tper,paydate,ear6,earr6,ear7,earr7,provi,prof,esi,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id,paysliped_id_1)
+                                payedslipsql="UPDATE app1_payslip set empname=%s,employeenumber=%s,desig=%s,basic=%s,da=%s,fper=%s,tper=%s,paydate=%s,ear1=%s,earr1=%s,ear2=%s,earr2=%s,ear3=%s,earr3=%s,ear4=%s,earr4=%s,ear5=%s,earr5=%s,ear6=%s,earr6=%s,ear7=%s,earr7=%s,provi=%s,prof=%s,esi=%s,ded1=%s,dedu1=%s,ded2=%s,dedu2=%s,ded3=%s,dedu3=%s,ded4=%s,dedu4=%s,ded5=%s,dedu5=%s,ded6=%s,dedu6=%s,gros=%s,tded=%s,netsal=%s,cid_id=%s where employeenumber=%s"
+                                payedslipval=(empname,employeenumber,desig,basic,da,fper,tper,paydate,ear1,earr1,ear2,earr2,ear3,earr3,ear4,earr4,ear5,earr5,ear6,earr6,ear7,earr7,provi,prof,esi,ded1,dedu1,ded2,dedu2,ded3,dedu3,ded4,dedu4,ded5,dedu5,ded6,dedu6,gros,tded,netsal,cid_id,paysliped_id_1)
                                 fbcursor.execute(payedslipsql,payedslipval)
                                 finsysdb.commit()
                                 messagebox.showinfo("UPDATE", "Record updated successfully")
@@ -26475,17 +26905,17 @@ def main_sign_in():
                                     prstrv.insert(parent="",index= 'end',iid=i,text='',values=(i[2],i[1],i[3],i[6],i[40]))
                                 count+=1
 
-                                main_frame_payrollslip2.grid_forget()
+                                main_frame_payslipedit.grid_forget()
                                 # main_frame_payrollemp = Frame(tab5_1)
                                 main_frame_payrollslip.grid(row=0,column=0,sticky='nsew')
 
-                            prebtn1 = Button(editpayslip_canvas, text = 'Update Payslip' ,fg='#fff',bg='#243e54',height=1,width=25,font=('Calibri', 16, 'bold'),command=paysubedit_form)
+                            prebtn1 = Button(editpayslip_canvas, text = 'Update Payslip' ,fg='#fff',bg='#243e54',height=1,width=25,font=('Calibri', 16, 'bold'),command=paysub_editform)
                             editpayslip_canvas.create_window(0,0,anchor="c",window=prebtn1,tags=("pre1button1"))
-                            pre1entry4= DateEntry(editpayslip_canvas,width=24,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payperiodfrom)
+                            pre1entry4= DateEntry(editpayslip_canvas,width=24,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_periodfrom)
                             editpayslip_canvas.create_window(170,450,anchor='nw',window=pre1entry4,tags=("entry4"),height=33)
-                            pre1entry5= DateEntry(editpayslip_canvas,width=24,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payperiodto)
+                            pre1entry5= DateEntry(editpayslip_canvas,width=24,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_periodto)
                             editpayslip_canvas.create_window(520,450,anchor='nw',window=pre1entry5,tags=("entry5"),height=33)         
-                            pre1entry6= DateEntry(editpayslip_canvas,width=24,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=ppaydate)
+                            pre1entry6= DateEntry(editpayslip_canvas,width=24,justify=CENTER,background='#2f516f',font=('times new roman', 16, 'bold'),foreground='white',textvariable=payedit_paydate)
                             editpayslip_canvas.create_window(860,450,anchor='nw',window=pre1entry6,tags=("entry6"),height=33)
                            
 
@@ -26540,7 +26970,7 @@ def main_sign_in():
                                 x11 = dwidth/25
                                 x21 = dwidth/1.050
                                 y11 = dheight/3.8
-                                y21 = dheight/0.35
+                                y21 = dheight/0.30
 
 
                                 dcanvas.coords("prvpoly2",x11 + r2,y11,
@@ -26645,27 +27075,66 @@ def main_sign_in():
                                 dcanvas.coords("prv1label_43",dwidth/1.55,dheight/0.51)
                                 dcanvas.coords("entry19",dwidth/1.35,dheight/0.518)
                                 dcanvas.coords("prv1hline13",dwidth/1.90,dheight/0.50,dwidth/1.060,dheight/0.50) 
-                                dcanvas.coords("prv1hline16",dwidth/1.90,dheight/0.45,dwidth/1.060,dheight/0.45)
-                                dcanvas.coords("prv1label_46",dwidth/1.70,dheight/0.44)
-                                dcanvas.coords("entry22",dwidth/1.55,dheight/0.445)
-                                dcanvas.coords("prv1hline17",dwidth/1.90,dheight/0.43,dwidth/1.060,dheight/0.43)
-                                dcanvas.coords("prv1label_47",dwidth/1.70,dheight/0.42)
-                                dcanvas.coords("entry23",dwidth/1.55,dheight/0.425)
-                                dcanvas.coords("prv1hline18",dwidth/1.90,dheight/0.41,dwidth/1.060,dheight/0.41)
-                                dcanvas.coords("prv1label_48",dwidth/1.70,dheight/0.40)
-                                dcanvas.coords("entry24",dwidth/1.55,dheight/0.405)
-                                dcanvas.coords("prv1hline19",dwidth/1.90,dheight/0.39,dwidth/1.060,dheight/0.39)
-                                dcanvas.coords("prv1button1",dwidth/1.95,dheight/0.42)
 
-                                dcanvas.coords("prv1hline20",dwidth/20,dheight/0.38,dwidth/1.060,dheight/0.38)
-                                dcanvas.coords("prvbutton1",dwidth/1.999,dheight/0.37)
-                                dcanvas.coords("prv1label49",dwidth/1.999,dheight/0.36)
-                                dcanvas.coords("prv1hline21",dwidth/20,dheight/0.355,dwidth/1.060,dheight/0.355)
+                                dcanvas.coords("prv1label_50",dwidth/6.8,dheight/0.49)
+                                dcanvas.coords("entry20",dwidth/3.65,dheight/0.498)
+                                dcanvas.coords("prv1hline21",dwidth/20,dheight/0.48,dwidth/2,dheight/0.48) 
+                                dcanvas.coords("prv1label_51",dwidth/1.55,dheight/0.49)
+                                dcanvas.coords("entry21",dwidth/1.35,dheight/0.498)
+                                dcanvas.coords("prv1hline22",dwidth/1.90,dheight/0.48,dwidth/1.060,dheight/0.48) 
+                                dcanvas.coords("prv1label_52",dwidth/6.8,dheight/0.47)
+                                dcanvas.coords("entry22",dwidth/3.65,dheight/0.478)
+                                dcanvas.coords("prv1hline23",dwidth/20,dheight/0.46,dwidth/2,dheight/0.46) 
+                                dcanvas.coords("prv1label_53",dwidth/1.55,dheight/0.47)
+                                dcanvas.coords("entry23",dwidth/1.35,dheight/0.478)
+                                dcanvas.coords("prv1hline24",dwidth/1.90,dheight/0.46,dwidth/1.060,dheight/0.46) 
+                                dcanvas.coords("prv1label_54",dwidth/6.8,dheight/0.45)
+                                dcanvas.coords("entry24",dwidth/3.65,dheight/0.455)
+                                dcanvas.coords("prv1hline25",dwidth/20,dheight/0.44,dwidth/2,dheight/0.44) 
+                                dcanvas.coords("prv1label_55",dwidth/1.55,dheight/0.45)
+                                dcanvas.coords("entry25",dwidth/1.35,dheight/0.455)
+                                dcanvas.coords("prv1hline26",dwidth/1.90,dheight/0.44,dwidth/1.060,dheight/0.44) 
+                                dcanvas.coords("prv1label_56",dwidth/6.8,dheight/0.43)
+                                dcanvas.coords("entry26",dwidth/3.65,dheight/0.435)
+                                dcanvas.coords("prv1hline27",dwidth/20,dheight/0.422,dwidth/2,dheight/0.422) 
+                                dcanvas.coords("prv1label_57",dwidth/1.55,dheight/0.43)
+                                dcanvas.coords("entry27",dwidth/1.35,dheight/0.435)
+                                dcanvas.coords("prv1hline28",dwidth/1.90,dheight/0.422,dwidth/1.060,dheight/0.422) 
+                                dcanvas.coords("prv1label_58",dwidth/6.8,dheight/0.415)
+                                dcanvas.coords("entry28",dwidth/3.65,dheight/0.419)
+                                dcanvas.coords("prv1hline29",dwidth/20,dheight/0.406,dwidth/2,dheight/0.406) 
+                                dcanvas.coords("prv1label_59",dwidth/1.55,dheight/0.415)
+                                dcanvas.coords("entry29",dwidth/1.35,dheight/0.419)
+                                dcanvas.coords("prv1hline30",dwidth/1.90,dheight/0.406,dwidth/1.060,dheight/0.406) 
+                                dcanvas.coords("prv1label_60",dwidth/6.8,dheight/0.399)
+                                dcanvas.coords("entry30",dwidth/3.65,dheight/0.404)
+                                dcanvas.coords("prv1hline31",dwidth/20,dheight/0.3889,dwidth/2,dheight/0.3889) 
+                                dcanvas.coords("prv1label_61",dwidth/1.55,dheight/0.399)
+                                dcanvas.coords("entry31",dwidth/1.35,dheight/0.404)
+                                dcanvas.coords("prv1hline32",dwidth/1.90,dheight/0.3889,dwidth/1.060,dheight/0.3889) 
+
+
+                                dcanvas.coords("prv1hline16",dwidth/1.90,dheight/0.37,dwidth/1.060,dheight/0.37)
+                                dcanvas.coords("prv1label_46",dwidth/1.70,dheight/0.365)
+                                dcanvas.coords("entry32",dwidth/1.55,dheight/0.3685)
+                                dcanvas.coords("prv1hline17",dwidth/1.90,dheight/0.36,dwidth/1.060,dheight/0.36)
+                                dcanvas.coords("prv1label_47",dwidth/1.70,dheight/0.355)
+                                dcanvas.coords("entry33",dwidth/1.55,dheight/0.3585)
+                                dcanvas.coords("prv1hline18",dwidth/1.90,dheight/0.35,dwidth/1.060,dheight/0.35)
+                                dcanvas.coords("prv1label_48",dwidth/1.70,dheight/0.345)
+                                dcanvas.coords("entry34",dwidth/1.55,dheight/0.3485)
+                                dcanvas.coords("prv1hline19",dwidth/1.90,dheight/0.34,dwidth/1.060,dheight/0.34)
+                                # dcanvas.coords("prv1button1",dwidth/1.95,dheight/0.335)
+
+                                dcanvas.coords("prv1hline20",dwidth/20,dheight/0.333,dwidth/1.060,dheight/0.333)
+                                dcanvas.coords("prvbutton1",dwidth/1.999,dheight/0.325)
+                                dcanvas.coords("prv1label49",dwidth/1.999,dheight/0.316)
+                                dcanvas.coords("prv1hline33",dwidth/20,dheight/0.31,dwidth/1.060,dheight/0.31)
                                 dcanvas.coords("prvbackbtn",dwidth/12,dheight/40)
 
 
 
-                            payrollslipview_canvas=Canvas(main_frame_payrollslip1,bg='#2f516f',width=1345,height=800,scrollregion=(0,0,900,1800))
+                            payrollslipview_canvas=Canvas(main_frame_payrollslip1,bg='#2f516f',width=1345,height=1600,scrollregion=(0,0,1800,2400))
                             main_frame_payrollslip1.grid_columnconfigure(0,weight=1)
                             main_frame_payrollslip1.grid_rowconfigure(0,weight=1)
                             scrollbar1=Scrollbar(main_frame_payrollslip1,orient=VERTICAL)
@@ -26849,7 +27318,7 @@ def main_sign_in():
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry17,tags=("entry17"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline11"))
 
-                            prv1label_42 = Label(payrollslipview_canvas,width=18,height=1,text="HRA", font=('arial 11'),background="#243e54",fg="white") 
+                            prv1label_42 = Label(payrollslipview_canvas,width=18,height=1,text=prs_data[9], font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_42,tags=("prv1label_42"))
                             prv1entry18= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[10])
                             payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry18,tags=("entry18"),height=33)
@@ -26862,29 +27331,114 @@ def main_sign_in():
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline13"))
 
 
+                            prv1label_50 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[11], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_50,tags=("prv1label_50"))
+                            prv1entry20= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[12])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry20,tags=("entry20"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline21"))
+                            print(prs_data[9])
+                            print(prs_data[10])
+                            print(prs_data[11])
+
+                            prv1label_51 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[26], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_51,tags=("prv1label_51"))
+                            prv1entry21= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[27])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry21,tags=("entry21"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline22"))
+                            
+
+                            prv1label_52 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[13], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_52,tags=("prv1label_52"))
+                            prv1entry22= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[14])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry22,tags=("entry22"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline23"))
+
+                            prv1label_53 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[28], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_53,tags=("prv1label_53"))
+                            prv1entry23= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[29])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry23,tags=("entry23"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline24"))
+
+
+                            prv1label_54 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[15], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_54,tags=("prv1label_54"))
+                            prv1entry24= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[16])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry24,tags=("entry24"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline25"))
+
+
+                            prv1label_55 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[30], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_55,tags=("prv1label_55"))
+                            prv1entry25= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[31])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry25,tags=("entry25"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline26"))
+
+
+                            prv1label_56 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[17], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_56,tags=("prv1label_56"))
+                            prv1entry26= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[18])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry26,tags=("entry26"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline27"))
+
+
+                            prv1label_57 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[32], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_57,tags=("prv1label_57"))
+                            prv1entry27= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[33])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry27,tags=("entry27"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline28"))
+
+
+                            prv1label_58 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[19], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_58,tags=("prv1label_58"))
+                            prv1entry28= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[20])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry28,tags=("entry28"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline29"))
+
+
+                            prv1label_59 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[34], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_59,tags=("prv1label_59"))
+                            prv1entry29= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[35])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry29,tags=("entry29"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline30"))
+
+
+                            prv1label_60 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[21], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_60,tags=("prv1label_60"))
+                            prv1entry30= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[22])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry30,tags=("entry30"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline31"))
+
+
+                            prv1label_61 = Label(payrollslipview_canvas,width=22,height=1,text=prs_data[36], font=('arial 11'),background="#243e54",fg="white") 
+                            payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_61,tags=("prv1label_61"))
+                            prv1entry31= Label(payrollslipview_canvas,width=22,background='#243e54',font=('arial 11'),foreground='white',text=prs_data[37])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry31,tags=("entry31"),height=33)
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline32"))
+
+
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline16"))
                             prv1label_46 = Label(payrollslipview_canvas,width=18,height=1,text="Gross Pay", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_46,tags=("prv1label_46"))
-                            prv1lentry22= Label(payrollslipview_canvas,width=30,background='#1b1f1c',font=('arial', 12, 'bold'),foreground='white',text=prs_data[38])
-                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1lentry22,tags=("entry22"),height=33)
+                            prv1lentry32= Label(payrollslipview_canvas,width=30,background='#1b1f1c',font=('arial', 12, 'bold'),foreground='white',text=prs_data[38])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1lentry32,tags=("entry32"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline17"))
 
                             prv1label_47 = Label(payrollslipview_canvas,width=18,height=1,text="Total Deduction", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_47,tags=("prv1label_47"))
-                            prv1lentry23= Label(payrollslipview_canvas,width=30,background='#1b1f1c',font=('arial', 12, 'bold'),foreground='white',text=prs_data[39])
-                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1lentry23,tags=("entry23"),height=33)
+                            prv1lentry33= Label(payrollslipview_canvas,width=30,background='#1b1f1c',font=('arial', 12, 'bold'),foreground='white',text=prs_data[39])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1lentry33,tags=("entry33"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline18"))
 
                             prv1label_48 = Label(payrollslipview_canvas,width=18,height=1,text="Net Salary", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_48,tags=("prv1label_48"))
-                            prv1entry24= Label(payrollslipview_canvas,width=30,background='#1b1f1c',font=('arial', 12, 'bold'),foreground='white',text=prs_data[40])
-                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry24,tags=("entry24"),height=33)
+                            prv1entry34= Label(payrollslipview_canvas,width=30,background='#1b1f1c',font=('arial', 12, 'bold'),foreground='white',text=prs_data[40])
+                            payrollslipview_canvas.create_window(0,0,anchor='nw',window=prv1entry34,tags=("entry34"),height=33)
                             payrollslipview_canvas.create_line(0,0,0,0,fill='gray',width=1,tags=("prv1hline19"))
 
                             payrollslipview_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("prv1hline20"))
                             prv1label_49 = Label(payrollslipview_canvas,width=35,height=1,text="Finsys All Terms and Conditions Apply", font=('arial 11'),background="#243e54",fg="white") 
                             payrollslipview_canvas.create_window(0,0,anchor="c",window=prv1label_49,tags=("prv1label49"))
-                            payrollslipview_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("prv1hline21"))
+                            payrollslipview_canvas.create_line(0,0,0,0,fill='#2f516f',width=1,tags=("prv1hline33"))
                             def print_file(txt):
                                 print_file=tempfile.mktemp('.txt')
                                 open(print_file,'w').write(prs_data)
@@ -26907,6 +27461,7 @@ def main_sign_in():
 
                             if item_del == True:
                                 item_id_1 = prstrv.item(prstrv.focus())["values"][0]
+                                item_id_2 = prstrv.item(prstrv.focus())["values"][4]
                                 usri_sql = "SELECT id FROM auth_user WHERE username=%s"
                                 usri_val = (nm_ent.get(),)
                                 fbcursor.execute(usri_sql,usri_val)
@@ -26915,10 +27470,10 @@ def main_sign_in():
                                 cmpi_val = (usri_data[0],)
                                 fbcursor.execute(cmpi_sql,cmpi_val)
                                 cmpi_data = fbcursor.fetchone()
-                                # selected_item = pretev.selection()[0]
+                               
 
-                                query1='delete from  app1_payslip where employeenumber=%s and cid_id=%s'
-                                value=(item_id_1,cmpi_data[0],)
+                                query1="delete from  app1_payslip where  (employeenumber=%s) and (netsal=%s) and (cid_id=%s)"
+                                value=(item_id_1,item_id_2,cmpi_data[0],)
                                 fbcursor.execute(query1,value)
                                 finsysdb.commit()
                                 for rec in prstrv.get_children():
